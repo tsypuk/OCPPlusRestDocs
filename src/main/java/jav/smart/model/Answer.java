@@ -6,13 +6,13 @@ package jav.smart.model;
 public class Answer {
     private Long id;
     private String body;
-    private Boolean isCorrect;
+    private Boolean correct;
     private Long questionId;
 
     public Answer(Long id, String body, Boolean isCorrect, Long questionId) {
         this.id = id;
         this.body = body;
-        this.isCorrect = isCorrect;
+        this.correct = isCorrect;
         this.questionId = questionId;
     }
 
@@ -33,11 +33,11 @@ public class Answer {
     }
 
     public Boolean getCorrect() {
-        return isCorrect;
+        return correct;
     }
 
     public void setCorrect(Boolean correct) {
-        isCorrect = correct;
+        this.correct = correct;
     }
 
     public Long getQuestionId() {

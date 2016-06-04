@@ -20,14 +20,15 @@ public class OCPWebController {
     @Autowired
     private LoadOcpDumper loadOcpDump;
 
-    @RequestMapping("/greeting{id}")
-    public ModelAndView greeting(@RequestParam(value="id", required=false, defaultValue="1") long id, Model model) {
+    @RequestMapping("/greeting/{id}")
+    public ModelAndView greeting(@PathVariable("id") int id, Model model) {
 //        model.addAttribute("name", loadOcpDump.loadQuestion(1).getText());
         ModelAndView mav = new ModelAndView();
         mav.setViewName("greeting");
 
         mav.addObject("question", loadOcpDump.loadQuestion(id).getText());
         mav.addObject("answers", loadOcpDump.loadQuestion(id).getAnswers());
+        mav.addObject("explain", loadOcpDump.loadQuestion(id).getDescription());
         return mav;
     }
 }

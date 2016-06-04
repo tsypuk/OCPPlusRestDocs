@@ -21,8 +21,9 @@
         <tr th:each="sb : ${answers}">
             <td th:text="${{sb.id}}"></td>
             <td th:text="${{sb.body}}"></td>
-            <!--<td th:text="${{sb.isCorrect}}"></td>-->
+            <td th:text="${{sb.correct}}"></td>
         </tr>
+        <th:block th:text="${explain}"></th:block>
         </tbody>
     </table>
 </html>

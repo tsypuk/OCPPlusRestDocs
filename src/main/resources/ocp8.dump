@@ -54,23 +54,23 @@ Q: What is the result of executing the following code? (Choose all that apply.)
 1: import java.io.*;
 2: public class Tail {}
 3: public class Bird implements Serializable {
-4: private String name;
-5:  private transient int age;
-6: private Tail tail;
+4:      private String name;
+5:      private transient int age;
+6:      private Tail tail;
 7:
-8: public String getName() { return name; }
-9: public Tail getTail() { return tail; }
-10: public void setName(String name) { this.name = name; }
-11: public void setTail(Tail tail) { this.tail = tail; }
-12: public int getAge() { return age; }
-13: public void setAge(int age) { this.age = age; }
+8:      public String getName() { return name; }
+9:      public Tail getTail() { return tail; }
+10:     public void setName(String name) { this.name = name; }
+11:     public void setTail(Tail tail) { this.tail = tail; }
+12:     public int getAge() { return age; }
+13:     public void setAge(int age) { this.age = age; }
 14:
-15: public void main(String[] args) {
-16: try(InputStream is = new ObjectInputStream(
+15:     public void main(String[] args) {
+16:         try(InputStream is = new ObjectInputStream(
 17: new BufferedInputStream(new FileInputStream("birds.dat")))) {
-18: Bird bird = is.readObject();
-19: }
-20: }
+18:         Bird bird = is.readObject();
+19:            }
+20:     }
 21: }
 A.- It compiles and runs without issue.
 B.- The code will not compile because of line 3.

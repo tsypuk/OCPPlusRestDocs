@@ -1,0 +1,49 @@
+Q: What is the result of executing the following application? (Choose all that apply.)
+1: import java.util.concurrent.*; import java.util.stream.*;
+2: public class BabyPandaBathManager {
+3:      public static void await(CyclicBarrier cb) {
+4:          try {
+5:              cb.await();
+6:          } catch (InterruptedException | BrokenBarrierException e) {
+7:              // Handle exception }
+8:          }
+9:      public static void main(String[] args) {
+10:         final CyclicBarrier cb = new CyclicBarrier(3,()-> System.out. println("Clean!"));// u1
+11:         ExecutorService service = Executors.newScheduledThreadPool(2);
+12:         IntStream.iterate(1, i-> 1) // u2
+11:                  .limit(12)
+12:                  .forEach(i-> service.submit( // u3
+13:                          ()-> await(cb))); // u4 service.shutdown();
+14:     }
+15: }
+A.- It outputs Clean! at least once.
+B.- It outputs Clean! four times.
+C.- The code will not compile because of line u1.
+D.- The code will not compile because of line u2.
+E.- The code will not compile because of line u3.
+F.- The code will not compile because of line u4.
+G.- It compiles but throws an exception at runtime.
+H.+ It compiles but waits forever at runtime.
+E: H. The code compiles without issue, so C, D, E, and F are incorrect. The key to under- standing this code is to notice that our thread pool size is only 2, but our CyclicBarrier limit is 3. Even though 12 tasks are all successfully submitted to the thread executor service by way of the stream forEach() method, the  rst two tasks will use up both available threads and wait inde nitely. Since a third await() is never executed, the barrier is never broken and the program hangs, making H the only correct answer. Nothing is ever out- putted nor is any exception thrown, so A, B, and G are incorrect. See Chapter 7 for more information.
+Q:What is the result of the following program?
+1: public abstract class Message {
+2:  public String recipient;
+3:  public abstract final void sendMessage();
+4:  public static void main(String[] args) {
+5:     Message m = new TextMessage();
+6:     m.recipient = "1234567890";
+7:     m.sendMessage();
+8:  }
+9:  static class TextMessage extends Message {
+10:     public final void sendMessage() {
+11:         System.out.println("Text message to " + recipient);
+12:     }
+13: }
+14: }
+A.-Text message to null.
+B.-Text message to 1234567890.
+C.-A compiler error occurs on line 1.
+D.+A compiler error occurs on line 3.
+E.-A compiler error occurs on line 7.
+F.-A compiler error occurs on another line.
+E:D. The code does not compile because a method is not allowed to be both abstract and final. If final were removed, the answer would be B. An abstract class may contain an abstract method. A static nested class may extend other classes. For more information, see Chapter 1.

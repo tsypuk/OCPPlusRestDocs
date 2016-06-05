@@ -5,16 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <style>
             textarea {
-                width: 400px;
+                width: 500px;
                 height: 300px;
                 resize: both;
             }
         </style>
 </head>
 <body>
+    <h2>OCP exam, question #:<th:block th:text="${question.id}"></th:block></h2>
 
-    <h2>OCP exam, question #: </h2>
-<textarea th:text="${question}"></textarea>
+<textarea th:text="${question.text}"></textarea>
     <table>
         <thead>
         <tr>
@@ -34,9 +34,11 @@
         </tr>
         </tbody>
     </table>
+    <div style="width: 800px">
     <BR/>
     Explanation:
     <BR/>
-    <th:block th:text="${explain}"></th:block>
+    <th:block th:text="${question.description}"></th:block>
+    </div>
 </body>
 </html>

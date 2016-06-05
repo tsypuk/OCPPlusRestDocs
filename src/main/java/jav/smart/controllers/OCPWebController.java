@@ -21,9 +21,8 @@ public class OCPWebController {
     public ModelAndView greeting(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("greeting");
-        modelAndView.addObject("question", loadOcpDump.loadQuestion(id).getText());
+        modelAndView.addObject("question", loadOcpDump.loadQuestion(id));
         modelAndView.addObject("answers", loadOcpDump.loadQuestion(id).getAnswers());
-        modelAndView.addObject("explain", loadOcpDump.loadQuestion(id).getDescription());
         return modelAndView;
     }
 }

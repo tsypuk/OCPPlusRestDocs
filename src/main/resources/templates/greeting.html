@@ -1,29 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>OCP Java8 test</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style>
+            textarea {
+                width: 400px;
+                height: 300px;
+                resize: both;
+            }
+        </style>
 </head>
-<body th:text="${question}">
-<!--<p th:text="'Hello, ' + ${name} + '!'" />-->
-</body>
-    <h2>List of Answers</h2>
+<body>
 
+    <h2>OCP exam, question #: </h2>
+<textarea th:text="${question}"></textarea>
     <table>
         <thead>
         <tr>
+            <th>RB</th>
             <th>ID</th>
             <th>Text</th>
             <th>correct</th>
         </tr>
         </thead>
         <tbody>
+
         <tr th:each="sb : ${answers}">
+            <td><input type="checkbox"/></td>
             <td th:text="${{sb.id}}"></td>
             <td th:text="${{sb.body}}"></td>
             <td th:text="${{sb.correct}}"></td>
         </tr>
-        <th:block th:text="${explain}"></th:block>
         </tbody>
     </table>
+    <BR/>
+    Explanation:
+    <BR/>
+    <th:block th:text="${explain}"></th:block>
+</body>
 </html>

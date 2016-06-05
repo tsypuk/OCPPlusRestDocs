@@ -50,11 +50,10 @@ public class LoadOcpDumpTextStructureImpl implements LoadOcpDumper {
             StringBuilder descriptionBody = new StringBuilder();
             CurrentElement currentElement = CurrentElement.QUESTION;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
-
                 switch (line.substring(0, 2)) {
                     case "--":
-                        //Do nothing this is a comment
+                        currentQuestion = new Question();
+                        // This is a comment line
                         break;
                     case "Q:":
                         currentQuestion.setDescription(descriptionBody.toString());
@@ -63,7 +62,7 @@ public class LoadOcpDumpTextStructureImpl implements LoadOcpDumper {
                         currentElement = CurrentElement.QUESTION;
                         currentQuestion = new Question();
                         currentQuestion.setId(++questionId);
-                        questionBody.append(line.substring(2) + " \n " );
+                        questionBody.append(line.substring(2) + " \n ");
                         break;
                     case "A.":
                         answers = new ArrayList<>();
@@ -74,7 +73,8 @@ public class LoadOcpDumpTextStructureImpl implements LoadOcpDumper {
                     case "F.":
                     case "G.":
                     case "H.":
-                        answers.add(new Answer(++answerId, line.substring(3), (line.substring(2,3).contains("-"))? false : true, questionId));
+                        currentElement = CurrentElement.ANSWER;
+                        answers.add(new Answer(++answerId, line.substring(3), (line.substring(2, 3).contains("-")) ? false : true, questionId));
                         break;
                     case "Y:":
                         currentElement = CurrentElement.DESRIPTION;
@@ -89,8 +89,7 @@ public class LoadOcpDumpTextStructureImpl implements LoadOcpDumper {
                     default:
                         if (currentElement == CurrentElement.QUESTION) {
                             questionBody.append(line + " \n ");
-                        }
-                        else if (currentElement == CurrentElement.DESRIPTION) {
+                        } else if (currentElement == CurrentElement.DESRIPTION) {
                             descriptionBody.append(line);
                         }
                         break;
@@ -98,8 +97,9 @@ public class LoadOcpDumpTextStructureImpl implements LoadOcpDumper {
             }
         }
 
-        }
     }
+}
+
 enum CurrentElement {
     DESRIPTION,
     QUESTION,

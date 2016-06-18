@@ -1,0 +1,272 @@
+---1 preassesment
+Q: What is the result of executing the following application? (Choose all that apply.)
+1: import java.util.concurrent.*; import java.util.stream.*;
+2: public class BabyPandaBathManager {
+3:      public static void await(CyclicBarrier cb) {
+4:          try {
+5:              cb.await();
+6:          } catch (InterruptedException | BrokenBarrierException e) {
+7:              // Handle exception }
+8:          }
+9:      public static void main(String[] args) {
+10:         final CyclicBarrier cb = new CyclicBarrier(3,()-> System.out. println("Clean!"));// u1
+11:         ExecutorService service = Executors.newScheduledThreadPool(2);
+12:         IntStream.iterate(1, i-> 1) // u2
+11:                  .limit(12)
+12:                  .forEach(i-> service.submit( // u3
+13:                          ()-> await(cb))); // u4 service.shutdown();
+14:     }
+15: }
+A.- It outputs Clean! at least once.
+B.- It outputs Clean! four times.
+C.- The code will not compile because of line u1.
+D.- The code will not compile because of line u2.
+E.- The code will not compile because of line u3.
+F.- The code will not compile because of line u4.
+G.- It compiles but throws an exception at runtime.
+H.+ It compiles but waits forever at runtime.
+Y: H. The code compiles without issue, so C, D, E, and F are incorrect. The key to under- standing this code is to notice that our thread pool size is only 2, but our CyclicBarrier limit is 3. Even though 12 tasks are all successfully submitted to the thread executor service by way of the stream forEach() method, the  rst two tasks will use up both available threads and wait inde nitely. Since a third await() is never executed, the barrier is never broken and the program hangs, making H the only correct answer. Nothing is ever out- putted nor is any exception thrown, so A, B, and G are incorrect. See Chapter 7 for more information.
+---2 preassesment
+Q:What is the result of the following program?
+1: public abstract class Message {
+2:  public String recipient;
+3:  public abstract final void sendMessage();
+4:  public static void main(String[] args) {
+5:     Message m = new TextMessage();
+6:     m.recipient = "1234567890";
+7:     m.sendMessage();
+8:  }
+9:  static class TextMessage extends Message {
+10:     public final void sendMessage() {
+11:         System.out.println("Text message to " + recipient);
+12:     }
+13: }
+14: }
+A.- Text message to null.
+B.- Text message to 1234567890.
+C.- A compiler error occurs on line 1.
+D.+ A compiler error occurs on line 3.
+E.- A compiler error occurs on line 7.
+F.- A compiler error occurs on another line.
+Y: D. The code does not compile because a method is not allowed to be both abstract and final. If final were removed, the answer would be B. An abstract class may contain an abstract method. A static nested class may extend other classes. For more information, see Chapter 1.
+---3 preassesment
+Q: What is the result of executing the following code? (Choose all that apply.)
+1: import java.io.*;
+2: public class Tail {}
+3: public class Bird implements Serializable {
+4:      private String name;
+5:      private transient int age;
+6:      private Tail tail;
+7:
+8:      public String getName() { return name; }
+9:      public Tail getTail() { return tail; }
+10:     public void setName(String name) { this.name = name; }
+11:     public void setTail(Tail tail) { this.tail = tail; }
+12:     public int getAge() { return age; }
+13:     public void setAge(int age) { this.age = age; }
+14:
+15:     public void main(String[] args) {
+16:         try(InputStream is = new ObjectInputStream(
+17: new BufferedInputStream(new FileInputStream("birds.dat")))) {
+18:         Bird bird = is.readObject();
+19:            }
+20:     }
+21: }
+A.- It compiles and runs without issue.
+B.- The code will not compile because of line 3.
+C.- The code will not compile because of line 5.
+D.+ The code will not compile because of lines 16–17.
+E.+ The code will not compile because of line 18.
+F.- It compiles but throws an exception at runtime.
+Y: D, E. The code does not compile due to a number of issues, so A and F are incorrect. First off, the readObject() method is not available to the InputStream class, and since the ObjectInputStream has been upcast to InputStream, the code will not compile due to line 18, so E is correct. Line 18 will also not compile because the return type
+   of readObject() is of type Object and must be cast explicitly to Bird in order to be assigned to the Bird reference. Furthermore, constructors and methods on lines 16, 17, and 18 throw checked IOExceptions that must be caught, so D is also correct. Note that line 18 also throws ClassNotFoundException. Lines 3 and 5 compile without issue,
+   so B and C are incorrect. It should be noted that even if the compilation problems were resolved, the code would still throw an exception at runtime since the Bird class includes a Tail reference as a member, and the Tail class does not implement Serializable. For more information, see Chapter 8.
+---4 preassesment
+Q: What is the result of the following class?
+1: public class Box<T> {
+2:  T value;
+3:
+4:  public Box(T value) {
+5:      this.value = value;
+6:  }
+7:  public T getValue() {
+8:      return value;
+9:  }
+10:  public static void main(String[] args) {
+11:     Box<String> one = new Box<String>("a string");
+12:     Box<Integer> two = new Box<>(123);
+13:     System.out.print(one.getValue());
+14:     System.out.print(two.getValue());
+15:  }}
+A.- Compiler error on line 1.
+B.- Compiler error on line 2.
+C.- Compiler error on line 11.
+D.- Compiler error on line 12.
+E.+ a string123
+F.- An exception is thrown.
+Y: E. This class is a proper use of generics. Box uses a generic type named T. On line 11, the generic type is String. On line 12 the generic type is Integer. Line 12 also uses the dia- mond operator. See Chapter 3 for more information.
+---5 preassesment
+Q: What is the result of executing the following code snippet?
+1:  List<Integer> source = new ArrayList<>(Arrays.asList(1,2,3,4));
+2:  List<Integer> fish = new CopyOnWriteArrayList<>(source);
+3:  List<Integer> mammals = Collections.synchronizedList(source);
+4:  Set<Integer> birds = new ConcurrentSkipListSet<>();
+5:  birds.addAll(source);
+6:  synchronized(new Integer(10)) {
+7:      for(Integer f: fish) fish.add(4); // c1
+8:      for(Integer m: mammals) mammals.add(4); // c2
+9:      for(Integer b: birds) birds.add(5); // c3
+10:     System.out.println(fish.size()+" "+mammals.size()+" "+birds.size());
+11: }
+A.- It outputs 4 8 5.
+B.- It outputs 8 4 5.
+C.- It outputs 8 8 8.
+D.- The code does not compile.
+E.- It compiles but throws an exception at runtime on line c1.
+F.+ It compiles but throws an exception at runtime on line c2.
+G.- It compiles but throws an exception at runtime on line c3.
+H.- It compiles but enters an infinite loop at runtime.
+Y: F. The code compiles without issue, so D is incorrect. The code throws a ConcurrentModificationException at runtime on line c2, because mammals is a synchro- nized list and not a concurrent one. Therefore, it is not safe to be used inside an iterator, and F is the correct answer. Note that if line c2 were removed, the rest of the code would run without throwing an exception, outputting 8 4 5. See Chapter 7 for more information.
+---6 preassesment
+Q: What changes would need to be made to make the following immutable object pattern cor- rect? (Choose all that apply.)
+1:   import java.util.List;
+2:   public class Duck {
+3:        private String name;
+4:        private List<Duck> ducklings;
+5:        public Duck(String name, List<Duck> ducklings) {
+6:            this.name = name;
+7:            this.ducklings = new ArrayList<Duck>(ducklings);
+8:        }
+9:        public String getName() {
+10:            return name;
+11:       }
+12:       public List<Duck> getDucklings() {
+13:           return ducklings;
+14:       }
+15:       public String hasDucklings(Predicate<Duck> p) {
+16:           return p.test(this) ? "Quack Quack": "";
+17:       }
+18:  }
+A.- None, the immutable object pattern is properly implemented.
+B.+ Mark name and ducklings final.
+C.+ Mark the Duck class final.
+D.- Have Duck implement the Immutable interface.
+E.- Remove the hasDucklings() method since any lambda expressions passed to it could modify the Duck object.
+F.+ Replace the getDucklings() with a method (or methods) that do not give the caller direct access to the List<Duck> ducklings.
+G.- Change the type of List<Duck> to be List<Object>.
+Y: B, C, F. A is incorrect, since there are de nitely some problems with the immutable objects implementation. B is correct, because all instance variables should be marked final
+   and private for the class to be considered immutable. C is correct, because it prevents
+   the methods from being overridden. D is incorrect, since there is no such thing as the Immutable interface de ned in the Java API. E is also incorrect, because any passed lambda expression would have access to only the public methods of the class. F is correct, because the mutable object ducklings should not be exposed directly, since this allows the user to modify it. G is incorrect, because this has nothing to do with immutability. For more infor- mation, see Chapter 2.
+---7 preassesment
+Q: Assuming the current directory /bats/day and all of the files and directories referenced here exist and are available within the file system, what is the result of executing the following code?
+1:   Path path1 = Paths.get("/bats/night","../").resolve(Paths.get(
+2:   "./sleep.txt")).normalize();
+3:   Path path2 = new File("../sleep.txt").toPath().toRealPath();
+4:   System.out.print(Files.isSameFile(path1,path2));
+5:   System.out.print(" "+path1.equals(path2));
+A.+ true true
+B.- false false
+C.- true false
+D.- false true
+E.- The code does not compile.
+F.- The code compiles but throws an exception at runtime.
+Y: A. The code compiles and runs without issue, so E and F are incorrect. For this question,
+  it helps if you resolve each path to a simpli ed form component before answering it. The path1 variable simpli es to /bats/sleep.txt after the Path operations have been applied. The path2 variable using the current directory of /bats/day is assigned a path value of / bats/sleep.txt. Since the  le Path objects represent the same path within the  le system, they will return true for both equals() and isSameFile(), so A is the correct answer and B, C, and D are incorrect. For more information, see Chapter 9.
+---8 preassesment
+What is the result of executing the following code? (Choose all that apply.)
+1:  import java.io.*;
+2:  public class Tail {}
+3:  public class Bird implements Serializable {
+4:      private String name;
+5:      private transient int age;
+6:      private Tail tail;
+7:
+8:      public String getName() { return name; }
+9:      public Tail getTail() { return tail; }
+10:     public void setName(String name) { this.name = name; }
+11:     public void setTail(Tail tail) { this.tail = tail; }
+12:     public int getAge() { return age; }
+13:     public void setAge(int age) { this.age = age; }
+14:
+15:     public void main(String[] args) {
+16:         try(InputStream is = new ObjectInputStream(
+17:            new BufferedInputStream(new FileInputStream("birds.dat")))) {
+18:            Bird bird = is.readObject();
+19:         }
+20:     }
+21: }
+A. It compiles and runs without issue.
+B. The code will not compile because of line 3.
+C. The code will not compile because of line 5.
+D. The code will not compile because of lines 16–17.
+E. The code will not compile because of line 18.
+F. It compiles but throws an exception at runtime.
+---4 chapter1
+What is the result of the following class?
+1:  public class Box<T> {
+2:      T value;
+3:
+4:      public Box(T value) {
+5:          this.value = value;
+6:      }
+7:      public T getValue() {
+8:          return value;
+9:      }
+10:     public static void main(String[] args) {
+11:         Box<String> one = new Box<String>("a string");
+12:         Box<Integer> two = new Box<>(123);
+13:         System.out.print(one.getValue());
+14:         System.out.print(two.getValue());
+15: }}
+A. Compiler error on line 1.
+B. Compiler error on line 2.
+C. Compiler error on line 11.
+D. Compiler error on line 12.
+E. a string123
+F. An exception is thrown.
+---5 chapter1
+What is the result of executing the following code snippet?
+1: List<Integer> source = new ArrayList<>(Arrays.asList(1,2,3,4));
+2: List<Integer> fish = new CopyOnWriteArrayList<>(source);
+3: List<Integer> mammals = Collections.synchronizedList(source);
+4: Set<Integer> birds = new ConcurrentSkipListSet<>();
+5: birds.addAll(source);
+6:
+7: synchronized(new Integer(10)) {
+8:      for(Integer f: fish) fish.add(4); // c1
+9:      for(Integer m: mammals) mammals.add(4); // c2
+10:     for(Integer b: birds) birds.add(5); // c3
+11:     System.out.println(fish.size()+" "+mammals.size()+" "+birds.size());
+12: }
+A. It outputs 4 8 5.
+B. It outputs 8 4 5.
+C. It outputs 8 8 8.
+D. The code does not compile.
+E. It compiles but throws an exception at runtime on line c1.
+F. It compiles but throws an exception at runtime on line c2.
+G. It compiles but throws an exception at runtime on line c3.
+H. It compiles but enters an infinite loop at runtime.
+---6 chapter1
+What changes would need to be made to make the following immutable object pattern cor- rect?
+(Choose all that apply.)
+1: import java.util.List;
+2:  public class Duck {
+3:      private String name;
+4:      private List<Duck> ducklings;
+5:      public Duck(String name, List<Duck> ducklings) {
+6:          this.name = name;
+7:          this.ducklings = new ArrayList<Duck>(ducklings);
+8:      }
+9:      public String getName() { return name; }
+10:     public List<Duck> getDucklings() { return ducklings; }
+11:     public String hasDucklings(Predicate<Duck> p) {
+12:         return p.test(this) ? "Quack Quack": "";
+13:     }
+14: }
+A. None, the immutable object pattern is properly implemented.
+B. Mark name and ducklings final.
+C. Mark the Duck class final.
+D. Have Duck implement the Immutable interface.
+E. Remove the hasDucklings() method since any lambda expressions passed to it could modify the Duck object.
+F. Replace the getDucklings() with a method (or methods) that do not give the caller direct access to the List<Duck> ducklings.
+G. Change the type of List<Duck> to be List<Object>.

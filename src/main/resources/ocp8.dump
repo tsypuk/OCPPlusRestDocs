@@ -1,177 +1,3 @@
----1 preassesment
-Q: What is the result of executing the following application? (Choose all that apply.)
-1: import java.util.concurrent.*; import java.util.stream.*;
-2: public class BabyPandaBathManager {
-3:      public static void await(CyclicBarrier cb) {
-4:          try {
-5:              cb.await();
-6:          } catch (InterruptedException | BrokenBarrierException e) {
-7:              // Handle exception }
-8:          }
-9:      public static void main(String[] args) {
-10:         final CyclicBarrier cb = new CyclicBarrier(3,()-> System.out. println("Clean!"));// u1
-11:         ExecutorService service = Executors.newScheduledThreadPool(2);
-12:         IntStream.iterate(1, i-> 1) // u2
-11:                  .limit(12)
-12:                  .forEach(i-> service.submit( // u3
-13:                          ()-> await(cb))); // u4 service.shutdown();
-14:     }
-15: }
-A.- It outputs Clean! at least once.
-B.- It outputs Clean! four times.
-C.- The code will not compile because of line u1.
-D.- The code will not compile because of line u2.
-E.- The code will not compile because of line u3.
-F.- The code will not compile because of line u4.
-G.- It compiles but throws an exception at runtime.
-H.+ It compiles but waits forever at runtime.
-Y: H. The code compiles without issue, so C, D, E, and F are incorrect. The key to under- standing this code is to notice that our thread pool size is only 2, but our CyclicBarrier limit is 3. Even though 12 tasks are all successfully submitted to the thread executor service by way of the stream forEach() method, the  rst two tasks will use up both available threads and wait inde nitely. Since a third await() is never executed, the barrier is never broken and the program hangs, making H the only correct answer. Nothing is ever out- putted nor is any exception thrown, so A, B, and G are incorrect. See Chapter 7 for more information.
----2 preassesment
-Q:What is the result of the following program?
-1: public abstract class Message {
-2:  public String recipient;
-3:  public abstract final void sendMessage();
-4:  public static void main(String[] args) {
-5:     Message m = new TextMessage();
-6:     m.recipient = "1234567890";
-7:     m.sendMessage();
-8:  }
-9:  static class TextMessage extends Message {
-10:     public final void sendMessage() {
-11:         System.out.println("Text message to " + recipient);
-12:     }
-13: }
-14: }
-A.- Text message to null.
-B.- Text message to 1234567890.
-C.- A compiler error occurs on line 1.
-D.+ A compiler error occurs on line 3.
-E.- A compiler error occurs on line 7.
-F.- A compiler error occurs on another line.
-Y: D. The code does not compile because a method is not allowed to be both abstract and final. If final were removed, the answer would be B. An abstract class may contain an abstract method. A static nested class may extend other classes. For more information, see Chapter 1.
----3 preassesment
-Q: What is the result of executing the following code? (Choose all that apply.)
-1: import java.io.*;
-2: public class Tail {}
-3: public class Bird implements Serializable {
-4:      private String name;
-5:      private transient int age;
-6:      private Tail tail;
-7:
-8:      public String getName() { return name; }
-9:      public Tail getTail() { return tail; }
-10:     public void setName(String name) { this.name = name; }
-11:     public void setTail(Tail tail) { this.tail = tail; }
-12:     public int getAge() { return age; }
-13:     public void setAge(int age) { this.age = age; }
-14:
-15:     public void main(String[] args) {
-16:         try(InputStream is = new ObjectInputStream(
-17: new BufferedInputStream(new FileInputStream("birds.dat")))) {
-18:         Bird bird = is.readObject();
-19:            }
-20:     }
-21: }
-A.- It compiles and runs without issue.
-B.- The code will not compile because of line 3.
-C.- The code will not compile because of line 5.
-D.+ The code will not compile because of lines 16–17.
-E.+ The code will not compile because of line 18.
-F.- It compiles but throws an exception at runtime.
-Y: D, E. The code does not compile due to a number of issues, so A and F are incorrect. First off, the readObject() method is not available to the InputStream class, and since the ObjectInputStream has been upcast to InputStream, the code will not compile due to line 18, so E is correct. Line 18 will also not compile because the return type
-   of readObject() is of type Object and must be cast explicitly to Bird in order to be assigned to the Bird reference. Furthermore, constructors and methods on lines 16, 17, and 18 throw checked IOExceptions that must be caught, so D is also correct. Note that line 18 also throws ClassNotFoundException. Lines 3 and 5 compile without issue,
-   so B and C are incorrect. It should be noted that even if the compilation problems were resolved, the code would still throw an exception at runtime since the Bird class includes a Tail reference as a member, and the Tail class does not implement Serializable. For more information, see Chapter 8.
----4 preassesment
-Q: What is the result of the following class?
-1: public class Box<T> {
-2:  T value;
-3:
-4:  public Box(T value) {
-5:      this.value = value;
-6:  }
-7:  public T getValue() {
-8:      return value;
-9:  }
-10:  public static void main(String[] args) {
-11:     Box<String> one = new Box<String>("a string");
-12:     Box<Integer> two = new Box<>(123);
-13:     System.out.print(one.getValue());
-14:     System.out.print(two.getValue());
-15:  }}
-A.- Compiler error on line 1.
-B.- Compiler error on line 2.
-C.- Compiler error on line 11.
-D.- Compiler error on line 12.
-E.+ a string123
-F.- An exception is thrown.
-Y: E. This class is a proper use of generics. Box uses a generic type named T. On line 11, the generic type is String. On line 12 the generic type is Integer. Line 12 also uses the dia- mond operator. See Chapter 3 for more information.
----5 preassesment
-Q: What is the result of executing the following code snippet?
-1:  List<Integer> source = new ArrayList<>(Arrays.asList(1,2,3,4));
-2:  List<Integer> fish = new CopyOnWriteArrayList<>(source);
-3:  List<Integer> mammals = Collections.synchronizedList(source);
-4:  Set<Integer> birds = new ConcurrentSkipListSet<>();
-5:  birds.addAll(source);
-6:  synchronized(new Integer(10)) {
-7:      for(Integer f: fish) fish.add(4); // c1
-8:      for(Integer m: mammals) mammals.add(4); // c2
-9:      for(Integer b: birds) birds.add(5); // c3
-10:     System.out.println(fish.size()+" "+mammals.size()+" "+birds.size());
-11: }
-A.- It outputs 4 8 5.
-B.- It outputs 8 4 5.
-C.- It outputs 8 8 8.
-D.- The code does not compile.
-E.- It compiles but throws an exception at runtime on line c1.
-F.+ It compiles but throws an exception at runtime on line c2.
-G.- It compiles but throws an exception at runtime on line c3.
-H.- It compiles but enters an infinite loop at runtime.
-Y: F. The code compiles without issue, so D is incorrect. The code throws a ConcurrentModificationException at runtime on line c2, because mammals is a synchro- nized list and not a concurrent one. Therefore, it is not safe to be used inside an iterator, and F is the correct answer. Note that if line c2 were removed, the rest of the code would run without throwing an exception, outputting 8 4 5. See Chapter 7 for more information.
----6 preassesment
-Q: What changes would need to be made to make the following immutable object pattern cor- rect? (Choose all that apply.)
-1:   import java.util.List;
-2:   public class Duck {
-3:        private String name;
-4:        private List<Duck> ducklings;
-5:        public Duck(String name, List<Duck> ducklings) {
-6:            this.name = name;
-7:            this.ducklings = new ArrayList<Duck>(ducklings);
-8:        }
-9:        public String getName() {
-10:            return name;
-11:       }
-12:       public List<Duck> getDucklings() {
-13:           return ducklings;
-14:       }
-15:       public String hasDucklings(Predicate<Duck> p) {
-16:           return p.test(this) ? "Quack Quack": "";
-17:       }
-18:  }
-A.- None, the immutable object pattern is properly implemented.
-B.+ Mark name and ducklings final.
-C.+ Mark the Duck class final.
-D.- Have Duck implement the Immutable interface.
-E.- Remove the hasDucklings() method since any lambda expressions passed to it could modify the Duck object.
-F.+ Replace the getDucklings() with a method (or methods) that do not give the caller direct access to the List<Duck> ducklings.
-G.- Change the type of List<Duck> to be List<Object>.
-Y: B, C, F. A is incorrect, since there are de nitely some problems with the immutable objects implementation. B is correct, because all instance variables should be marked final
-   and private for the class to be considered immutable. C is correct, because it prevents
-   the methods from being overridden. D is incorrect, since there is no such thing as the Immutable interface de ned in the Java API. E is also incorrect, because any passed lambda expression would have access to only the public methods of the class. F is correct, because the mutable object ducklings should not be exposed directly, since this allows the user to modify it. G is incorrect, because this has nothing to do with immutability. For more infor- mation, see Chapter 2.
----7 preassesment
-Q: Assuming the current directory /bats/day and all of the files and directories referenced here exist and are available within the file system, what is the result of executing the following code?
-1:   Path path1 = Paths.get("/bats/night","../").resolve(Paths.get(
-2:   "./sleep.txt")).normalize();
-3:   Path path2 = new File("../sleep.txt").toPath().toRealPath();
-4:   System.out.print(Files.isSameFile(path1,path2));
-5:   System.out.print(" "+path1.equals(path2));
-A.+ true true
-B.- false false
-C.- true false
-D.- false true
-E.- The code does not compile.
-F.- The code compiles but throws an exception at runtime.
-Y: A. The code compiles and runs without issue, so E and F are incorrect. For this question,
-  it helps if you resolve each path to a simpli ed form component before answering it. The path1 variable simpli es to /bats/sleep.txt after the Path operations have been applied. The path2 variable using the current directory of /bats/day is assigned a path value of / bats/sleep.txt. Since the  le Path objects represent the same path within the  le system, they will return true for both equals() and isSameFile(), so A is the correct answer and B, C, and D are incorrect. For more information, see Chapter 9.
 ---1 chapter1
 Q: What is the result of the following code?
 1: public class Employee {
@@ -223,3 +49,365 @@ E.- The code does not compile because the ClassCastException is not handled or
 declared.
 F.- The code does not compile for another reason.
 Y: A. hashCode() is correct and perfectly reasonable given that equals() also checks that field. ClassCastException is a runtime exception and therefore does not need to be han- dled or declared. The override in equals() is correct. It is common for equals() to refer to a private instance variable. This is legal because it is within the same class, even if it is referring to a different object of the same class.
+---3 chapter1
+Q: What is the result of the following code?
+1:  String s1 = "Canada";
+2:  String s2 = new String(s1);
+3:  if(s1 == s2) System.out.println("s1 == s2");
+4:  if(s1.equals(s2)) System.out.println("s1.equals(s2)");
+A.- There is no output.
+B.- s1 == s2
+C.+ s1.equals(s2)
+D.- Both B and C.
+E.- The code does not compile.
+F.- The code throws a runtime exception.
+Y: C. s1 points to the string pool. s2 points to an object on the heap, since it is created at runtime. == checks for reference equality. These are different references, making B incorrect. String overrides equals() so the actual values are the same, making C correct. And yes, this question could have appeared on the OCA. Remember that the OCP is cumulative. A question may appear to be about one thing and actually be about a simpler concept.
+---4 chapter1
+Q: What is true about the following code? You may assume city and mascot are never null.
+1:  public class BaseballTeam {
+2:      private String city, mascot;
+3:      private int numberOfPlayers;
+4:      public boolean equals(Object obj) {
+5:          if ( !(obj instanceof BaseballTeam))
+6:              return false;
+7:          BaseballTeam other = (BaseballTeam) obj;
+8:          return (city.equals(other.city) && mascot.equals(other.mascot));
+9:  }
+10:     public int hashCode() {
+11:         return numberOfPlayers;
+12:     }
+13: //  imagine getters and setters are here
+14: }
+A.- The class does not compile.
+B.- The class compiles but has an improper equals() method.
+C.+ The class compiles but has an improper hashCode() method.
+D.- The class compiles and has proper equals() and hashCode() methods.
+Y: C. The equals() method is correct. You are allowed to use any business logic that you want in determining equality. The hashCode() method is not correct. It violates the rule that two objects that return true for equals() must return the same hashCode(). It is also a bad idea for the hash code to contain values that could change.
+---5 chapter1
+Q: Which of the following statements are true, assuming a and b are String objects? (Choose all that apply.)
+A.+ If a.equals(b) is true, a.hashCode() == b.hashCode() is always true.
+B.- If a.equals(b) is true, a.hashCode() == b.hashCode() is sometimes but not always true.
+C.- If a.equals(b) is false, a.hashCode() == b.hashCode() can never be true.
+D.+ If a.equals(b) is false, a.hashCode() == b.hashCode() can sometimes be true.
+Y: A, D. The relevant rule is that two objects that return true for equals() objects must return the same hash code. Therefore A is correct and B is incorrect. Two objects with the same hash code may or may not be equal. This makes C incorrect and D correct. The fact that two objects are not equal does not guarantee or preclude them from sharing a hash code. Remember that hashCode() tells you which bucket to look in and equals() tells you whether you have found an exact match.
+---6 chapter1
+Q: What is the result of the following code?
+1:   public class FlavorsEnum {
+2:      enum Flavors {
+3:         VANILLA, CHOCOLATE, STRAWBERRY
+4:      }
+5:      public static void main(String[] args) {
+6:          System.out.println(Flavors.CHOCOLATE.ordinal());
+7:      }
+8:  }
+A.- 0
+B.+ 1
+C.- 9
+D.- CHOCOLATE
+E.- The code does not compile due to a missing semicolon.
+F.- The code does not compile for a different reason.
+Y: B. The ordinal() method of an enum returns its corresponding int value. Like arrays, enums are zero based. Remember that the index of an enum may change when you recompile the code and should not be used for comparison.
+---7 chapter1
+Q: What is the result of the following code? (Choose all that apply.)
+1:  public class IceCream {
+2:      enum Flavors {
+3:          VANILLA, CHOCOLATE, STRAWBERRY
+4:      }
+5:      public static void main(String[] args) {
+6:          Flavors f = Flavors.STRAWBERRY;
+7:          switch (f) {
+8:              case 0: System.out.println("vanilla");
+9:              case 1: System.out.println("chocolate");
+10:             case 2: System.out.println("strawberry");
+11:                 break;
+12:             default: System.out.println("missing flavor");
+13:  }}}
+A.- vanilla
+B.- chocolate
+C.- strawberry
+D.- missing flavor
+E.+ The code does not compile.
+F.- An exception is thrown.
+Y: E. A case statement on an enum data type must be the unqualified name of an enumeration constant. For example, case VANILLA would be valid. You cannot use the ordinal equiva- lents. Therefore, the code does not compile.
+---8 chapter1
+Q: What is the result of the following code?
+1:  public class Outer {
+2:      private int x = 5;
+3:      protected class Inner {
+4:          public static int x = 10;
+5:          public void go() { System.out.println(x); }
+6:      }
+7:      public static void main(String[] args) {
+8:          Outer out = new Outer();
+9:          Outer.Inner in = out.new Inner();
+10:         in.go();
+11: }}
+A.- The output is 5.
+B.- The output is 10.
+C.+ Line 4 generates a compiler error.
+D.- Line 8 generates a compiler error.
+E.- Line 9 generates a compiler error.
+F.- An exception is thrown.
+Y: C. Inner is a member inner class. Inner classes are not allowed to contain static methods or static variables. Only nested static classes are permitted to contain statics.
+---9 chapter1
+What is the result of the following code?
+1:  public class Outer {
+2:      private int x = 24;
+3:      public int getX() {
+4:          String message = "x is ";
+5:          class Inner {
+6:              private int x = Outer.this.x;
+7:              public void printX() {
+8:                  System.out.println(message + x);
+9:              }
+10:         }
+11:         Inner in = new Inner();
+12:         in.printX();
+13:         return x;
+14:     }
+15:     public static void main(String[] args) {
+16:         new Outer().getX();
+17: }}
+A.- x is 0.
+B.+ x is 24.
+C.- Line 6 generates a compiler error.
+D.- Line 8 generates a compiler error.
+E.- Line 11 generates a compiler error.
+F.- An exception is thrown.
+Y: B. Outer.this.x is the correct way to refer to x in the Outer class. In Java 7, the answer would have been D because you used to have to declare variables as final to use them in a local inner class. In Java 8, this requirement was dropped and the variables only need to be effectively final, which means that the code would still compile if final were added.
+---10 chapter1
+Q: The following code appears in a file named Book.java. What is the result of compiling the source file ?
+1:  public class Book {
+2:      private int pageNumber;
+3:      private class BookReader {
+4:          public int getPage() {
+5:              return pageNumber;
+6:  }}}
+A.- The code compiles successfully, and one bytecode file is generated: Book.class.
+B.- The code compiles successfully, and two bytecode files are generated: Book.class and BookReader.class.
+C.+ The code compiles successfully, and two bytecode files are generated: Book.class and Book$BookReader.class.
+D.- A compiler error occurs on line 3.
+E.- A compiler error occurs on line 5.
+Y: C. The code compiles fine. A member inner class is allowed to be private, and it is allowed to refer to instance variables from the outer class. Two .class files are generated. Book.class matches the name of the outer class. The inner class does not compile to BookReader.class. That would introduce the possibility of a naming conflict. Book$BookReader.class is correct because it shows the scope of the class is limited to Book. You don’t need to know that $ is the syntax, but you do need to know the number of classes and that BookReader is not a top-level class.
+---11 chapter1
+Q:  Which of the following statements can be inserted to make FootballGame compile?
+1:  package my.sports;
+2:  public class Football {
+3:      public static final int TEAM_SIZE = 11;
+4:  }
+1:  package my.apps;
+2:  // INSERT CODE HERE
+3:  public class FootballGame {
+4:      public int getTeamSize() { return TEAM_SIZE; }
+5:  }
+A.- import my.sports.Football;
+B.- import static my.sports.*;
+C.- import static my.sports.Football;
+D.+ import static my.sports.Football.*;
+E.- static import my.sports.*;
+F.- static import my.sports.Football;
+G.- static import my.sports.Football.*;
+Y: D. FootballGame is trying to refer to a static variable in another class. It needs a static import to do so. The correct syntax is import static and not static import. B is incorrect because * does not import classes in a package. C is incorrect because it does not refer to a static member.
+---12 chapter1
+Q: What is the result of the following code?
+1:  public class Browsers {
+2:      static class Browser {
+3:          public void go() {
+4:              System.out.println("Inside Browser");
+5:          }
+6:      }
+7:      static class Firefox extends Browser {
+8:          public void go() {
+9:              System.out.println("Inside Firefox");
+10:         }
+11:     }
+12:     static class IE extends Browser {
+13:         @Override public void go() {
+14:             System.out.println("Inside IE");
+15:         }
+16:     }
+17:     public static void main(String[] args) {
+18:         Browser b = new Firefox();
+19:         IE e = (IE) b;
+20:         e.go();
+21:     }
+22: }
+A.- Inside Browser
+B.- Inside Firefox
+C.- Inside IE
+D.- The code does not compile.
+E.+ A runtime exception is thrown.
+Y: E. The main method tries to cast a Firefox instance to IE. Since IE is not a subclass of Firefox, this throws a ClassCastException.
+---13 chapter1
+Q: Which is a true statement about the following code?
+1:  public class IsItFurry {
+2:      static interface Mammal { }
+3:      static class Furry implements Mammal { }
+4:      static class Chipmunk extends Furry { }
+5:      public static void main(String[] args) {
+6:          Chipmunk c = new Chipmunk();
+7:          Mammal m = c;
+8:          Furry f = c;
+9:          int result = 0;
+10:         if (c instanceof Mammal) result += 1;
+11:         if (c instanceof Furry) result += 2;
+12:         if (null instanceof Chipmunk) result += 4;
+13:         System.out.println(result);
+14:    }
+15: }
+A.- The output is 0.
+B.+ The output is 3.
+C.- The output is 7.
+D.- c instanceof Mammal does not compile.
+E.- c instanceof Furry does not compile.
+F.- null instanceof Chipmunk does not compile.
+Y: B. c is an instance of Chipmunk. It is an instance of any superclasses or interfaces it imple- ments. In this case, those are Furry, Mammal, and Object. null is not an instance of any type. Therefore, the first two if statements execute and result is 3.
+---14 chapter1
+Q: Which is a true statement about the following code? (Choose all that apply.)
+1:  import java.util. *;
+2:  public class IsItFurry {
+3:      static class Chipmunk { }
+4:      public static void main(String[] args) {
+5:          Chipmunk c = new Chipmunk();
+6:          ArrayList <Chipmunk> l = new ArrayList<>();
+7:          Runnable r = new Thread();
+8:          int result = 0;
+9:          if (c instanceof Chipmunk) result += 1;
+10:         if (l instanceof Chipmunk) result += 2;
+11:         if (r instanceof Chipmunk) result += 4;
+12:         System.out.println(result);
+13:     }
+14: }
+A.- The code compiles, and the output is 0.
+B.- The code compiles, and the output is 3.
+C.- The code compiles, and the output is 7.
+D.- c instanceof Chipmunk does not compile.
+E.+ l instanceof Chipmunk does not compile.
+F.- r instanceof Chipmunk does not compile.
+Y: E. Code involving instanceof does not compile when there is no way for it to evaluate true. D not only compiles but it is always true. E does not compile because ArrayList is a concrete class that does not extend Chipmunk. F does compile because Runnable is an interface. In theory, someone could subclass Chipmunk and have the subclass implement Runnable.
+---15 chapter1
+Q: Which of the following statements are true about the equals() method? (Choose all that apply.)
+A.- If equals(null) is called, the method should throw an exception.
+B.+ If equals(null) is called, the method should return false.
+C.- If equals(null) is called, the method should return true.
+D.- If equals() is passed the wrong type, the method should throw an exception.
+E.+ If equals() is passed the wrong type, the method should return false.
+F.- If equals() is passed the wrong type, the method should return true.
+Y: B, E. equals() should return false when the object it passed in is not equal to the cur- rent object. This includes null and incorrect types. An equals() method should have a null check and an instanceof check.
+---16 chapter1
+Q: Which of the following can be inserted in main?
+1:  public class Outer {
+2:      class Inner { }
+3:          public static void main(String[] args) {
+4:          // INSERT CODE HERE
+5:          }
+6:  }
+A.- Inner in = new Inner();
+B.- Inner in = Outer.new Inner();
+C.- Outer.Inner in = new Outer.Inner();
+D.- Outer.Inner in = new Outer().Inner();
+E.+ Outer.Inner in = new Outer().new Inner();
+F.- Outer.Inner in = Outer.new Inner();
+Y: E. This is a member inner class. It needs to be created using an instance of the outer class. The syntax looks weird, but it creates an object of the outer class and then an object of the inner class from it.
+---17 chapter1
+Q: What is the result of the following code? (Choose all that apply.)
+1:  public enum AnimalClasses {
+2:      MAMMAL(true), FISH(Boolean.FALSE), BIRD(false),
+3:      REPTILE(false), AMPHIBIAN(false), INVERTEBRATE(false)
+4:      boolean hasHair;
+5:      public AnimalClasses(boolean hasHair) {
+6:          this.hasHair = hasHair;
+7:      }
+8:      public boolean hasHair() {
+9:          return hasHair;
+10:     }
+11:     public void giveWig() {
+12:         hasHair = true;
+13:     }
+14: }
+A.- Compiler error on line 2.
+B.+ Compiler error on line 3.
+C.+ Compiler error on line 5.
+D.- Compiler error on line 8.
+E.- Compiler error on line 12.
+F.- Compiler error on another line.
+G.- The code compiles successfully.
+Y: B, C. Enums are required to have a semicolon after the list of values if there is anything else in the enum. Don’t worry; you won’t be expected to track down missing semicolons on the whole exam—only on enum questions. Enums are not allowed to have a public constructor.
+---18 chapter1
+Q: What is the result of the following code? (Choose all that apply.)
+1:  public class Swimmer {
+2:      enum AnimalClasses {
+3:          MAMMAL, FISH {
+4:              public boolean hasFins() {
+5:                  return true;
+6:              }
+7:          },
+8:          BIRD, REPTILE, AMPHIBIAN, INVERTEBRATE;
+9:      public abstract boolean hasFins();
+10:     }
+11:     public static void main(String[] args) {
+12:         System.out.println(AnimalClasses.FISH);
+13:         System.out.println(AnimalClasses.FISH.ordinal());
+14:         System.out.println(AnimalClasses.FISH.hasFins());
+15:         System.out.println(AnimalClasses.BIRD.hasFins());
+16:     }
+17: }
+A.- fish
+B.- FISH
+C.- 0
+D.- 1
+E.- false
+F.- true
+G.+ The code does not compile.
+Y: G. This question appears to be about enums but is really about abstract methods. Just as an abstract superclass requires concrete subclasses to have an implementation, abstract enum methods require each enum type to implement the method.
+---19 chapter1
+Q: Which of the following can be inserted to override the superclass method? (Choose all that apply.)
+1:  public class LearnToWalk {
+2:      public void toddle() {}
+3:      class BabyRhino extends LearnToWalk {
+4:          // INSERT CODE HERE
+5:      }
+6:  }
+A.+ public void toddle() {}
+B.- public void Toddle() {}
+C.+ public final void toddle() {}
+D.- public static void toddle() {}
+E.- public void toddle() throws Exception {}
+F.- public void toddle(boolean fall) {}
+Y: A, C. An override must have the same method signature. A and C both do. F is an overload because it has a different parameter list. E does not compile because it throws a checked exception not declared in the superclass. D compiles but is not an override because it is static. B has a different method name, so it is not even an overload.
+---20 chapter1
+Q: What is the result of the following code?
+1:  public class FourLegged {
+2:      String walk = "walk,";
+3:      static class BabyRhino extends FourLegged {
+4:          String walk = "toddle,";
+5:      }
+5:      public static void main(String[] args) {
+6:          FourLegged f = new BabyRhino();
+7:          BabyRhino b = new BabyRhino();
+8:          System.out.println(f.walk);
+9:          System.out.println(b.walk);
+10:     }
+11: }
+A.- toddle,toddle,
+B.- toddle,walk,
+C.+ walk,toddle,
+D.- walk,walk,
+E.- The code does not compile.
+F.- A runtime exception is thrown.
+Y: C. Both objects are BabyRhino objects. Virtual method invocation says that the subclass method gets called at runtime rather than the type in the variable reference. However, we are not calling methods here. We are referring to instance variables. With instance vari- ables, the reference type does matter.
+---21 chapter1
+Q: Which of the following could be inserted to fill in the blank? (Choose all that apply.)
+1:  public interface Otter {
+2:      default void play() { }
+3:  }
+4:  class RiverOtter implements Otter {
+5:      _____________________________
+6:  }
+A.+ @Override public boolean equals(Object o) { return false; }
+B. @Override public boolean equals(Otter o) { return false; }
+C.+ @Override public int hashCode() { return 42; }
+D.- @Override public long hashCode() { return 42; }
+E.+ @Override public void play() { }
+F.- @Override void play() { }
+Y: A, C, E. Remember that @Override means that we are implementing a method from a superclass or interface. The Object class declares methods with the signatures in Options A and C. Granted, it is a poor implementation of equals(), but it does compile. Option E is also correct because the method is declared in Otter. Option F is incorrect because meth- ods from an interface are always public. Option B is incorrect because the parameter type does not match the one in Object. Option D is incorrect because the return type does not match the one in Object.

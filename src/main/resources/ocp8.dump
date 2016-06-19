@@ -411,3 +411,286 @@ D.- @Override public long hashCode() { return 42; }
 E.+ @Override public void play() { }
 F.- @Override void play() { }
 Y: A, C, E. Remember that @Override means that we are implementing a method from a superclass or interface. The Object class declares methods with the signatures in Options A and C. Granted, it is a poor implementation of equals(), but it does compile. Option E is also correct because the method is declared in Otter. Option F is incorrect because meth- ods from an interface are always public. Option B is incorrect because the parameter type does not match the one in Object. Option D is incorrect because the return type does not match the one in Object.
+---1 chapter2
+Q: Which of the following statements about design principles and design patterns are true? (Choose all that apply.)
+A. A design principle is focused on solving a specific commonly occurring problem.
+B. Design principles and design patterns are the same thing.
+C. Design principles are often applied throughout an application, whereas design patterns are applied to solve specific problems.
+D. Design patterns can only be applied to static classes.
+E. Design principles and design patterns tend to produce code that is easier to maintain and easier for other developers to read.
+Y: C, E. Option A is incorrect as a design pattern is focused on solving a specific commonly occurring problem. Option B is also incorrect, as design principles and design patterns are different, despite both promoting better code development. Option D is incorrect as design patterns may be applied to static or non-static classes alike. Options C and E are cor- rect statements about design principles and design patterns.
+---2 chapter2
+Q: What is the result of the following code?
+1:  public interface CanClimb {
+2:      public abstract void climb();
+3:  }
+4:  public interface CanClimbTrees extends CanClimb {}
+5:  public abstract class Chipmunk implements CanClimbTrees {
+6:      public abstract void chew(); }
+7:      public class EasternChipmunk extends Chipmunk {
+8:          public void chew() {
+9:              System.out.println("Eastern Chipmunk is Chewing"); }
+10:         }
+A. It compiles and runs without issue.
+B. The code will not compile because of line 2.
+C. The code will not compile because of line 4.
+D. The code will not compile because of line 5.
+E. The code will not compile because of line 8.
+F. It compiles but throws an exception at runtime.
+Y: E. The code does not compile because EasternChipmunk inherits the abstract method climb() but does not implement it, therefore the correct answer is E. B, C, and D are incorrect as they compile for various reasons. Line 2 compiles, as non-static and non- default interface methods are assumed to have the abstract modifier. Line 4 compiles without issue as an interface can extend another interface. Line 5 compiles without issue as an abstract class can implement an interface without implementing any of the abstract methods. F is incorrect, as Line 8 does not compile.
+---3 chapter2
+Q: Which of the following are valid functional interfaces? (Choose all that apply.)
+1:  public interface Climb {
+2:      public int climb();
+3:  }
+4:  public abstract class Swim {
+5:      public abstract Object swim(double speed, int duration);
+6:  }
+7:  public interface ArcticMountainClimb extends MountainClimb {
+8:      public default int getSpeed();
+9:  }
+10: public interface MountainClimb extends Climb {}
+A. Climb
+B. Swim
+C. ArcticMountainClimb
+D. MountainClimb
+E. None of these are valid functional interfaces.
+Y: A, D. A is correct as Climb defines an interface with exactly one abstract method. B is incorrect, as abstract classes are not functional interfaces despite having a single abstract method. While functional interfaces may have any number of default methods, Arctic- MountainClimb will not compile due to the default method getSpeed() missing an implementation body, so C is incorrect. D is correct, as the interface MountainClimb has exactly one abstract method defined in Climb. Finally, E is incorrect because A and D are correct.
+---4 chapter2
+Q: Which of the following are valid lambda expressions? (Choose all that apply.)
+A. () -> ""
+B. x,y -> x+y
+C. (Coyote y) -> return 0; D. (Camel c) -> {return;} E. Wolf w -> 39
+F. () ->
+G. (Animal z, m) -> a
+Y: A, D. The first lambda expression is valid, taking no arguments and returning the empty string, so A is correct. B is incorrect, as more than one parameter requires parentheses (). C is incorrect, as brackets {} are required when using return. D is correct, as the expres- sion takes one Camel input and returns void. E is incorrect, as parentheses are required when using the data type Wolf. F is incorrect, as it has no right-side expression. Finally, G is incorrect, as specifying the data type for one parameter in a lambda expression requires you to specify the data type for all parameters in the expression. In this case, z has a data type and m does not, therefore the expression is invalid.
+---5 chapter2
+Q: What are some of the properties of using the singleton pattern? (Choose all that apply.)
+A. Singleton object can be replaced with encapsulated setter method.
+B. Requires constructor of singleton class to be private.
+C. Singleton object must be named instance.
+D. Singleton object may be private or protected.
+E. Ensures that there is only one instance of an object in memory.
+F. Requires a public static method to retrieve the instance of the singleton.
+Y: B, E, F. A is incorrect, as any method that changes the singleton breaks the singleton pattern. B is correct, as the constructor of the singleton class must be private, else other classes would be able to instantiate it, breaking the singleton pattern. C is incorrect, as the name of the object itself, as well as the method to retrieve the singleton, is not defined in the pattern. D is incorrect, as the object must be marked private. If it was marked protected, it would not be properly encapsulated and other classes would have access to it. E is correct, as the purpose of a singleton is to ensure that all threads share the same instance of the object in memory. F is correct, as a public static method is required for all threads to access the same singleton.
+---6 chapter2
+Q: What is the result of the following class?
+1:  import java.util.function.*;
+2:  public class Panda {
+3:      int age;
+4:      public static void main(String[] args) {
+5:          Panda p1 = new Panda();
+6:          p1.age = 1;
+7:          check(p1, p -> p.age < 5); // h1
+8:      }
+9:      private static void check(Panda panda, Predicate<Panda> pred) { // h2
+10:         String result = pred.test(panda) ? "match": "not match"; // h3
+11:         System.out.print(result);
+12:     }
+13: }
+A. match
+B. not match
+C. Compiler error on line h1.
+D. Compiler error on line h2.
+E. Compile error on line h3.
+F. A runtime exception is thrown.
+Y: A. This code compiles and runs without issue so C, D, E, and F are incorrect. Line h1 cre- ates a lambda expression that checks if the age is less than 5. Since there is only one param- eter and it does not specify a type, the parentheses around the type parameter are optional. Line h2 uses the Predicate interface, which declares a test() method. Since test() returns true on the expression, match is output and A is correct.
+---7 chapter2
+Q: What changes need to be made to make the following immutable object pattern correct? (Choose all that apply.)
+1:  import java.util.List;
+2:  public class Seal {
+3:      String name;
+4:      private final List<Seal> friends;
+5:      public Seal(String name, List<Seal> friends) {
+6:          this.name = name;
+7:          this.friends = friends;
+8:      }
+9:      public String getName() { return name; }
+10:     public List<Seal> getFriends() { return friends; }
+11: }
+A. None; the immutable object pattern is properly implemented.
+B. Have Seal implement the Immutable interface.
+C. Mark name final and private.
+D. Add setters for name and List<Seal> friends.
+E. Replace the getFriends() method with methods that do not give the caller direct access to the List<Seal> friends.
+F. Change the type of List<Seal> to List<Object>.
+G. Make a copy of the List<Seal> friends in the constructor.
+H. Mark the Seal class final.
+Y: C, E, G, H. A is incorrect, as there are definitely some problems with the immutable objects implementation. B is incorrect, as there is no such thing as the Immutable inter- face defined in the Java API. C is correct, as all instance variables should be private and final to prevent them from being changed by a caller. D is incorrect, as adding settings is the opposite of what you do with the immutable object pattern. E is correct, since List<Seal> is mutable, all direct access should be removed. F is incorrect, as this has nothing to do with immutability. G is correct, as we need to copy the mutable List<Seal> to prevent the caller of the constructor from maintaining access to a mutable structure within our class. H is also correct, as it prevents the methods of the class from being overridden.
+---8 chapter2
+Q: Which of the following are true of interfaces? (Choose all that apply.)
+A. They can extend other classes.
+B. They cannot be extended.
+C. They enable classes to have multiple inheritance.
+D. They can only contain abstract methods.
+E. They can be declared final.
+F. All members of an interface are public.
+Y: C, F. A and B are both incorrect as interfaces can extend other interfaces, although not classes. C is correct since a class may implement multiple interfaces. D is incorrect as inter- faces have static and default methods, as well as static final variables. E is incor- rect as interfaces are assumed to be abstract, and abstract and final can never be used together. F is correct as interface methods and variables are each assumed public.
+---9 chapter2
+Q: What changes need to be made to make the following singleton pattern correct? (Choose all that apply.)
+1:  public class CheetahManager {
+2:      public static CheetahManager cheetahManager;
+3:      private CheetahManager() {}
+4:      public static CheetahManager getCheetahManager() {
+5:          if(cheetahManager == null) {
+6:              cheetahManager = new CheetahManager();
+7:          }
+8:          return cheetahManager;
+9:      }
+10: }
+A. None; the singleton pattern is properly implemented.
+B. Rename cheetahManager to instance.
+C. Rename getCheetahManager() to getInstance().
+D. Change the access modifier of cheetahManager from public to private.
+E. Mark cheetahManager final.
+F. Add synchronized to getCheetahManager().
+Y: D, F. A is incorrect, as there are definitely some problems with the singleton implementa- tion. B and C are incorrect, as naming of the instance variable and access method are not required as part of the pattern. The public modifier on the cheetahManager instance means that any class can access or even replace the instance, which breaks the singleton pattern; hence D is required to fix the implementation. E is incorrect, as marking the instance final would prevent lazy instantiation and as the code would not compile. F is also required, since without this step two threads could create two distinct instances of the singleton at the same time, which would violate the singleton pattern.
+---10 chapter2
+Q: What is the result of the following code?
+1:  public interface CanWalk {
+2:      default void walk() { System.out.println("Walking"); }
+3:  }
+4:  public interface CanRun {
+5:      public default void walk() { System.out.println("Walking"); }
+6:      public abstract void run();
+7:  }
+8:  public interface CanSprint extends CanWalk, CanRun {
+9:      void sprint();
+10: }
+A. The code compiles without issue.
+B. The code will not compile because of line 5.
+C. The code will not compile because of line 6.
+D. The code will not compile because of line 8.
+E. The code will not compile because of line 9.
+Y: D.WhileJavasupportsmultipleinheritancethroughinterfaces,itdoesnotsupportmethod overriding in interfaces, since it’s not clear which parent method should be used. In this example, CanWalk and CanRun both implement a default walk() method. The definition of CanSprint extends these two interfaces and therefore won’t compile as two default meth- ods with the same signature from parent classes are detected, therefore the answer is D. None of the other lines of code cause problems, so the rest of the answers are not correct.
+---11 chapter2
+Q: Which lambda can replace the MySecret class to return the same value? (Choose all that apply.)
+1:  public interface Secret {
+2:      String magic(double d);
+3:  }
+4:  public class MySecret implements Secret {
+5:      public String magic(double d) {
+6:      return "Poof";
+7:      }
+8:  }
+A. caller((e) -> "Poof");
+B. caller((e) -> {"Poof"});
+C. caller((e) -> { String e = ""; "Poof" });
+D. caller((e) -> { String e = ""; return "Poof"; });
+E. caller((e) -> { String e = ""; return "Poof" });
+F. caller((e) -> { String f = ""; return "Poof"; });
+Y: A, F. B is incorrect because it does not use the return keyword. C, D, and E are incorrect because the variable e is already in use from the lambda and cannot be redefined. Addition- ally, C is missing the return keyword and E is missing the semicolon. A and F are the only correct lambda expressions that match the functional interface.
+---12 chapter2
+Q: What is the result of the following code?
+1:   public interface Climb {
+2:     boolean isTooHigh(int height, int limit);
+3:   }
+4:   public class Climber {
+5:     public static void main(String[] args) {
+6:          check((h, l) -> h.toString(), 5); // x1
+7:     }
+8:     private static void check(Climb climb, int height) {
+9:         if (climb.isTooHigh(height, 10)) // x2 System.out.println("too high");
+10:        else System.out.println("ok");
+11:    }
+12: }
+A. ok
+B. too high
+C. Compiler error on line x1.
+D. Compiler error on line x2.
+E. Compiler error on a different line.
+F. A runtime exception is thrown.
+Y: C. The functional interface takes two int parameters. The code on line x1 attempts to use them as if one is an Object, resulting in a compiler error making C the correct answer. It also tries to return String even though the data type for the functional interface method is boolean. It is tricky to use types in a lambda when they are implicitly specified. Remember to check the interface for the real type.
+---13 chapter2
+Q: Which of the following are properties of classes that define immutable objects? (Choose all that apply.)
+A. They don’t define any getter methods.
+B. All of the instance variables marked private and final.
+C. They don’t define any setter methods.
+D. They mark all instance variables static.
+E. They prevent methods from being overridden.
+F. All getter methods are marked synchronized.
+Y: B, C, E. Immutable objects may not be modified after creation. B, C, and E are correct statements that support this property. A is incorrect, as immutable objects may have get- ter methods, just not setter methods. D is incorrect, as static methods are not part of the immutable object pattern. F is also incorrect, as the getter methods are not required to be marked synchronized.
+---14 chapter2
+Q: Which of the following statements can be inserted in the blank line so that the code will compile successfully? (Choose all that apply.)
+1:  public interface CanHop {}
+2:  public class Frog implements CanHop {
+3:      public static void main(String[] args) {
+4:          _______________ frog = new TurtleFrog();
+5:      }
+6:  }
+7:  public class BrazilianHornedFrog extends Frog {}
+8:  public class TurtleFrog extends Frog {}
+A. Frog
+B. TurtleFrog
+C. BrazilianHornedFrog D. CanHop
+E. Object
+F. Long
+Y: A, B, D, E. The blank can be filled with any class or interface that is a supertype of Tur- tleFrog. A is a superclass of TurtleFrog, and B is the same class, so both are correct. BrazilianHornedFrog is not a superclass of TurtleFrog, so C is incorrect. TurtleFrog inherits the CanHop interface, so D is correct. All classes inherit Object, so E is correct. Finally, Long is an unrelated class that is not a superclass of TurtleFrog, and it is therefore incorrect.
+---15 chapter2
+Q: Which of the following statements about polymorphism are true? (Choose all that apply.)
+A. A reference to an object may be cast to a subclass of the object without an explicit cast.
+B. If a method takes a class that is the superclass of three different object references, then any of those objects may be passed as a parameter to the method.
+C. A reference to an object may be cast to a superclass of the object without an explicit cast.
+D. All cast exceptions can be detected at compile time.
+E. By defining a public instance method in the superclass, you guarantee that the specific method will be called in the parent class at runtime.
+Y: B, C. A reference to an object requires an explicit cast if referenced with a subclass, so A is incorrect. If the cast is to a superclass reference, then an explicit cast is not required, so C is correct. If a method takes the superclass of an object as a parameter, then any subclass ref- erences may be used without a cast, so B is correct. Some cast exceptions can be detected as errors at compile-time, but others can only be detected at runtime, so D is incorrect. Due to the nature of polymorphism, a public instance method can be overridden in a subclass and calls to it will be replaced even in the superclass in which it was defined, so E is incorrect.
+---16 chapter2
+Q: Choose the correct statement about the following code:
+1:  public interface Herbivore {
+2:      int amount = 10;
+3:      public static void eatGrass();
+4:      public int chew() {
+5:          return 13;
+6:      }
+7:  }
+A. It compiles and runs without issue.
+B. The code will not compile because of line 2.
+C. The code will not compile because of line 3.
+D. The code will not compile because of line 4.
+E. The code will not compile because of lines 2 and 3.
+F. The code will not compile because of lines 3 and 4.
+Y: F. The interface variable amount is correctly declared, with public, static, and final being assumed and automatically inserted by the compiler, so B is incorrect. The method declaration for eatGrass() on line 3 is incorrect because the method has been marked as static but no method body has been provided. The method declaration for chew() on line 4 is also incorrect, since an interface method that provides a body must be marked as default or static explicitly. Therefore, F is the correct answer since this code contains two compile-time errors.
+---17 chapter2
+Q: Which of the following are properties of classes that are properly encapsulated as a JavaBean? (Choose all that apply.)
+A. All instance variables are marked final.
+B. boolean instance variables are accessed with is or get.
+C. All instance variables are marked private.
+D. They implement the JavaBean interface.
+E. Variables are created using lazy instantiation.
+F. The first letter of the any getter/setter, after the get, set, or is prefix, must be uppercase.
+Y: B, C, F. Options B, C, and F are each correct statements about JavaBean encapsulation. A is incorrect, as that is a property of the immutable object pattern, not encapsulation. D is incorrect, as there is no such JavaBean interface defined in the Java API. Finally, E is incorrect, as handling instantiation is not part of encapsulation.
+---18 chapter2
+Q: Which of the following statements about inheritance and object composition are correct? (Choose all that apply.)
+A. Inheritance supports access to protected variables.
+B. Object composition tends to promote greater code reuse than inheritance.
+C. Inheritance relies on the has‐a principle.
+D. Object composition supports method overriding at runtime.
+E. Object composition requires a class variable to be declared public or accessible from a public method to be used by a class in a different package.
+F. Object composition is always preferred to inheritance.
+Y: A, B, E. A is correct, and it is one of the reasons to prefer class inheritance over object composition. B is also correct, since object composition tends to lead to classes that are easier to reference, as they don’t require knowledge of any parent classes. C is incorrect, as inheritance tends to use the is-a principle, whereas object composition relies on the has-a principle. D is incorrect, as this is a statement about inheritance, not object composition. E is correct, as object composition has no notion of inheritance and variables must be exposed publically if they are to be used by other classes in different packages. F is incor- rect, as neither are always the right answer. There are situations where inheritance is more appropriate, and situations where object composition is more appropriate.
+---19 chapter2
+Q: Which three scenarios would best benefit from using a singleton pattern? (Choose all three.)
+A. Create read‐only objects that are thread‐safe.
+B. Manage a reusable cache of objects.
+C. Ensure that all objects are lazily instantiated.
+D. Manage write access to a log file.
+E. Provide central access to application configuration data.
+F. Allow multiple instances of a static object to be managed in memory.
+Y: B, D, E. A is incorrect, as that is a property of the immutable object pattern. B is correct, as caching data is one of the most common uses of the singleton pattern. While the singleton pattern may use lazy instantiation, it is not used to ensure that objects are lazily instanti- ated, so C is incorrect. D is correct, as we only want one class writing to a log file at once. E is also correct, as managing application-wide configuration data is another very common use of the singleton pattern. F is incorrect, as we only want one instance of a static object created when using the singleton pattern.
+---20 chapter2
+Q: Choose the correct statement about the following code:
+1:  public interface CanFly {
+2:      void fly();
+3:  }
+4:  interface HasWings {
+5:      public abstract Object getWingSpan();
+6:  }
+7:  abstract class Falcon implements CanFly, HasWings {
+8:  }
+A. It compiles without issue.
+B. The code will not compile because of line 2.
+C. The code will not compile because of line 4.
+D. The code will not compile because of line 5.
+E. The code will not compile because of lines 2 and 5.
+F. The code will not compile because the class Falcon doesn’t implement the interface methods.
+Y: A. Although the definition of methods on lines 2 and 5 vary, both will be converted to public abstract by the compiler. Line 4 is fine, because an interface can have public or default access. Finally, the class Falcon doesn’t need to implement the interface methods because it is marked as abstract. Therefore, the code will compile without issue.

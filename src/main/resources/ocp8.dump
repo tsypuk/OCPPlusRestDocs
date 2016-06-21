@@ -150,7 +150,7 @@ E.- Line 9 generates a compiler error.
 F.- An exception is thrown.
 Y: C. Inner is a member inner class. Inner classes are not allowed to contain static methods or static variables. Only nested static classes are permitted to contain statics.
 ---9 chapter1
-What is the result of the following code?
+Q: What is the result of the following code?
 1:  public class Outer {
 2:      private int x = 24;
 3:      public int getX() {
@@ -695,3 +695,346 @@ D.- The code will not compile because of line 5.
 E.- The code will not compile because of lines 2 and 5.
 F.- The code will not compile because the class Falcon doesn’t implement the interface methods.
 Y: A. Although the definition of methods on lines 2 and 5 vary, both will be converted to public abstract by the compiler. Line 4 is fine, because an interface can have public or default access. Finally, the class Falcon doesn’t need to implement the interface methods because it is marked as abstract. Therefore, the code will compile without issue.
+---1 chapter3
+Q: Suppose that you have a collection of products for sale in a database and you need to display those products. The products are not unique. Which of the following collections classes in the java.util package best suit your needs for this scenario?
+A. Arrays
+B. ArrayList
+C. HashMap
+D. HashSet
+E. LinkedList
+Y: B. The answer needs to implement List because the scenario allows duplicates. Since you need a List, you can eliminate C, D, and E immediately. HashMap is a Map and HashSet is a Set. LinkedList is both a List and a Queue. You want a regular List. Option A, Arrays, is trying to distract you. It is a utility class rather than a Collection. An array is not a col- lection. By process of elimination, the answer is B.
+Q: Suppose that you need to work with a collection of elements that need to be sorted in their natural order, and each element has a unique string associated with its value. Which of the following collections classes in the java.util package best suit your needs for this scenario?
+A. ArrayList
+B. HashMap
+C. HashSet
+D. TreeMap
+E. TreeSet
+F. Vector
+Y: D. The answer needs to implement Map because you are dealing with key/value pairs per the unique string text. You can eliminate A, C, E, and F immediately. ArrayList and Vector are Lists. HashSet and TreeSet are Sets. Now it is between HashMap and TreeMap. Since the question talks about ordering, you need the TreeMap. Therefore, the answer is E.
+Q: What is the result of the following statements?
+3: List list = new ArrayList();
+4: list.add("one");
+5: list.add("two");
+6: list.add(7);
+7: for (String s: list)
+8: System.out.print(s);
+A. onetwo
+B. onetwo7
+C. onetwo followed by an exception
+D. Compiler error on line 6
+E. Compiler error on line 7
+Y: E. The code does not compile. It attempts to mix generics and legacy code. Lines 3 through 7 create an ArrayList without generics. This means that we can put any objects in it. Line 7 should be looping through a list of Objects rather than Strings since we didn’t use generics.
+Q: What is the result of the following statements?
+3: ArrayDeque<String> greetings = new ArrayDeque<String>();
+4: greetings.push("hello");
+5: greetings.push("hi");
+6: greetings.push("ola");
+7: greetings.pop();
+8: greetings.peek();
+9: while (greetings.peek() != null)
+10:      System.out.print(greetings.pop());
+A. hello
+B. hellohi
+C. hellohiola
+D. hi
+E. hihello
+F. The code does not compile.
+F. An exception is thrown.
+Y: E. Since we call push() rather than offer(), we are treating the ArrayDeque as a LIFO (last-in, first-out) stack. On line 7, we remove the last element added, which is "ola". On line 8, we look at the new last element ("hi"), but don’t remove it. Lines 9 and 10, we remove each element in turn until none are left. Note that we don’t use an Iterator to loop through the ArrayDeque. The order in which the elements are stored internally is not part of the API contract.
+Q: Which of these statements compile? (Choose all that apply.)
+A. HashSet<Number> hs = new HashSet<Integer>();
+B. HashSet<? super ClassCastException> set = new HashSet<Exception>();
+C. List<String> list = new Vector<String>();
+D. List<Object> values = new HashSet<Object>();
+E. List<Object> objects = new ArrayList<? extends Object>();
+F. Map<String, ? extends Number> hm = new HashMap<String, Integer>();
+Y: B, C, F. Option A does not compile because the generic types are not compatible. We could say HashSet<? extends Number> hs2 = new HashSet<Integer>();. Option B uses a lower bound, so it allows superclass generic types. Option C is a traditional use of generics where the generic type is the same and the List type uses the interface as the type. Option D does not compile because a Set is not a List. Option E does not compile because upper bounds are not allowed when instantiating the type. Finally, Option F does compile because the upper bound is on the correct side of =.
+Q: What is the result of the following code?
+1:  public class Hello<T> {
+2:      T t;
+3:      public Hello(T t) { this.t = t; }
+4:      public String toString() { return t.toString(); }
+5:      public static void main(String[] args) {
+6:          System.out.print(new Hello<String>("hi"));
+7:          System.out.print(new Hello("there"));
+8:  }}
+A. hi
+B. hi followed by a runtime exception
+C. hithere
+D. Compiler error on line 4
+E. Compiler error on line 6
+F. Compiler error on line 7
+Y: C. Line 7 gives a compiler warning for not using generics but not a compiler error. Line 4 compiles fine because toString() is defined on the Object class and is therefore always available to call. Line 6 creates the Hello class with the generic type String. Line 7 creates the Hello class with the generic type Object since no type is specified.
+Q: Which of the following statements are true? (Select two.)
+3:  Set<Number> numbers = new HashSet<>();
+4:  numbers.add(new Integer(86));
+5:  numbers.add(75);
+6:  numbers.add(new Integer(86));
+7:  numbers.add(null);
+8:  numbers.add(309L);
+9:  Iterator iter = numbers.iterator();
+10: while (iter.hasNext())
+11:     System.out.print(iter.next());
+A. The code compiles successfully.
+B. The output is 8675null309.
+C. The output is 867586null309.
+D. The output is indeterminate.
+E. There is a compiler error on line 3.
+F. There is a compiler error on line 9.
+G. An exception is thrown.
+Y: A, D. The code compiles fine. It uses the diamond operator, and it allows any implementation of Number to be added. HashSet does not guarantee any iteration order, making A and D correct.
+Q: What is the result of the following code?
+1: TreeSet<String> tree = new TreeSet<String>();
+2: tree.add("one");
+3: tree.add("One");
+4: tree.add("ONE");
+5: System.out.println(tree.ceiling("On"));
+A. On
+B. one
+C. One
+D. ONE
+E. The code does not compile.
+F. An exception is thrown.
+Y: C. TreeSet sorts the elements. Since uppercase letters sort before lowercase letters, the ordering is "ONE", "One", "one". The ceiling() method returns the smallest element greater than the specified one. "On" appears between "ONE" and "One". Therefore, the smallest element that is larger than the specified value is "One".
+Q: Which of the answer choices are valid given the following declaration?
+1: Map<String, Double> map = new HashMap<>();
+A. map.add("pi", 3.14159);
+B. map.add("e", 2L);
+C. map.add("log(1)", new Double(0.0));
+D. map.add('x', new Double(123.4));
+E. None of the above
+Y: E. Trick question! The Map interface uses put() rather than add() to add elements to the map. If these examples used put(), the answer would be A and C. B is no good because a long cannot be shoved into a Double. D is no good because a char is not the same thing as a String.
+Q: What is the result of the following program? import java.util.*;
+1: public class MyComparator implements Comparator<String> {
+2:   public int compare(String a, String b) {
+3:      return b.toLowerCase().compareTo(a.toLowerCase());
+4:   }
+5:   public static void main(String[] args) {
+6:      String[] values = { "123", "Abb", "aab" };
+7:      Arrays.sort(values, new MyComparator());
+8:      for (String s: values)
+9:          System.out.print(s + " ");
+10:  }
+11: }
+A. Abb aab 123
+B. aab Abb 123
+C. 123 Abb aab
+D. 123 aab Abb
+E. The code does not compile.
+F. A runtime exception is thrown.
+Y: A. The array is sorted using MyComparator, which sorts the elements in reverse alphabeti- cal order in a case-insensitive fashion. Normally, numbers sort before letters. This code reverses that by calling the compareTo() method on b instead of a.
+Q: What is the result of the following code?
+1: Map<Integer, Integer> map = new HashMap<>(10);
+2: for (int i = 1; i <= 10; i++) {
+3:      map.put(i, i * i);
+4: }
+5: System.out.println(map.get(4));
+A. 16
+B. 25
+C. Compiler error on line 3.
+D. Compiler error on line 5.
+E. Compiler error on line 7.
+F. A runtime exception is thrown.
+Y: A. Line 3 uses the diamond operator to create the map. Lines 5 and 7 use autoboxing to convert between the int primitive and the Integer wrapper class. The keys map to their squared value. 1 maps to 1, 2 maps to 4, 3 maps to 9, 4 maps to 16, and so on.
+Q: Which of these statements can fill in the blank so that the Helper class compiles successfully? (Choose all that apply.)
+3:  public class Helper {
+4:      public static <U extends Exception> void printException(U u) {
+5:          System.out.println(u.getMessage());
+6:      }
+7:  public static void main(String[] args) {
+8:      __________________________________
+9:  } }
+A. Helper.printException(new FileNotFoundException("A"));
+B. Helper.printException(new Exception("B"));
+C. Helper.<Throwable>printException(new Exception("C"));
+D. Helper.<NullPointerException>printException(new NullPointerException ("D"));
+E. Helper.printException(new Throwable("E"));
+Y: A, B, D. The generic type must be Exception or a subclass of Exception since this is an upper bound. C and E are wrong because Throwable is a superclass of Exception. D uses an odd syntax by explicitly listing the type, but you should be able to recognize it as acceptable.
+Q: Which of these statements can fill in the blank so that the Wildcard class compiles successfully? (Choose all that apply.)
+1:   import java.util.*;
+2:   public class Wildcard {
+3:     public void showSize(List<?> list) {
+4:         System.out.println(list.size());
+5:     }
+6:   public static void main(String[] args) {
+7:      Wildcard card = new Wildcard();
+8:      ____________________________________
+9:      card.showSize(list);
+10:   }}
+A. ArrayDeque<?> list = new ArrayDeque<String>();
+B. ArrayList<? super Date> list = new ArrayList<Date>();
+C. List<?> list = new ArrayList<?>();
+D. List<Exception> list = new LinkedList<java.io.IOException>();
+E. Vector<? extends Number> list = new Vector<Integer>();
+F. None of the above
+Y: B, E. showSize() can take any type of List since it uses an unbounded wildcard. Option A is incorrect because it is a Queue and not a List. Option C is incorrect because the wild- card is not allowed to be on the right side of an assignment. Option D is incorrect because the generic types are not compatible. Option B is correct because a lower-bounded wildcard allows that same type to be the generic. Option E is correct because Integer is a subclass of Number. Vector is an old type of List. It isn’t common in new code, but you still need to know it for the exam and in case you encounter old code.
+Q: What is the result of the following program?
+1:   import java.util.*;
+2:   public class Sorted implements Comparable<Sorted>, Comparator<Sorted> {
+3:     private int num;
+4:     private String text;
+5:     Sorted(int n, String t) {
+6:          this.num = n;
+7:          this.text = t;
+8:     }
+9:     public String toString() {
+10:      return "" + num;
+11:    }
+12:    public int compareTo(Sorted s) {
+13:      return text.compareTo(s.text);
+14:    }
+15:    public int compare(Sorted s1, Sorted s2) {
+16:      return s1.num – s2.num;
+17:    }
+18:    public static void main(String[] args) {
+19:      Sorted s1 = new Sorted(88, "a");
+20:      Sorted s2 = new Sorted(55, "b");
+21:      TreeSet<Sorted> t1 = new TreeSet<>();
+22:      t1.add(s1);
+23:      t1.add(s2);
+24:      TreeSet<Sorted> t2 = new TreeSet<>(s1);
+25:      t2.add(s1);
+26:      t2.add(s2);
+27:      System.out.println(t1 + " " + t2);
+28:   }}
+A. [55. 88] [55, 88]
+B. [55. 88] [88, 55]
+C. [88. 55] [55, 88]
+D. [88. 55] [88, 55]
+E. The code does not compile.
+F. A runtime exception is thrown.
+Y: C. This question is hard because it defines both Comparable and Comparator on the same object. t1 doesn’t specify a Comparator so it uses the Comparable object’s compareTo() method. This sorts by the text instance variable. t2 did specify a Comparator when calling the constructor, so it uses the compare() method, which sorts by the int.
+Q: What is the result of the following code?
+1:  Comparator<Integer> c = (o1, o2) -> o2—o1;
+2:  List<Integer> list = Arrays.asList(5, 4, 7, 1);
+3:  Collections.sort(list, c);
+4:  System.out.println(Collections.binarySearch(list, 1));
+A. 0
+B. 1
+C. 2
+D. The result is undefined.
+E. The code does not compile.
+F. A runtime exception is thrown.
+Y: D. The list is sorted in descending order. However, it is searched using the default order, which is sorted in ascending order. binarySearch() requires both to use the same sort order. Therefore, the precondition for binarySearch() is not met and the result is undefined.
+Q: Which of the following statements are true? (Choose all that apply.)
+A. Comparable is in the java.util package.
+B. Comparator is in the java.util package.
+C. compare() is in the Comparable interface.
+D. compare() is in the Comparator interface.
+E. compare() takes one method parameter.
+F. compare() takes two method parameters.
+Y: B, D, F. The java.lang.Comparable interface is implemented on the object to com- pare. It specifies the compareTo() method, which takes one parameter. The java. util.Comparator interface specifies the compare() method, which takes two parameters.
+Q: Which two options can fill in the blanks to make this code compile? (Choose all that apply.)
+1:  public class Generic________ {
+2:      public static void main(String[] args) {
+3:          Generic<String> g = new Generic_______();
+4:          Generic<Object> g2 = new Generic();
+5:      }
+6:  }
+A. On line 1 fill in with <>.
+B. On line 1, fill in with <T>.
+C. On line 1, fill in with <?>.
+D. On line 3, fill in with <>.
+E. On line 3, fill in with <T>.
+F. On line 3, fill in with <?>.
+Y: B, D. Line 1 is a generic class that requires specifying a name for the type. Options A and C are incorrect because no type is specified. Line 3 tries to use the diamond operator to instantiate the class. Option E is incorrect because T is not a class and certainly not one compatible with String. Option F is incorrect because a wildcard cannot be specified on the right side when instantiating an object.
+Q: Which of the following lines can be inserted to make the code compile?(Choose all that apply.)
+1:  class A {}
+2:  class B extends A {}
+3:  class C extends B {}
+4:  class D<C> {
+5:      // INSERT CODE HERE
+6:  }
+A. A a1 = new A();
+B. A a2 = new B();
+C. A a3 = new C();
+D. C c1 = new A();
+E. C c2 = new B();
+F. C c1 = new C();
+Y: A, B. C is both a class and a type parameter. This means that within the class D, when we refer to C, it uses the type parameter. All of the choices that mention class C are incorrect because it no longer means the class C.
+Q: Which options are true of the following code? (Choose all that apply.)
+3: ______________<Integer> q = new LinkedList<>();
+4: q.add(10);
+5: q.add(12);
+6: q.remove(1);
+7: System.out.print(q);
+A. If we fill in the blank with List, the output is [10].
+B. If we fill in the blank with List, the output is [10, 12].
+C. If we fill in the blank with Queue, the output is [10].
+D. If we fill in the blank with Queue, the output is [10, 12].
+E. The code does not compile in either scenario.
+F. A runtime exception is thrown.
+Y: A, D. A LinkedList implements both List and Queue. The List interface has a method to remove by index. Since this method exists, Java does not autobox to call the other method. Queue has only the remove by object method, so Java does autobox there. Since the number 1 is not in the list, Java does not remove anything for the Queue.
+Q: What is the result of the following code?
+4: Map m = new HashMap();
+5: m.put(123, "456");
+6: m.put("abc", "def");
+7: System.out.println(m.contains("123"));
+A. false
+B. true
+C. Compiler error on line 4.
+D. Compiler error on line 5.
+E. Compiler error on line 7.
+F. A runtime exception is thrown.
+Y: E. This question looks like it is about generics, but it’s not. It is trying to see if you noticed that Map does not have a contains() method. It has containsKey() and containsValue() instead. If containsKey() was called, the answer would be false because the 123 in the list is an Integer rather than a String.
+Q: Fill in the blanks to make this code compile and print 123. (Choose all that apply.)
+4: List<String> list = Arrays.asList("1", "2", "3");
+5: Iterator iter = list.iterator();
+6: while(iter.__________())
+7:   System.out.print(iter._________());
+A. On line 6, fill in the blank with hasNext().
+B. On line 6, fill in the blank with isNext().
+C. On line 6, fill in the blank with next().
+D. On line 7, fill in the blank with getNext().
+E. On line 7, fill in the blank with hasNext().
+F. On line 7, fill in the blank with next().
+Y: A, F. You have to memorize this. hasNext() returns a boolean, and it is used in the loop. next() returns the next element.
+Q: What code change is needed to make the method compile?
+1:  public static T identity(T t) {
+2:      return t;
+3:  }
+A. Add <T> after the public keyword.
+B. Add <T> after the static keyword.
+C. Add <T> after T.
+D. Add <?> after the public keyword.
+E. Add <?> after the static keyword.
+F. No change required. The code already compiles.
+Y: B. When using generic types in a static method, the generic specification goes before the return type.
+Q: Which of the answer choices make sense to implement with a lambda?(Choose all that apply.)
+A. Comparable interface
+B. Comparator interface
+C. remove method on a Collection
+D. removeAll method on a Collection
+E. removeIf method on a Collection
+Y: B, E. Both Comparator and Comparable are functional interfaces. However, Comparable is intended to be used on the object being compared, making choice B correct. removeIf was added in Java 8 to allow specifying the lambda to check when removing elements, making choice E correct.
+Q: Which of the following compiles and print outs the entire set? (Choose all that apply.)
+1: Set<String> s = new HashSet<>();
+2: s.add("lion");
+3: s.add("tiger");
+4: s.add("bear");
+5: s.forEach(   );
+A. () -> System.out.println(s)
+B. s -> System.out.println(s)
+C. (s) -> System.out.println(s)
+D. System.out.println(s)
+E. System::out::println
+F. System.out::println
+Y: F. Choice A is incorrect because forEach takes a Consumer parameter, which requires one parameter. Choices B and C are close. The syntax for a lambda is correct. However, s is already defined as a local variable and therefore the lambda can’t redefine it. Choices D and E use incorrect syntax for a method reference. Choice F is correct.
+Q: What is the result of the following?
+1: Map<Integer, Integer> map = new HashMap<>();
+2: map.put(1, 10);
+3: map.put(2, 20);
+4: map.put(3, null);
+5: map.merge(1, 3, (a,b) -> a + b);
+6: map.merge(3, 3, (a,b) -> a + b);
+7: System.out.println(map);
+A. {1=10, 2=20}
+B. {1=10, 2=20, 3=null}
+C. {1=10, 2=20, 3=3}
+D. {1=13, 2=20}
+E. {1=13, 2=20, 3=null}
+F. {1=13, 2=20, 3=3}
+G. The code does not compile.
+H. An exception is thrown.
+Y: F. The first call to merge() calls the mapping function and adds the two numbers to get 13. It then updates the map. The second call to merge() sees that the map currently has a null value for that key. It does not call the mapping function but instead replaces it with the new value of 3. Therefore choice F is correct.
+---1 chapter4

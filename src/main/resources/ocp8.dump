@@ -458,11 +458,13 @@ E.- None of these are valid functional interfaces.
 Y: A, D. A is correct as Climb defines an interface with exactly one abstract method. B is incorrect, as abstract classes are not functional interfaces despite having a single abstract method. While functional interfaces may have any number of default methods, Arctic- MountainClimb will not compile due to the default method getSpeed() missing an implementation body, so C is incorrect. D is correct, as the interface MountainClimb has exactly one abstract method defined in Climb. Finally, E is incorrect because A and D are correct.
 ---4 chapter2
 Q: Which of the following are valid lambda expressions? (Choose all that apply.)
-A. () -> ""
-B. x,y -> x+y
-C. (Coyote y) -> return 0; D. (Camel c) -> {return;} E. Wolf w -> 39
-F. () ->
-G. (Animal z, m) -> a
+A.+ () -> ""
+B.- x,y -> x+y
+C.- (Coyote y) -> return 0;
+D.+ (Camel c) -> {return;}
+E.- Wolf w -> 39
+F.- () ->
+G.- (Animal z, m) -> a
 Y: A, D. The first lambda expression is valid, taking no arguments and returning the empty string, so A is correct. B is incorrect, as more than one parameter requires parentheses (). C is incorrect, as brackets {} are required when using return. D is correct, as the expres- sion takes one Camel input and returns void. E is incorrect, as parentheses are required when using the data type Wolf. F is incorrect, as it has no right-side expression. Finally, G is incorrect, as specifying the data type for one parameter in a lambda expression requires you to specify the data type for all parameters in the expression. In this case, z has a data type and m does not, therefore the expression is invalid.
 ---5 chapter2
 Q: What are some of the properties of using the singleton pattern? (Choose all that apply.)
@@ -711,6 +713,7 @@ D.+ TreeMap
 E.- TreeSet
 F.- Vector
 Y: D. The answer needs to implement Map because you are dealing with key/value pairs per the unique string text. You can eliminate A, C, E, and F immediately. ArrayList and Vector are Lists. HashSet and TreeSet are Sets. Now it is between HashMap and TreeMap. Since the question talks about ordering, you need the TreeMap. Therefore, the answer is E.
+---2 chapter3
 Q: What is the result of the following statements?
 3: List list = new ArrayList();
 4: list.add("one");
@@ -724,6 +727,7 @@ C.- onetwo followed by an exception
 D.- Compiler error on line 6
 E.+ Compiler error on line 7
 Y: E. The code does not compile. It attempts to mix generics and legacy code. Lines 3 through 7 create an ArrayList without generics. This means that we can put any objects in it. Line 7 should be looping through a list of Objects rather than Strings since we didn’t use generics.
+---3 chapter3
 Q: What is the result of the following statements?
 3: ArrayDeque<String> greetings = new ArrayDeque<String>();
 4: greetings.push("hello");
@@ -741,6 +745,7 @@ E. hihello
 F. The code does not compile.
 F. An exception is thrown.
 Y: E. Since we call push() rather than offer(), we are treating the ArrayDeque as a LIFO (last-in, first-out) stack. On line 7, we remove the last element added, which is "ola". On line 8, we look at the new last element ("hi"), but don’t remove it. Lines 9 and 10, we remove each element in turn until none are left. Note that we don’t use an Iterator to loop through the ArrayDeque. The order in which the elements are stored internally is not part of the API contract.
+---5 chapter3
 Q: Which of these statements compile? (Choose all that apply.)
 A.- HashSet<Number> hs = new HashSet<Integer>();
 B.+ HashSet<? super ClassCastException> set = new HashSet<Exception>();
@@ -749,6 +754,7 @@ D.- List<Object> values = new HashSet<Object>();
 E.- List<Object> objects = new ArrayList<? extends Object>();
 F.+ Map<String, ? extends Number> hm = new HashMap<String, Integer>();
 Y: B, C, F. Option A does not compile because the generic types are not compatible. We could say HashSet<? extends Number> hs2 = new HashSet<Integer>();. Option B uses a lower bound, so it allows superclass generic types. Option C is a traditional use of generics where the generic type is the same and the List type uses the interface as the type. Option D does not compile because a Set is not a List. Option E does not compile because upper bounds are not allowed when instantiating the type. Finally, Option F does compile because the upper bound is on the correct side of =.
+---5 chapter3
 Q: What is the result of the following code?
 1:  public class Hello<T> {
 2:      T t;
@@ -765,6 +771,7 @@ D.- Compiler error on line 4
 E.- Compiler error on line 6
 F.- Compiler error on line 7
 Y: C. Line 7 gives a compiler warning for not using generics but not a compiler error. Line 4 compiles fine because toString() is defined on the Object class and is therefore always available to call. Line 6 creates the Hello class with the generic type String. Line 7 creates the Hello class with the generic type Object since no type is specified.
+---6 chapter3
 Q: Which of the following statements are true? (Select two.)
 3:  Set<Number> numbers = new HashSet<>();
 4:  numbers.add(new Integer(86));
@@ -783,6 +790,7 @@ E.- There is a compiler error on line 3.
 F.- There is a compiler error on line 9.
 G. An exception is thrown.
 Y: A, D. The code compiles fine. It uses the diamond operator, and it allows any implementation of Number to be added. HashSet does not guarantee any iteration order, making A and D correct.
+---7 chapter3
 Q: What is the result of the following code?
 1: TreeSet<String> tree = new TreeSet<String>();
 2: tree.add("one");
@@ -796,6 +804,7 @@ D.- ONE
 E.- The code does not compile.
 F.- An exception is thrown.
 Y: C. TreeSet sorts the elements. Since uppercase letters sort before lowercase letters, the ordering is "ONE", "One", "one". The ceiling() method returns the smallest element greater than the specified one. "On" appears between "ONE" and "One". Therefore, the smallest element that is larger than the specified value is "One".
+---8 chapter3
 Q: Which of the answer choices are valid given the following declaration?
 1: Map<String, Double> map = new HashMap<>();
 A.- map.add("pi", 3.14159);
@@ -804,6 +813,7 @@ C.- map.add("log(1)", new Double(0.0));
 D.- map.add('x', new Double(123.4));
 E.+ None of the above
 Y: E. Trick question! The Map interface uses put() rather than add() to add elements to the map. If these examples used put(), the answer would be A and C. B is no good because a long cannot be shoved into a Double. D is no good because a char is not the same thing as a String.
+---9 chapter3
 Q: What is the result of the following program? import java.util.*;
 1: public class MyComparator implements Comparator<String> {
 2:   public int compare(String a, String b) {
@@ -823,6 +833,7 @@ D.- 123 aab Abb
 E.- The code does not compile.
 F.- A runtime exception is thrown.
 Y: A. The array is sorted using MyComparator, which sorts the elements in reverse alphabeti- cal order in a case-insensitive fashion. Normally, numbers sort before letters. This code reverses that by calling the compareTo() method on b instead of a.
+---10 chapter3
 Q: What is the result of the following code?
 1: Map<Integer, Integer> map = new HashMap<>(10);
 2: for (int i = 1; i <= 10; i++) {
@@ -836,6 +847,7 @@ D.- Compiler error on line 5.
 E.- Compiler error on line 7.
 F.- A runtime exception is thrown.
 Y: A. Line 3 uses the diamond operator to create the map. Lines 5 and 7 use autoboxing to convert between the int primitive and the Integer wrapper class. The keys map to their squared value. 1 maps to 1, 2 maps to 4, 3 maps to 9, 4 maps to 16, and so on.
+---11 chapter3
 Q: Which of these statements can fill in the blank so that the Helper class compiles successfully? (Choose all that apply.)
 3:  public class Helper {
 4:      public static <U extends Exception> void printException(U u) {
@@ -850,6 +862,7 @@ C.- Helper.<Throwable>printException(new Exception("C"));
 D.+ Helper.<NullPointerException>printException(new NullPointerException ("D"));
 E.- Helper.printException(new Throwable("E"));
 Y: A, B, D. The generic type must be Exception or a subclass of Exception since this is an upper bound. C and E are wrong because Throwable is a superclass of Exception. D uses an odd syntax by explicitly listing the type, but you should be able to recognize it as acceptable.
+---12 chapter3
 Q: Which of these statements can fill in the blank so that the Wildcard class compiles successfully? (Choose all that apply.)
 1:   import java.util.*;
 2:   public class Wildcard {
@@ -868,6 +881,7 @@ D.- List<Exception> list = new LinkedList<java.io.IOException>();
 E.+ Vector<? extends Number> list = new Vector<Integer>();
 F.- None of the above
 Y: B, E. showSize() can take any type of List since it uses an unbounded wildcard. Option A is incorrect because it is a Queue and not a List. Option C is incorrect because the wild- card is not allowed to be on the right side of an assignment. Option D is incorrect because the generic types are not compatible. Option B is correct because a lower-bounded wildcard allows that same type to be the generic. Option E is correct because Integer is a subclass of Number. Vector is an old type of List. It isn’t common in new code, but you still need to know it for the exam and in case you encounter old code.
+---13 chapter3
 Q: What is the result of the following program?
 1:   import java.util.*;
 2:   public class Sorted implements Comparable<Sorted>, Comparator<Sorted> {
@@ -904,6 +918,7 @@ D.- [88. 55] [88, 55]
 E.- The code does not compile.
 F.- A runtime exception is thrown.
 Y: C. This question is hard because it defines both Comparable and Comparator on the same object. t1 doesn’t specify a Comparator so it uses the Comparable object’s compareTo() method. This sorts by the text instance variable. t2 did specify a Comparator when calling the constructor, so it uses the compare() method, which sorts by the int.
+---14 chapter3
 Q: What is the result of the following code?
 1:  Comparator<Integer> c = (o1, o2) -> o2—o1;
 2:  List<Integer> list = Arrays.asList(5, 4, 7, 1);
@@ -924,6 +939,7 @@ D.+ compare() is in the Comparator interface.
 E.- compare() takes one method parameter.
 F.+ compare() takes two method parameters.
 Y: B, D, F. The java.lang.Comparable interface is implemented on the object to com- pare. It specifies the compareTo() method, which takes one parameter. The java. util.Comparator interface specifies the compare() method, which takes two parameters.
+---15 chapter3
 Q: Which two options can fill in the blanks to make this code compile? (Choose all that apply.)
 1:  public class Generic________ {
 2:      public static void main(String[] args) {
@@ -938,6 +954,7 @@ D.+ On line 3, fill in with <>.
 E.- On line 3, fill in with <T>.
 F.- On line 3, fill in with <?>.
 Y: B, D. Line 1 is a generic class that requires specifying a name for the type. Options A and C are incorrect because no type is specified. Line 3 tries to use the diamond operator to instantiate the class. Option E is incorrect because T is not a class and certainly not one compatible with String. Option F is incorrect because a wildcard cannot be specified on the right side when instantiating an object.
+---16 chapter3
 Q: Which of the following lines can be inserted to make the code compile?(Choose all that apply.)
 1:  class A {}
 2:  class B extends A {}
@@ -952,6 +969,7 @@ D.- C c1 = new A();
 E.- C c2 = new B();
 F.- C c1 = new C();
 Y: A, B. C is both a class and a type parameter. This means that within the class D, when we refer to C, it uses the type parameter. All of the choices that mention class C are incorrect because it no longer means the class C.
+---17 chapter3
 Q: Which options are true of the following code? (Choose all that apply.)
 3: ______________<Integer> q = new LinkedList<>();
 4: q.add(10);
@@ -965,6 +983,7 @@ D.+ If we fill in the blank with Queue, the output is [10, 12].
 E.- The code does not compile in either scenario.
 F.- A runtime exception is thrown.
 Y: A, D. A LinkedList implements both List and Queue. The List interface has a method to remove by index. Since this method exists, Java does not autobox to call the other method. Queue has only the remove by object method, so Java does autobox there. Since the number 1 is not in the list, Java does not remove anything for the Queue.
+---18 chapter3
 Q: What is the result of the following code?
 4: Map m = new HashMap();
 5: m.put(123, "456");
@@ -977,6 +996,7 @@ D.- Compiler error on line 5.
 E.+ Compiler error on line 7.
 F.- A runtime exception is thrown.
 Y: E. This question looks like it is about generics, but it’s not. It is trying to see if you noticed that Map does not have a contains() method. It has containsKey() and containsValue() instead. If containsKey() was called, the answer would be false because the 123 in the list is an Integer rather than a String.
+---19 chapter3
 Q: Fill in the blanks to make this code compile and print 123. (Choose all that apply.)
 4: List<String> list = Arrays.asList("1", "2", "3");
 5: Iterator iter = list.iterator();
@@ -989,6 +1009,7 @@ D.- On line 7, fill in the blank with getNext().
 E.- On line 7, fill in the blank with hasNext().
 F.+ On line 7, fill in the blank with next().
 Y: A, F. You have to memorize this. hasNext() returns a boolean, and it is used in the loop. next() returns the next element.
+---20 chapter3
 Q: What code change is needed to make the method compile?
 1:  public static T identity(T t) {
 2:      return t;
@@ -1000,6 +1021,7 @@ D.- Add <?> after the public keyword.
 E.- Add <?> after the static keyword.
 F.- No change required. The code already compiles.
 Y: B. When using generic types in a static method, the generic specification goes before the return type.
+---21 chapter3
 Q: Which of the answer choices make sense to implement with a lambda?(Choose all that apply.)
 A.- Comparable interface
 B.+ Comparator interface
@@ -1007,6 +1029,7 @@ C.- remove method on a Collection
 D.- removeAll method on a Collection
 E.+ removeIf method on a Collection
 Y: B, E. Both Comparator and Comparable are functional interfaces. However, Comparable is intended to be used on the object being compared, making choice B correct. removeIf was added in Java 8 to allow specifying the lambda to check when removing elements, making choice E correct.
+---22 chapter3
 Q: Which of the following compiles and print outs the entire set? (Choose all that apply.)
 1: Set<String> s = new HashSet<>();
 2: s.add("lion");
@@ -1020,6 +1043,7 @@ D.- System.out.println(s)
 E.- System::out::println
 F.+ System.out::println
 Y: F. Choice A is incorrect because forEach takes a Consumer parameter, which requires one parameter. Choices B and C are close. The syntax for a lambda is correct. However, s is already defined as a local variable and therefore the lambda can’t redefine it. Choices D and E use incorrect syntax for a method reference. Choice F is correct.
+---23 chapter3
 Q: What is the result of the following?
 1: Map<Integer, Integer> map = new HashMap<>();
 2: map.put(1, 10);

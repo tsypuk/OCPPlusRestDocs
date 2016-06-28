@@ -31,7 +31,13 @@ public class LoadOcpDumpTextStructureImpl implements LoadOcpDumper {
 
     @Override
     public Question loadQuestion(long questionId) {
-        return questionDump.get((int) questionId);
+
+        Question question = questionDump.get((int) questionId);
+        List<Answer> answers = question.getAnswers();
+        for (int i = 0; i < answers.size(); i++) {
+            answers.get(i).setLetter(String.valueOf(new Character((char) (65 + i))));
+        }
+        return question;
     }
 
     @PostConstruct

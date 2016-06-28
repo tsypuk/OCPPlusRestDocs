@@ -8,6 +8,7 @@ public class Answer {
     private String body;
     private Boolean correct;
     private Long questionId;
+    private String letter;
 
     public Answer(Long id, String body, Boolean isCorrect, Long questionId) {
         this.id = id;
@@ -36,6 +37,14 @@ public class Answer {
         return correct;
     }
 
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
+    }
+
     public void setCorrect(Boolean correct) {
         this.correct = correct;
     }
@@ -47,4 +56,8 @@ public class Answer {
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
+
+
+
+
 }

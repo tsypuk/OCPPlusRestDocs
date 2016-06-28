@@ -14,23 +14,25 @@
 <body>
     <h2>OCP exam, question #:<th:block th:text="${question.id}"></th:block></h2>
 
-<textarea th:text="${question.text}"></textarea>
+<textarea th:text="${question.text}" style="font-size: large"></textarea>
     <table>
         <thead>
         <tr>
+            <th>Char</th>
             <th>RB</th>
-            <th>ID</th>
+            <!--<th>ID</th>-->
             <th>Text</th>
-            <th>correct</th>
+            <!--<th>correct</th>-->
         </tr>
         </thead>
         <tbody>
 
         <tr th:each="sb : ${answers}">
             <td><input type="checkbox"/></td>
-            <td th:text="${{sb.id}}"></td>
+            <td th:text="${{sb.letter}}"></td>
+            <!--<td th:text="${{sb.id}}"></td>-->
             <td th:text="${{sb.body}}"></td>
-            <td th:text="${{sb.correct}}"></td>
+            <!--<td th:text="${{sb.correct}}"></td>-->
         </tr>
         </tbody>
     </table>

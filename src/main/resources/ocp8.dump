@@ -1118,7 +1118,7 @@ C.- findFirst()
 D.- map()
 E.- peek()
 F.- sum()
-Y: A, B. Options D and E are incorrect because they are intermediate operations and not ter- minal operations. While option F is a reduction, it is incorrect because it is available only on primitive streams such as IntStream. Option C is incorrect because it is not a reduction it does not look at each element in the stream.
+Y: A, B. Options D and E are incorrect because they are intermediate operations and not terminal operations. While option F is a reduction, it is incorrect because it is available only on primitive streams such as IntStream. Option C is incorrect because it is not a reduction it does not look at each element in the stream.
 ---6 chapter4
 Q: Which of the following can fill in the blank so that the code prints out false? (Choose all that apply.)
 1:   Stream<String> s = Stream.generate(() -> "meow");
@@ -1188,7 +1188,7 @@ Q: What changes need to be made for this code to print the string 12345? (Choose
 4:         .collect(Collectors. joining());
 A.- Change Collectors.joining() to Collectors.joining("").
 B.+ Change map(x -> x)to map(x -> "" + x).
-C.+ Changex -> x++tox -> ++x.
+C.+ Change x -> x++ to x -> ++x.
 D.- Add forEach(System.out::print) after the call to collect().
 E.+ Wrap the entire line in a System.out.print statement.
 F.- None of the above. The code already prints 12345.
@@ -1206,7 +1206,7 @@ E.- Consumer<String>
 F.+ Supplier<String>
 G.+ UnaryOperator<String>
 H.- UnaryOperator<String, String>
-Y: A, F, G. Line 6 doesn’t take any parameters, and it returns a String, making it a Sup- plier. Another clue is that it uses a constructor reference, which should scream Supplier! This makes choice F correct. Line 7 takes two parameters, and it doesn’t return anything making it a BiConsumer. The print statement should also be a clue that we are dealing with a Consumer or BiConsumer. This makes choice A correct. Choices C and D are there to mislead you; these interfaces don’t actually exist. BinaryOperator spells out binary. The other functional interfaces use the prefix Bi. Finally, line 8 takes a single parameter, and it returns the same type, which is a UnaryOperator. Since the types are the same, only one generic is needed, making choice G correct.
+Y: A, F, G. Line 6 doesn’t take any parameters, and it returns a String, making it a Supplier. Another clue is that it uses a constructor reference, which should scream Supplier! This makes choice F correct. Line 7 takes two parameters, and it doesn’t return anything making it a BiConsumer. The print statement should also be a clue that we are dealing with a Consumer or BiConsumer. This makes choice A correct. Choices C and D are there to mislead you; these interfaces don’t actually exist. BinaryOperator spells out binary. The other functional interfaces use the prefix Bi. Finally, line 8 takes a single parameter, and it returns the same type, which is a UnaryOperator. Since the types are the same, only one generic is needed, making choice G correct.
 ---13 chapter4
 Q: Which of the following is true?
 1:  List<Integer> l1 = Arrays.asList(1, 2, 3);
@@ -1247,7 +1247,8 @@ C.- Map<Long, TreeSet<String>>
 D.+ Map<Boolean, List<String>>
 E.+ Map<Boolean, Set<String>>
 F.- None of the above
-Y: D, E. Choices A and B do not compile, because they are invalid generic declarations. Primi- tives are not allowed as generics, and Map must have two generic types. Choice C is incor- rect because partitioning only gives a Boolean key. Choices D and E are correct because the result Collection can be customized.
+Y: D, E. Choices A and B do not compile, because they are invalid generic declarations. Primitives are not allowed as generics, and Map must have two generic types. Choice C is incorrect because partitioning only gives a Boolean key. Choices D and E are correct because the result Collection can be customized.
+---16 chapter4
 ---16 chapter4
 Q: What is the output of the following?
 1:  Stream<String> s = Stream.empty();
@@ -1306,5 +1307,5 @@ A.- IntStream.range(1, 6);
 B.+ IntStream.range(1, 6).forEach(System.out::println);
 C.- IntStream.range(1, 6).mapToObj(1 -> i).forEach(System.out::println);
 D.- None of the above is equivalent.
-E.- The provided code does not compile.
+E. The provided code does not compile.
 Y: B. Both lists and streams have forEach() methods. There is no reason to collect into a list just to loop through it.

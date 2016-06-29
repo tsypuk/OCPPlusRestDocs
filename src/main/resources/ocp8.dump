@@ -564,7 +564,7 @@ B.- The code will not compile because of line 5.
 C.- The code will not compile because of line 6.
 D.+ The code will not compile because of line 8.
 E.- The code will not compile because of line 9.
-Y: D.WhileJavasupportsmultipleinheritancethroughinterfaces,itdoesnotsupportmethod overriding in interfaces, since it’s not clear which parent method should be used. In this example, CanWalk and CanRun both implement a default walk() method. The definition of CanSprint extends these two interfaces and therefore won’t compile as two default meth- ods with the same signature from parent classes are detected, therefore the answer is D. None of the other lines of code cause problems, so the rest of the answers are not correct.
+Y: D.While Java supports multiple inheritance through interfaces,it does not support method overriding in interfaces, since it’s not clear which parent method should be used. In this example, CanWalk and CanRun both implement a default walk() method. The definition of CanSprint extends these two interfaces and therefore won’t compile as two default meth- ods with the same signature from parent classes are detected, therefore the answer is D. None of the other lines of code cause problems, so the rest of the answers are not correct.
 ---11 chapter2
 Q: Which lambda can replace the MySecret class to return the same value? (Choose all that apply.)
 1:  public interface Secret {
@@ -789,7 +789,7 @@ C.- The output is 867586null309.
 D.+ The output is indeterminate.
 E.- There is a compiler error on line 3.
 F.- There is a compiler error on line 9.
-G. An exception is thrown.
+G.- An exception is thrown.
 Y: A, D. The code compiles fine. It uses the diamond operator, and it allows any implementation of Number to be added. HashSet does not guarantee any iteration order, making A and D correct.
 ---8 chapter3
 Q: What is the result of the following code?
@@ -876,7 +876,7 @@ Q: Which of these statements can fill in the blank so that the Wildcard class co
 8:      ____________________________________
 9:      card.showSize(list);
 10:   }}
-A. ArrayDeque<?> list = new ArrayDeque<String>();
+A.- ArrayDeque<?> list = new ArrayDeque<String>();
 B.+ ArrayList<? super Date> list = new ArrayList<Date>();
 C.- List<?> list = new ArrayList<?>();
 D.- List<Exception> list = new LinkedList<java.io.IOException>();
@@ -933,6 +933,7 @@ D.+ The result is undefined.
 E.- The code does not compile.
 F.- A runtime exception is thrown.
 Y: D. The list is sorted in descending order. However, it is searched using the default order, which is sorted in ascending order. binarySearch() requires both to use the same sort order. Therefore, the precondition for binarySearch() is not met and the result is undefined.
+---16 chapter3
 Q: Which of the following statements are true? (Choose all that apply.)
 A.- Comparable is in the java.util package.
 B.+ Comparator is in the java.util package.
@@ -941,7 +942,7 @@ D.+ compare() is in the Comparator interface.
 E.- compare() takes one method parameter.
 F.+ compare() takes two method parameters.
 Y: B, D, F. The java.lang.Comparable interface is implemented on the object to com- pare. It specifies the compareTo() method, which takes one parameter. The java. util.Comparator interface specifies the compare() method, which takes two parameters.
----16 chapter3
+---17 chapter3
 Q: Which two options can fill in the blanks to make this code compile? (Choose all that apply.)
 1:  public class Generic________ {
 2:      public static void main(String[] args) {
@@ -956,7 +957,7 @@ D.+ On line 3, fill in with <>.
 E.- On line 3, fill in with <T>.
 F.- On line 3, fill in with <?>.
 Y: B, D. Line 1 is a generic class that requires specifying a name for the type. Options A and C are incorrect because no type is specified. Line 3 tries to use the diamond operator to instantiate the class. Option E is incorrect because T is not a class and certainly not one compatible with String. Option F is incorrect because a wildcard cannot be specified on the right side when instantiating an object.
----17 chapter3
+---18 chapter3
 Q: Which of the following lines can be inserted to make the code compile?(Choose all that apply.)
 1:  class A {}
 2:  class B extends A {}
@@ -971,7 +972,7 @@ D.- C c1 = new A();
 E.- C c2 = new B();
 F.- C c1 = new C();
 Y: A, B. C is both a class and a type parameter. This means that within the class D, when we refer to C, it uses the type parameter. All of the choices that mention class C are incorrect because it no longer means the class C.
----18 chapter3
+---19 chapter3
 Q: Which options are true of the following code? (Choose all that apply.)
 3: ______________<Integer> q = new LinkedList<>();
 4: q.add(10);
@@ -985,7 +986,7 @@ D.+ If we fill in the blank with Queue, the output is [10, 12].
 E.- The code does not compile in either scenario.
 F.- A runtime exception is thrown.
 Y: A, D. A LinkedList implements both List and Queue. The List interface has a method to remove by index. Since this method exists, Java does not autobox to call the other method. Queue has only the remove by object method, so Java does autobox there. Since the number 1 is not in the list, Java does not remove anything for the Queue.
----19 chapter3
+---20 chapter3
 Q: What is the result of the following code?
 4: Map m = new HashMap();
 5: m.put(123, "456");
@@ -998,7 +999,7 @@ D.- Compiler error on line 5.
 E.+ Compiler error on line 7.
 F.- A runtime exception is thrown.
 Y: E. This question looks like it is about generics, but it’s not. It is trying to see if you noticed that Map does not have a contains() method. It has containsKey() and containsValue() instead. If containsKey() was called, the answer would be false because the 123 in the list is an Integer rather than a String.
----20 chapter3
+---21 chapter3
 Q: Fill in the blanks to make this code compile and print 123. (Choose all that apply.)
 4: List<String> list = Arrays.asList("1", "2", "3");
 5: Iterator iter = list.iterator();
@@ -1011,7 +1012,7 @@ D.- On line 7, fill in the blank with getNext().
 E.- On line 7, fill in the blank with hasNext().
 F.+ On line 7, fill in the blank with next().
 Y: A, F. You have to memorize this. hasNext() returns a boolean, and it is used in the loop. next() returns the next element.
----21 chapter3
+---22 chapter3
 Q: What code change is needed to make the method compile?
 1:  public static T identity(T t) {
 2:      return t;
@@ -1023,7 +1024,7 @@ D.- Add <?> after the public keyword.
 E.- Add <?> after the static keyword.
 F.- No change required. The code already compiles.
 Y: B. When using generic types in a static method, the generic specification goes before the return type.
----22 chapter3
+---23 chapter3
 Q: Which of the answer choices make sense to implement with a lambda?(Choose all that apply.)
 A.- Comparable interface
 B.+ Comparator interface
@@ -1031,7 +1032,7 @@ C.- remove method on a Collection
 D.- removeAll method on a Collection
 E.+ removeIf method on a Collection
 Y: B, E. Both Comparator and Comparable are functional interfaces. However, Comparable is intended to be used on the object being compared, making choice B correct. removeIf was added in Java 8 to allow specifying the lambda to check when removing elements, making choice E correct.
----23 chapter3
+---24 chapter3
 Q: Which of the following compiles and print outs the entire set? (Choose all that apply.)
 1: Set<String> s = new HashSet<>();
 2: s.add("lion");
@@ -1045,7 +1046,7 @@ D.- System.out.println(s)
 E.- System::out::println
 F.+ System.out::println
 Y: F. Choice A is incorrect because forEach takes a Consumer parameter, which requires one parameter. Choices B and C are close. The syntax for a lambda is correct. However, s is already defined as a local variable and therefore the lambda can’t redefine it. Choices D and E use incorrect syntax for a method reference. Choice F is correct.
----24 chapter3
+---25 chapter3
 Q: What is the result of the following?
 1: Map<Integer, Integer> map = new HashMap<>();
 2: map.put(1, 10);
@@ -1308,5 +1309,5 @@ A.- IntStream.range(1, 6);
 B.+ IntStream.range(1, 6).forEach(System.out::println);
 C.- IntStream.range(1, 6).mapToObj(1 -> i).forEach(System.out::println);
 D.- None of the above is equivalent.
-E. The provided code does not compile.
+E.- The provided code does not compile.
 Y: B. Both lists and streams have forEach() methods. There is no reason to collect into a list just to loop through it.

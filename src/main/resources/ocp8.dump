@@ -967,7 +967,7 @@ Q: Which of the following lines can be inserted to make the code compile?(Choose
 6:  }
 A.+ A a1 = new A();
 B.+ A a2 = new B();
-C.+ A a3 = new C();
+C.- A a3 = new C();
 D.- C c1 = new A();
 E.- C c2 = new B();
 F.- C c1 = new C();

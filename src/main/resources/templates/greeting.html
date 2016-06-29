@@ -12,8 +12,9 @@
         </style>
 </head>
 <body>
-    <h2>OCP exam, question #:<th:block th:text="${question.id}"></th:block></h2>
-
+<h2>OCP exam, question #:<th:block th:text="${question.id}"></th:block></h2>
+<a href="next.html" th:href="@{http://localhost:8080/greeting/{orderId}(orderId=${question.id})}">NEXT</a>
+<BR/>
 <textarea th:text="${question.text}" style="font-size: large"></textarea>
     <table>
         <thead>
@@ -28,7 +29,7 @@
         <tbody>
 
         <tr th:each="sb : ${answers}">
-            <td><input type="checkbox"/></td>
+            <td><input type="checkbox" th:checked="${sb.correct}"/></td>
             <td th:text="${{sb.letter}}"></td>
             <!--<td th:text="${{sb.id}}"></td>-->
             <td th:text="${{sb.body}}"></td>

@@ -1567,3 +1567,326 @@ C.- LocalDateTime
 D.- LocalTime
 E.+ ZonedDateTime
 Y: E. Local______ explicitly excludes time zones. Instant represents a point in time, but always uses GMT rather than the desired time zone.
+---1 chapter6
+Q: Which of the following pairs fills in the blanks to make this code compile ?
+5:  public void read() ___________ SQLException {
+6:      ___________ new SQLException();
+7:  }
+A.- throw on line 5 and throw on line 6
+B.- throw on line 5 and throws on line 6
+C.+ throws on line 5 and throw on line 6
+D.- throws on line 5 and throws on line 6
+E.- None of the above. SQLException is a checked exception and cannot be thrown.
+F.- None of the above. SQLException is a runtime exception and cannot be thrown.
+Y: C. The method should declare that it throws an exception and the body of the method actually would throw it. Options E and F are incorrect because both checked and unchecked (runtime) exceptions can be declared in a method signature. Also, option F is incorrect because SQLException is a checked exception.
+---2 chapter6
+Q: Which of the following changes when made independently would make this code compile? (Choose all that apply.)
+1: public class StuckTurkeyCage implements AutoCloseable {
+2:      public void close() throws Exception {
+3:         throw new Exception("Cage door does not close");
+4:      }
+5:      public static void main(String[] args) {
+6:         try (StuckTurkeyCage t = new StuckTurkeyCage()) {
+7:             System.out.println("put turkeys in");
+8:         }
+9:      }
+10: }
+A.- Remove throws Exception from the declaration on line 2.
+B.+ Add throws Exception to the declaration on line 5.
+C.+ Change line 8 to } catch (Exception e) {}.
+D.- Change line 8 to } finally {}.
+E.- None of the above will make the code compile.
+F.- The code already compiles as is.
+Y: B, C. Option A is incorrect because it will move the compilation error to the close() method since it does throw an exception that must be handled or declared. Option B is correct because the unhandled exception becomes declared. Option C is correct because the excep- tion becomes handled. Option D is incorrect because the exception remains unhandled.
+---3 chapter6
+Q: Which of the following fills in the blank to make the code compile? (Choose all that apply)
+1:   public static void main(String[] args) {
+2:      try {
+3:          throw new IOException();
+4:      } catch (__________________________) { }
+5:   }
+A.- FileNotFoundException | IOException e
+B.- FileNotFoundException e | IOException e
+C.- FileNotFoundException | RuntimeException e
+D.- FileNotFoundException e | RuntimeException e
+E.+ IOException | RuntimeException e
+F.- IOException e | RuntimeException e
+Y: E. Options B, D, and F are incorrect because only one variable name is allowed in a multi-catch block. Option A is incorrect because FileNotFoundException is a subclass of IOException. A multi-catch statement does not allow redundancy, and just catching IOException would have been equivalent. Option C is incorrect because the IOException that is thrown is not handled.
+---4 chapter6
+Q: Which of the following are true statements? (Choose all that apply.)
+A.+ A traditional try statement without a catch block requires a finally block.
+B.+ A traditional try statement without a finally block requires a catch block.
+C.- A traditional try statement with only one statement can omit the {}.
+D.- A try-with-resources statement without a catch block requires a finally block.
+E.- A try-with-resources statement without a finally block requires a catch block.
+F.- A try-with-resources statement with only one statement can omit the {}.
+Y: A, B. A try-with-resources statement does not require a catch or finally block. A traditional try statement requires at least one of the two.
+---5 chapter6
+Q: What is the output of the following code?
+1:   import java.io.*;
+2:   public class AutocloseableFlow {
+3:     static class Door implements AutoCloseable {
+4:      public void close() {
+5:         System.out.print("D");
+6:      }
+7:     }
+8:     static class Window implements Closeable {
+9:      public void close() {
+10:        System.out.print("W");
+11:        throw new RuntimeException();
+12:     }
+13:    }
+14:   public static void main(String[] args) {
+15:    try (Door d = new Door(); Window w = new Window()) {
+16:        System.out.print("T");
+17:    } catch (Exception e) {
+18:        System.out.print("E");
+19:    } finally {
+20:        System.out.print("F");
+21:    }
+22:   }
+23:  }
+A.- TWF
+B.- TWDF
+C.+ TWDEF
+D.- TWF followed by an exception
+E.- TWDF followed by an exception
+F.- TWEF followed by an exception
+G.- The code does not compile.
+Y: C. After opening both resources in the try-with-resources statement, T is printed. Then the try-with-resource completes and closes the resources in reverse order from which they were opened. After W is printed, an exception is thrown. However, the remaining resource is still closed and D is printed. The exception thrown is then caught and E is printed. Last, the finally block is run, printing F. Therefore the answer is TWDEF.
+---6 chapter6
+Q: What is the output of the following code?
+1:   import java.io.*;
+2:    public class AutocloseableFlow {
+3:     static class Door implements AutoCloseable {
+4:      public void close() {
+5:         System.out.print("D");
+6:         throw new RuntimeException();
+7:      }
+8:     }
+9:     static class Window implements Closeable {
+10:     public void close() {
+11:        System.out.print("W");
+12:        throw new RuntimeException();
+13:     }
+14:    }
+15:    public static void main(String[] args) {
+16:      try {
+17:        Door d = new Door();
+18:        Window w = new Window();
+19:      }
+20:      {
+21:        System.out.print("T");
+22:      } catch (Exception e) {
+23:         System.out.print("E");
+24:      } finally {
+25:         System.out.print("F");
+26:      }
+27:    }
+28:   }
+A.- TWF
+B.- TWDF
+C.- TWDEF
+D.- TWF followed by an exception
+E.- TWDF followed by an exception
+F.- TWEF followed by an exception
+G.+ The code does not compile.
+Y: G. A try-with-resources statement uses parentheses rather than brackets for the try section. This is likely subtler than a question that you’ll get on the exam, but it is still important to be on alert for details.
+---7 chapter6
+Q: What is the result of running java EchoInput hi there with the following code?
+1:   public class EchoInput {
+2:     public static void main(String [] args) {
+3:      if(args.length <= 3) assert false;
+4:      System.out.println(args[0] + args[1] + args[2]);
+5:     }
+6:   }
+A.- hithere
+B.- The assert statement throws an AssertionError.
+C.+ The code throws an ArrayIndexOutOfBoundsException.
+D.- The code compiles and runs successfully, but there is no output.
+E.- The code does not compile.
+Y: C. The code compiles fine, so option E is incorrect. The command line has only two arguments, so args.length is 2 and the if statement is true. However, because assertions are not enabled, it does not throw an AssertionError, so option B is incorrect. The println attempts to print args[2], which generates an ArrayIndexOutOfBoundsException, so the answer is option C.
+---8 chapter6
+Q: Which of the following command lines cause this program to fail on the assertion? (Choose all that apply.)
+1:   public class On {
+2:    public static void main(String[] args) {
+3:      String s = null;
+4:      assert s != null;
+5:    }
+6:   }
+A.- java –da On
+B.+ java –ea On
+C.+ java -da -ea:On On
+D.- java -ea -da:On On
+E.- The code does not compile.
+Y: B, C. Java uses the flags –ea or –enableassertions to turn on assertions. –da or –disableassertions turns off assertions. The colon indicates for a specific class. Choice B is correct because it turns on assertions for all code. Choice C is correct because it disables assertions but then turns them back on for this class.
+---9 chapter6
+Q: Which of the following prints OhNo with the assertion failure when the number is negative? (Choose all that apply.)
+A.+ assert n < 0: "OhNo";
+B.- assert n < 0, "OhNo";
+C.- assert n < 0 ("OhNo");
+D.+ assert(n < 0): "OhNo";
+E.- assert(n < 0, "OhNo");
+Y: A, D. An assertion consists of a boolean expression followed by an optional colon and message. The boolean expression is allowed to be in parenthesis, but this is not required. Therefore A and D are correct.
+---10 chapter6
+Q: Which of the following are true of the code? (Choose all that apply.)
+4: private int addPlusOne(int a, int b) {
+5:   boolean assert = false;
+6:   assert a++ > 0;
+7:   assert b > 0;
+8:   return a + b;
+9: }
+A.+ Line 5 does not compile.
+B.- Lines 6 and 7 do not compile because they are missing the String message.
+C.- Lines 6 and 7 do not compile because they are missing parentheses.
+D.- Line 6 is an appropriate use of an assertion.
+E.+ Line 7 is an appropriate use of an assertion.
+Y: A, E. Line 5 does not compile because assert is a reserved word making Choice A correct. B and C are incorrect because the parenthesis and message are both optional. D is incorrect because assertions should not have side effects. E is correct because checking an argument passed from elsewhere in the program is an appropriate use of an assertion.
+---11 chapter6
+Q: Which of the following are runtime exceptions? (Choose all that apply.)
+A.- Exception
+B.+ IllegalStateException
+C.- IOException
+D.+ MissingResourceException
+E.+ DateTimeParseException
+F.- SQLException
+Y: B, D, E. You need to memorize the contents of Table 6.2 and Table 6.3 before the exam.
+---12 chapter6
+Q: Which of the following can legally fill in the blank? (Choose all that apply.)
+1:  public class AhChoo {
+2:   static class SneezeException extends Exception { }
+3:   static class SniffleException extends SneezeException { }
+4:   public static void main(String[] args) throws SneezeException {
+5:     try {
+6:       throw new SneezeException();
+7:     } catch (SneezeException e) {
+8:       ______________
+9:       throw e;
+10:    }
+11:   }
+12:  }
+A.+ // leave line blank
+B.- e = new Exception();
+C.- e = new RuntimeException();
+D.+ e = new SneezeException();
+E.+ e = new SniffleException();
+F.- None of the above; the code does not compile.
+Y: A, D, E. Since a single exception type is caught, only the same type of exception or a subclass is allowed to be assigned to the variable in the catch block. Therefore D and E are correct. Additionally A is correct because there are no changes to the variable.
+---13 chapter6
+Q: Which of the following can legally fill in the blank? (Choose all that apply.)
+1:   public class AhChoo {
+2:    static class SneezeException extends Exception { }
+3:    static class SniffleException extends SneezeException { }
+4:    public static void main(String[] args) throws SneezeException {
+5:     try {
+6:      throw new SneezeException();
+7:     } catch (SneezeException | RuntimeException e) {
+8:      _________________
+9:      throw e;
+10:   }}}
+A.+ // leave line blank
+B.- e = new Exception();
+C.- e = new RuntimeException();
+D.- e = new SneezeException();
+E.- e = new SniffleException();
+F.- None of the above; the code does not compile.
+Y: A. Since a multi-catch is used, the variable in the catch block is effectively final and cannot be reassigned.
+---14 chapter6
+Q: Which of the following can legally fill in the blank? (Choose all that apply.)
+1:   public class AhChoo {
+2:    static class SneezeException extends Exception { }
+3:    static class SniffleException extends SneezeException { }
+4:    public static void main(String[] args) throws SneezeException {
+5:     try {
+6:       throw new SneezeException();
+7:     } catch (SneezeException | SniffleException e) {
+8:      _________________
+9:      throw e;
+10   }}}
+A.- // leave line blank
+B.- e = new Exception();
+C.- e = new RuntimeException();
+D.- e = new SneezeException();
+E.- e = new SniffleException();
+F.+ None of the above; the code does not compile.
+Y: F. A multi-catch cannot catch both a superclass and subclass. Notice how similar questions can be while testing something that is entirely different.
+---15 chapter6
+Q: Which of the following are checked exceptions? (Choose all that apply.)
+1:   class One extends RuntimeException{}
+2:   class Two extends Exception{}
+3:   class Three extends Error{}
+4:   class Four extends One{}
+5:   class Five extends Two{}
+6:   class Six extends Three{}
+A.- One
+B.+ Two
+C.- Three
+D.- Four
+E.+ Five
+F.- Six
+Y: B, E. A checked exception extends Exception but not RuntimeException. The entire hierarchy counts, so B and E are both correct.
+---16 chapter6
+Q: What is the output of the following?
+1:   public class SnowStorm {
+2:    static class Walk implements AutoCloseable {
+3:      public void close() {
+4:        throw new RuntimeException("snow");
+5:      }
+6:   }
+7:   public static void main(String[] args) {
+8:     try (Walk walk1 = new Walk(); Walk walk2 = new Walk();) {
+9:       throw new RuntimeException("rain");
+10:    } catch(Exception e) {
+11:      System.out.println(e.getMessage() + " " + e.getSuppressed().length);
+12:    }
+13:  }
+14: }
+A.- rain 0
+B.- rain 1
+C.+ rain 2
+D.- show 0
+E.- snow 1
+F.- snow 2
+G.- The code does not compile.
+Y: C. The exception inside the try block becomes the primary exception since it is thrown first. Then two suppressed exceptions are added to it when trying to close the AutoCloseable resources.
+---17 chapter6
+Q: Fill in the blank: A class that implements _________________may be in a try-with-resource statement. (Choose all that apply.)
+A.+ AutoCloseable
+B.+ Closeable
+C.- Exception
+D.- RuntimeException
+E.- Serializable
+Y: A, B. Closeable was the original interface for IO classes. AutoCloseable was added in Java 7 along with try-with-resources. Closeable extends AutoCloseable for backward compatibility.
+---18 chapter6
+Q: Which pairs fill in the blanks? The close() method is not allowed to throw a(n) _________________in a class that implements _________________. (Choose all that apply.)
+A.- Exception, AutoCloseable
+B.+ Exception, Closeable
+C.- IllegalStateException, AutoCloseable
+D.- IllegalStateException, Closeable
+E.- IOException, AutoCloseable
+F.- IOException, Closeable
+Y: B.The main difference between AutoCloseable and Closeable is that AutoCloseable has Exception in the signature and Closeable has only IOException in the signature. Since IllegalStateException is a runtime exception, it can be thrown by any method.
+---19 chapter6
+Q: Which of the following cannot fill in the blank? (Choose all that apply.)
+1:  public void read() throws SQLException {
+2:    try {
+3:     readFromDatabase();
+4:    } catch (_________________ e) {
+5:     throw e;
+6:    }
+7:  }
+8:  private void readFromDatabase() throws SQLException { }
+A.- Exception
+B.- RuntimeException
+C.- SQLException
+D.+ SQLException | IOException
+E.- SQLException | RuntimeException
+Y: D. Choice A is allowed because Java 7 and later “translates” Exception in a catch block to the correct one. Choices C and E are allowed because they actually catch a SQLException. Choice D is not allowed because there is no IOException declared. Choice B is allowed because a method does not have to handle an exception if it declares it.
+---20 chapter6
+Q: Which of the following is true when creating your own exception class?
+A.- One or more constructors must be coded.
+B.- Only checked exceptions may be created.
+C.- Only unchecked exceptions may be created.
+D.- The toString() method must be coded.
+E.+ None of the above.
+Y: E. You can create checked or unchecked exceptions. The default constructor is used if one is not supplied. There is no requirement to implement specific methods.

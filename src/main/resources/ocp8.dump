@@ -63,7 +63,8 @@ E.- The code does not compile.
 F.- The code throws a runtime exception.
 Y: C. s1 points to the string pool. s2 points to an object on the heap, since it is created at runtime. == checks for reference equality. These are different references, making B incorrect. String overrides equals() so the actual values are the same, making C correct. And yes, this question could have appeared on the OCA. Remember that the OCP is cumulative. A question may appear to be about one thing and actually be about a simpler concept.
 ---4 chapter1
-Q: What is true about the following code? You may assume city and mascot are never null.
+Q: What is true about the following code?
+You may assume city and mascot are never null.
 1:  public class BaseballTeam {
 2:      private String city, mascot;
 3:      private int numberOfPlayers;
@@ -84,14 +85,15 @@ C.+ The class compiles but has an improper hashCode() method.
 D.- The class compiles and has proper equals() and hashCode() methods.
 Y: C. The equals() method is correct. You are allowed to use any business logic that you want in determining equality. The hashCode() method is not correct. It violates the rule that two objects that return true for equals() must return the same hashCode(). It is also a bad idea for the hash code to contain values that could change.
 ---5 chapter1
-Q: Which of the following statements are true, assuming a and b are String objects? (Choose all that apply.)
+Q: Which of the following statements are true,
+assuming a and b are String objects? (Choose all that apply.)
 A.+ If a.equals(b) is true, a.hashCode() == b.hashCode() is always true.
 B.- If a.equals(b) is true, a.hashCode() == b.hashCode() is sometimes but not always true.
 C.- If a.equals(b) is false, a.hashCode() == b.hashCode() can never be true.
 D.+ If a.equals(b) is false, a.hashCode() == b.hashCode() can sometimes be true.
 Y: A, D. The relevant rule is that two objects that return true for equals() objects must return the same hash code. Therefore A is correct and B is incorrect. Two objects with the same hash code may or may not be equal. This makes C incorrect and D correct. The fact that two objects are not equal does not guarantee or preclude them from sharing a hash code. Remember that hashCode() tells you which bucket to look in and equals() tells you whether you have found an exact match.
 ---6 chapter1
-Q: What is the result of the following code?
+Q: What is the result of the following code ?
 1:   public class FlavorsEnum {
 2:      enum Flavors {
 3:         VANILLA, CHOCOLATE, STRAWBERRY
@@ -130,7 +132,7 @@ E.+ The code does not compile.
 F.- An exception is thrown.
 Y: E. A case statement on an enum data type must be the unqualified name of an enumeration constant. For example, case VANILLA would be valid. You cannot use the ordinal equiva- lents. Therefore, the code does not compile.
 ---8 chapter1
-Q: What is the result of the following code?
+Q: What is the result of the following code ?
 1:  public class Outer {
 2:      private int x = 5;
 3:      protected class Inner {
@@ -150,7 +152,7 @@ E.- Line 9 generates a compiler error.
 F.- An exception is thrown.
 Y: C. Inner is a member inner class. Inner classes are not allowed to contain static methods or static variables. Only nested static classes are permitted to contain statics.
 ---9 chapter1
-Q: What is the result of the following code?
+Q: What is the result of the following code ?
 1:  public class Outer {
 2:      private int x = 24;
 3:      public int getX() {
@@ -176,7 +178,8 @@ E.- Line 11 generates a compiler error.
 F.- An exception is thrown.
 Y: B. Outer.this.x is the correct way to refer to x in the Outer class. In Java 7, the answer would have been D because you used to have to declare variables as final to use them in a local inner class. In Java 8, this requirement was dropped and the variables only need to be effectively final, which means that the code would still compile if final were added.
 ---10 chapter1
-Q: The following code appears in a file named Book.java. What is the result of compiling the source file ?
+Q: The following code appears in a file named Book.java.
+What is the result of compiling the source file ?
 1:  public class Book {
 2:      private int pageNumber;
 3:      private class BookReader {
@@ -190,7 +193,8 @@ D.- A compiler error occurs on line 3.
 E.- A compiler error occurs on line 5.
 Y: C. The code compiles fine. A member inner class is allowed to be private, and it is allowed to refer to instance variables from the outer class. Two .class files are generated. Book.class matches the name of the outer class. The inner class does not compile to BookReader.class. That would introduce the possibility of a naming conflict. Book$BookReader.class is correct because it shows the scope of the class is limited to Book. You don’t need to know that $ is the syntax, but you do need to know the number of classes and that BookReader is not a top-level class.
 ---11 chapter1
-Q:  Which of the following statements can be inserted to make FootballGame compile?
+Q:  Which of the following statements can be inserted to make
+FootballGame compile?
 1:  package my.sports;
 2:  public class Football {
 3:      public static final int TEAM_SIZE = 11;
@@ -209,7 +213,7 @@ F.- static import my.sports.Football;
 G.- static import my.sports.Football.*;
 Y: D. FootballGame is trying to refer to a static variable in another class. It needs a static import to do so. The correct syntax is import static and not static import. B is incorrect because * does not import classes in a package. C is incorrect because it does not refer to a static member.
 ---12 chapter1
-Q: What is the result of the following code?
+Q: What is the result of the following code ?
 1:  public class Browsers {
 2:      static class Browser {
 3:          public void go() {
@@ -239,7 +243,7 @@ D.- The code does not compile.
 E.+ A runtime exception is thrown.
 Y: E. The main method tries to cast a Firefox instance to IE. Since IE is not a subclass of Firefox, this throws a ClassCastException.
 ---13 chapter1
-Q: Which is a true statement about the following code?
+Q: Which is a true statement about the following code ?
 1:  public class IsItFurry {
 2:      static interface Mammal { }
 3:      static class Furry implements Mammal { }
@@ -261,7 +265,7 @@ C.- The output is 7.
 D.- c instanceof Mammal does not compile.
 E.- c instanceof Furry does not compile.
 F.- null instanceof Chipmunk does not compile.
-Y: B. c is an instance of Chipmunk. It is an instance of any superclasses or interfaces it imple- ments. In this case, those are Furry, Mammal, and Object. null is not an instance of any type. Therefore, the first two if statements execute and result is 3.
+Y: B. c is an instance of Chipmunk. It is an instance of any superclasses or interfaces it implements. In this case, those are Furry, Mammal, and Object. null is not an instance of any type. Therefore, the first two if statements execute and result is 3.
 ---14 chapter1
 Q: Which is a true statement about the following code? (Choose all that apply.)
 1:  import java.util. *;
@@ -286,16 +290,17 @@ E.+ l instanceof Chipmunk does not compile.
 F.- r instanceof Chipmunk does not compile.
 Y: E. Code involving instanceof does not compile when there is no way for it to evaluate true. D not only compiles but it is always true. E does not compile because ArrayList is a concrete class that does not extend Chipmunk. F does compile because Runnable is an interface. In theory, someone could subclass Chipmunk and have the subclass implement Runnable.
 ---15 chapter1
-Q: Which of the following statements are true about the equals() method? (Choose all that apply.)
+Q: Which of the following statements are true about the equals() method ?
+(Choose all that apply.)
 A.- If equals(null) is called, the method should throw an exception.
 B.+ If equals(null) is called, the method should return false.
 C.- If equals(null) is called, the method should return true.
 D.- If equals() is passed the wrong type, the method should throw an exception.
 E.+ If equals() is passed the wrong type, the method should return false.
 F.- If equals() is passed the wrong type, the method should return true.
-Y: B, E. equals() should return false when the object it passed in is not equal to the cur- rent object. This includes null and incorrect types. An equals() method should have a null check and an instanceof check.
+Y: B, E. equals() should return false when the object it passed in is not equal to the current object. This includes null and incorrect types. An equals() method should have a null check and an instanceof check.
 ---16 chapter1
-Q: Which of the following can be inserted in main?
+Q: Which of the following can be inserted in main ?
 1:  public class Outer {
 2:      class Inner { }
 3:          public static void main(String[] args) {
@@ -361,7 +366,8 @@ F.- true
 G.+ The code does not compile.
 Y: G. This question appears to be about enums but is really about abstract methods. Just as an abstract superclass requires concrete subclasses to have an implementation, abstract enum methods require each enum type to implement the method.
 ---19 chapter1
-Q: Which of the following can be inserted to override the superclass method? (Choose all that apply.)
+Q: Which of the following can be inserted to override the superclass method?
+(Choose all that apply.)
 1:  public class LearnToWalk {
 2:      public void toddle() {}
 3:      class BabyRhino extends LearnToWalk {
@@ -395,9 +401,10 @@ C.+ walk,toddle,
 D.- walk,walk,
 E.- The code does not compile.
 F.- A runtime exception is thrown.
-Y: C. Both objects are BabyRhino objects. Virtual method invocation says that the subclass method gets called at runtime rather than the type in the variable reference. However, we are not calling methods here. We are referring to instance variables. With instance vari- ables, the reference type does matter.
+Y: C. Both objects are BabyRhino objects. Virtual method invocation says that the subclass method gets called at runtime rather than the type in the variable reference. However, we are not calling methods here. We are referring to instance variables. With instance variables, the reference type does matter.
 ---21 chapter1
-Q: Which of the following could be inserted to fill in the blank? (Choose all that apply.)
+Q: Which of the following could be inserted to fill in the blank?
+(Choose all that apply.)
 1:  public interface Otter {
 2:      default void play() { }
 3:  }
@@ -412,13 +419,14 @@ E.+ @Override public void play() { }
 F.- @Override void play() { }
 Y: A, C, E. Remember that @Override means that we are implementing a method from a superclass or interface. The Object class declares methods with the signatures in Options A and C. Granted, it is a poor implementation of equals(), but it does compile. Option E is also correct because the method is declared in Otter. Option F is incorrect because meth- ods from an interface are always public. Option B is incorrect because the parameter type does not match the one in Object. Option D is incorrect because the return type does not match the one in Object.
 ---1 chapter2
-Q: Which of the following statements about design principles and design patterns are true? (Choose all that apply.)
+Q: Which of the following statements about design principles and
+design patterns are true? (Choose all that apply.)
 A.- A design principle is focused on solving a specific commonly occurring problem.
 B.- Design principles and design patterns are the same thing.
 C.+ Design principles are often applied throughout an application, whereas design patterns are applied to solve specific problems.
 D.- Design patterns can only be applied to static classes.
 E.+ Design principles and design patterns tend to produce code that is easier to maintain and easier for other developers to read.
-Y: C, E. Option A is incorrect as a design pattern is focused on solving a specific commonly occurring problem. Option B is also incorrect, as design principles and design patterns are different, despite both promoting better code development. Option D is incorrect as design patterns may be applied to static or non-static classes alike. Options C and E are cor- rect statements about design principles and design patterns.
+Y: C, E. Option A is incorrect as a design pattern is focused on solving a specific commonly occurring problem. Option B is also incorrect, as design principles and design patterns are different, despite both promoting better code development. Option D is incorrect as design patterns may be applied to static or non-static classes alike. Options C and E are correct statements about design principles and design patterns.
 ---2 chapter2
 Q: What is the result of the following code?
 1:  public interface CanClimb {
@@ -467,7 +475,8 @@ F.- () ->
 G.- (Animal z, m) -> a
 Y: A, D. The first lambda expression is valid, taking no arguments and returning the empty string, so A is correct. B is incorrect, as more than one parameter requires parentheses (). C is incorrect, as brackets {} are required when using return. D is correct, as the expres- sion takes one Camel input and returns void. E is incorrect, as parentheses are required when using the data type Wolf. F is incorrect, as it has no right-side expression. Finally, G is incorrect, as specifying the data type for one parameter in a lambda expression requires you to specify the data type for all parameters in the expression. In this case, z has a data type and m does not, therefore the expression is invalid.
 ---5 chapter2
-Q: What are some of the properties of using the singleton pattern? (Choose all that apply.)
+Q: What are some of the properties of using the singleton pattern?
+(Choose all that apply.)
 A.- Singleton object can be replaced with encapsulated setter method.
 B.+ Requires constructor of singleton class to be private.
 C.- Singleton object must be named instance.
@@ -498,7 +507,8 @@ E.- Compile error on line h3.
 F.- A runtime exception is thrown.
 Y: A. This code compiles and runs without issue so C, D, E, and F are incorrect. Line h1 cre- ates a lambda expression that checks if the age is less than 5. Since there is only one param- eter and it does not specify a type, the parentheses around the type parameter are optional. Line h2 uses the Predicate interface, which declares a test() method. Since test() returns true on the expression, match is output and A is correct.
 ---7 chapter2
-Q: What changes need to be made to make the following immutable object pattern correct? (Choose all that apply.)
+Q: What changes need to be made to make the following immutable object pattern correct?
+(Choose all that apply.)
 1:  import java.util.List;
 2:  public class Seal {
 3:      String name;
@@ -529,7 +539,8 @@ E.- They can be declared final.
 F.+ All members of an interface are public.
 Y: C, F. A and B are both incorrect as interfaces can extend other interfaces, although not classes. C is correct since a class may implement multiple interfaces. D is incorrect as inter- faces have static and default methods, as well as static final variables. E is incor- rect as interfaces are assumed to be abstract, and abstract and final can never be used together. F is correct as interface methods and variables are each assumed public.
 ---9 chapter2
-Q: What changes need to be made to make the following singleton pattern correct? (Choose all that apply.)
+Q: What changes need to be made to make the following singleton pattern correct?
+(Choose all that apply.)
 1:  public class CheetahManager {
 2:      public static CheetahManager cheetahManager;
 3:      private CheetahManager() {}
@@ -566,7 +577,8 @@ D.+ The code will not compile because of line 8.
 E.- The code will not compile because of line 9.
 Y: D.While Java supports multiple inheritance through interfaces,it does not support method overriding in interfaces, since it’s not clear which parent method should be used. In this example, CanWalk and CanRun both implement a default walk() method. The definition of CanSprint extends these two interfaces and therefore won’t compile as two default meth- ods with the same signature from parent classes are detected, therefore the answer is D. None of the other lines of code cause problems, so the rest of the answers are not correct.
 ---11 chapter2
-Q: Which lambda can replace the MySecret class to return the same value? (Choose all that apply.)
+Q: Which lambda can replace the MySecret class to return the same value?
+(Choose all that apply.)
 1:  public interface Secret {
 2:      String magic(double d);
 3:  }
@@ -604,7 +616,8 @@ E.- Compiler error on a different line.
 F.- A runtime exception is thrown.
 Y: C. The functional interface takes two int parameters. The code on line x1 attempts to use them as if one is an Object, resulting in a compiler error making C the correct answer. It also tries to return String even though the data type for the functional interface method is boolean. It is tricky to use types in a lambda when they are implicitly specified. Remember to check the interface for the real type.
 ---13 chapter2
-Q: Which of the following are properties of classes that define immutable objects? (Choose all that apply.)
+Q: Which of the following are properties of classes that define immutable objects?
+(Choose all that apply.)
 A.- They don’t define any getter methods.
 B.+ All of the instance variables marked private and final.
 C.+ They don’t define any setter methods.
@@ -613,7 +626,8 @@ E.+ They prevent methods from being overridden.
 F.- All getter methods are marked synchronized.
 Y: B, C, E. Immutable objects may not be modified after creation. B, C, and E are correct statements that support this property. A is incorrect, as immutable objects may have get- ter methods, just not setter methods. D is incorrect, as static methods are not part of the immutable object pattern. F is also incorrect, as the getter methods are not required to be marked synchronized.
 ---14 chapter2
-Q: Which of the following statements can be inserted in the blank line so that the code will compile successfully? (Choose all that apply.)
+Q: Which of the following statements can be inserted in the blank line so that
+the code will compile successfully? (Choose all that apply.)
 1:  public interface CanHop {}
 2:  public class Frog implements CanHop {
 3:      public static void main(String[] args) {
@@ -630,7 +644,8 @@ E.+ Object
 F.- Long
 Y: A, B, D, E. The blank can be filled with any class or interface that is a supertype of Tur- tleFrog. A is a superclass of TurtleFrog, and B is the same class, so both are correct. BrazilianHornedFrog is not a superclass of TurtleFrog, so C is incorrect. TurtleFrog inherits the CanHop interface, so D is correct. All classes inherit Object, so E is correct. Finally, Long is an unrelated class that is not a superclass of TurtleFrog, and it is therefore incorrect.
 ---15 chapter2
-Q: Which of the following statements about polymorphism are true? (Choose all that apply.)
+Q: Which of the following statements about polymorphism are true?
+(Choose all that apply.)
 A.- A reference to an object may be cast to a subclass of the object without an explicit cast.
 B.+ If a method takes a class that is the superclass of three different object references, then any of those objects may be passed as a parameter to the method.
 C.+ A reference to an object may be cast to a superclass of the object without an explicit cast.
@@ -654,7 +669,8 @@ E.- The code will not compile because of lines 2 and 3.
 F.+ The code will not compile because of lines 3 and 4.
 Y: F. The interface variable amount is correctly declared, with public, static, and final being assumed and automatically inserted by the compiler, so B is incorrect. The method declaration for eatGrass() on line 3 is incorrect because the method has been marked as static but no method body has been provided. The method declaration for chew() on line 4 is also incorrect, since an interface method that provides a body must be marked as default or static explicitly. Therefore, F is the correct answer since this code contains two compile-time errors.
 ---17 chapter2
-Q: Which of the following are properties of classes that are properly encapsulated as a JavaBean? (Choose all that apply.)
+Q: Which of the following are properties of classes that are properly encapsulated as a JavaBean?
+(Choose all that apply.)
 A.- All instance variables are marked final.
 B.+ boolean instance variables are accessed with is or get.
 C.+ All instance variables are marked private.
@@ -663,7 +679,8 @@ E.- Variables are created using lazy instantiation.
 F.+ The first letter of the any getter/setter, after the get, set, or is prefix, must be uppercase.
 Y: B, C, F. Options B, C, and F are each correct statements about JavaBean encapsulation. A is incorrect, as that is a property of the immutable object pattern, not encapsulation. D is incorrect, as there is no such JavaBean interface defined in the Java API. Finally, E is incorrect, as handling instantiation is not part of encapsulation.
 ---18 chapter2
-Q: Which of the following statements about inheritance and object composition are correct? (Choose all that apply.)
+Q: Which of the following statements about inheritance and object composition are correct?
+(Choose all that apply.)
 A.+ Inheritance supports access to protected variables.
 B.+ Object composition tends to promote greater code reuse than inheritance.
 C.- Inheritance relies on the has‐a principle.
@@ -672,7 +689,8 @@ E.+ Object composition requires a class variable to be declared public or access
 F.- Object composition is always preferred to inheritance.
 Y: A, B, E. A is correct, and it is one of the reasons to prefer class inheritance over object composition. B is also correct, since object composition tends to lead to classes that are easier to reference, as they don’t require knowledge of any parent classes. C is incorrect, as inheritance tends to use the is-a principle, whereas object composition relies on the has-a principle. D is incorrect, as this is a statement about inheritance, not object composition. E is correct, as object composition has no notion of inheritance and variables must be exposed publically if they are to be used by other classes in different packages. F is incor- rect, as neither are always the right answer. There are situations where inheritance is more appropriate, and situations where object composition is more appropriate.
 ---19 chapter2
-Q: Which three scenarios would best benefit from using a singleton pattern? (Choose all three.)
+Q: Which three scenarios would best benefit from using a singleton pattern?
+(Choose all three.)
 A.- Create read‐only objects that are thread‐safe.
 B.+ Manage a reusable cache of objects.
 C.- Ensure that all objects are lazily instantiated.
@@ -698,7 +716,10 @@ E.- The code will not compile because of lines 2 and 5.
 F.- The code will not compile because the class Falcon doesn’t implement the interface methods.
 Y: A. Although the definition of methods on lines 2 and 5 vary, both will be converted to public abstract by the compiler. Line 4 is fine, because an interface can have public or default access. Finally, the class Falcon doesn’t need to implement the interface methods because it is marked as abstract. Therefore, the code will compile without issue.
 ---1 chapter3
-Q: Suppose that you have a collection of products for sale in a database and you need to display those products. The products are not unique. Which of the following collections classes in the java.util package best suit your needs for this scenario?
+Q: Suppose that you have a collection of products for sale in a database and
+you need to display those products. The products are not unique.
+Which of the following collections classes in the java.util package
+best suit your needs for this scenario ?
 A.- Arrays
 B.+ ArrayList
 C.- HashMap
@@ -706,7 +727,10 @@ D.- HashSet
 E.- LinkedList
 Y: B. The answer needs to implement List because the scenario allows duplicates. Since you need a List, you can eliminate C, D, and E immediately. HashMap is a Map and HashSet is a Set. LinkedList is both a List and a Queue. You want a regular List. Option A, Arrays, is trying to distract you. It is a utility class rather than a Collection. An array is not a col- lection. By process of elimination, the answer is B.
 ---2 chapter3
-Q: Suppose that you need to work with a collection of elements that need to be sorted in their natural order, and each element has a unique string associated with its value. Which of the following collections classes in the java.util package best suit your needs for this scenario?
+Q: Suppose that you need to work with a collection of elements that need to be sorted
+in their natural order, and each element has a unique string associated with its value.
+Which of the following collections classes in the java.util package best suit your needs
+for this scenario ?
 A.- ArrayList
 B.- HashMap
 C.- HashSet
@@ -850,7 +874,8 @@ E.- Compiler error on line 7.
 F.- A runtime exception is thrown.
 Y: A. Line 3 uses the diamond operator to create the map. Lines 5 and 7 use autoboxing to convert between the int primitive and the Integer wrapper class. The keys map to their squared value. 1 maps to 1, 2 maps to 4, 3 maps to 9, 4 maps to 16, and so on.
 ---12 chapter3
-Q: Which of these statements can fill in the blank so that the Helper class compiles successfully? (Choose all that apply.)
+Q: Which of these statements can fill in the blank so that the Helper class
+compiles successfully? (Choose all that apply.)
 3:  public class Helper {
 4:      public static <U extends Exception> void printException(U u) {
 5:          System.out.println(u.getMessage());
@@ -865,7 +890,8 @@ D.+ Helper.<NullPointerException>printException(new NullPointerException ("D"));
 E.- Helper.printException(new Throwable("E"));
 Y: A, B, D. The generic type must be Exception or a subclass of Exception since this is an upper bound. C and E are wrong because Throwable is a superclass of Exception. D uses an odd syntax by explicitly listing the type, but you should be able to recognize it as acceptable.
 ---13 chapter3
-Q: Which of these statements can fill in the blank so that the Wildcard class compiles successfully? (Choose all that apply.)
+Q: Which of these statements can fill in the blank so that the Wildcard class
+compiles successfully? (Choose all that apply.)
 1:   import java.util.*;
 2:   public class Wildcard {
 3:     public void showSize(List<?> list) {
@@ -943,7 +969,8 @@ E.- compare() takes one method parameter.
 F.+ compare() takes two method parameters.
 Y: B, D, F. The java.lang.Comparable interface is implemented on the object to com- pare. It specifies the compareTo() method, which takes one parameter. The java. util.Comparator interface specifies the compare() method, which takes two parameters.
 ---17 chapter3
-Q: Which two options can fill in the blanks to make this code compile? (Choose all that apply.)
+Q: Which two options can fill in the blanks to make this code compile?
+(Choose all that apply.)
 1:  public class Generic________ {
 2:      public static void main(String[] args) {
 3:          Generic<String> g = new Generic_______();
@@ -958,7 +985,8 @@ E.- On line 3, fill in with <T>.
 F.- On line 3, fill in with <?>.
 Y: B, D. Line 1 is a generic class that requires specifying a name for the type. Options A and C are incorrect because no type is specified. Line 3 tries to use the diamond operator to instantiate the class. Option E is incorrect because T is not a class and certainly not one compatible with String. Option F is incorrect because a wildcard cannot be specified on the right side when instantiating an object.
 ---18 chapter3
-Q: Which of the following lines can be inserted to make the code compile?(Choose all that apply.)
+Q: Which of the following lines can be inserted to make the code compile?
+(Choose all that apply.)
 1:  class A {}
 2:  class B extends A {}
 3:  class C extends B {}
@@ -1000,7 +1028,8 @@ E.+ Compiler error on line 7.
 F.- A runtime exception is thrown.
 Y: E. This question looks like it is about generics, but it’s not. It is trying to see if you noticed that Map does not have a contains() method. It has containsKey() and containsValue() instead. If containsKey() was called, the answer would be false because the 123 in the list is an Integer rather than a String.
 ---21 chapter3
-Q: Fill in the blanks to make this code compile and print 123. (Choose all that apply.)
+Q: Fill in the blanks to make this code compile and print 123.
+(Choose all that apply.)
 4: List<String> list = Arrays.asList("1", "2", "3");
 5: Iterator iter = list.iterator();
 6: while(iter.__________())
@@ -1025,7 +1054,8 @@ E.- Add <?> after the static keyword.
 F.- No change required. The code already compiles.
 Y: B. When using generic types in a static method, the generic specification goes before the return type.
 ---23 chapter3
-Q: Which of the answer choices make sense to implement with a lambda?(Choose all that apply.)
+Q: Which of the answer choices make sense to implement with a lambda?
+(Choose all that apply.)
 A.- Comparable interface
 B.+ Comparator interface
 C.- remove method on a Collection
@@ -1033,7 +1063,8 @@ D.- removeAll method on a Collection
 E.+ removeIf method on a Collection
 Y: B, E. Both Comparator and Comparable are functional interfaces. However, Comparable is intended to be used on the object being compared, making choice B correct. removeIf was added in Java 8 to allow specifying the lambda to check when removing elements, making choice E correct.
 ---24 chapter3
-Q: Which of the following compiles and print outs the entire set? (Choose all that apply.)
+Q: Which of the following compiles and print outs the entire set?
+(Choose all that apply.)
 1: Set<String> s = new HashSet<>();
 2: s.add("lion");
 3: s.add("tiger");
@@ -1106,7 +1137,8 @@ E.+ An exception is thrown.
 F.- The code hangs.
 Y: E. An infinite stream is generated where each element is twice as long as the previous one. b1 is set to false because Java finds an element that doesn’t match when it gets to the element of length 4. However, the next line tries to operate on the same stream. Since streams can be used only once, this throws an exception that the “stream has already been operated upon or closed.” If two different streams were used, the result would be option A.
 ---4 chapter4
-Q: Which are true statements about terminal operations in a stream? (Choose all that apply.)
+Q: Which are true statements about terminal operations in a stream?
+(Choose all that apply.)
 A.+ At most one terminal operation can exist in a stream pipeline.
 B.+ Terminal operations are a required part of the stream pipeline in order to get a result.
 C.- Terminal operations have Stream as the return type.
@@ -1114,7 +1146,8 @@ D.- The referenced Stream may be used after the calling a terminal operation.
 E.- The peek() method is an example of a terminal operation.
 Y: A, B. Terminal operations are the final step in a stream pipeline. Exactly one is required, because it triggers the execution of the entire stream pipeline. Therefore, options A and B are correct. Options C and F are true of intermediate operations rather than terminal operations. Option E is never true. Once a stream pipeline is run, the Stream is marked invalid.
 ---5 chapter4
-Q: Which terminal operations on the Stream class are reductions? (Choose all that apply.)
+Q: Which terminal operations on the Stream class are reductions?
+(Choose all that apply.)
 A.+ collect()
 B.+ count()
 C.- findFirst()
@@ -1123,7 +1156,8 @@ E.- peek()
 F.- sum()
 Y: A, B. Options D and E are incorrect because they are intermediate operations and not terminal operations. While option F is a reduction, it is incorrect because it is available only on primitive streams such as IntStream. Option C is incorrect because it is not a reduction it does not look at each element in the stream.
 ---6 chapter4
-Q: Which of the following can fill in the blank so that the code prints out false? (Choose all that apply.)
+Q: Which of the following can fill in the blank so that the code prints out false?
+(Choose all that apply.)
 1:   Stream<String> s = Stream.generate(() -> "meow");
 2:   boolean match = s.________________(String::isEmpty);
 3:   System.out.println(match);
@@ -1135,7 +1169,8 @@ E.- noneMatch
 F.- None of the above
 Y: A. Options C and D are incorrect because these methods do not take a Predicate parameter and do not return a boolean. Options B and E are incorrect because they cause the code to run infinitely. The stream has no way to know that a match won’t show up later. Option A is correct because it is safe to return false as soon as one element passes through the stream that doesn’t match.
 ---7 chapter4
-Q: We have a method that returns a sorted list without changing the original. Which of the following can replace the method implementation to do the same with streams?
+Q: We have a method that returns a sorted list without changing the original.
+Which of the following can replace the method implementation to do the same with streams?
 1:   private static List<String> sort(List<String> list) {
 2:        List<String> copy = new ArrayList<>(list);
 3:        Collections.sort(copy, (a, b) -> b.compareTo(a));
@@ -1149,7 +1184,8 @@ E.- return list.stream().sorted((a, b) -> b.compareTo(a)) .collect();
 F.+ return list.stream().sorted((a, b) -> b.compareTo(a)) .collect(Collectors.toList());
 Y: F. The sorted() method is used in a stream pipeline to return a sorted Stream. A collector is needed to turn the stream back into a List. The collect() method takes the desired collector.
 ---8 chapter4
-Q: Which of the following are true given the declaration IntStream is = IntStream. empty()? (Choose all that apply.)
+Q: Which of the following are true given the declaration
+IntStream is = IntStream. empty()? (Choose all that apply.)
 A.- is.average() returns the type int.
 B.- is.average() returns the type OptionalInt.
 C.- is.findAny() returns the type int.
@@ -1158,7 +1194,8 @@ E.+ is.sum() returns the type int.
 F.- is.sum() returns the type OptionalInt.
 Y: D, E. The sum() method returns an int rather than an OptionalInt because the sum of an empty list is zero. Therefore, option E is correct. The findAny() method returns an OptionalInt because there might not be any elements to find. Therefore, option D is correct. The average() method returns an OptionalDouble since averages of any type can result in a fraction. Therefore, options A and B are both incorrect.
 ---9 chapter4
-Q: Which of the following can we add after line 5 for the code to run without error and not produce any output? (Choose all that apply.)
+Q: Which of the following can we add after line 5 for the code to run without error
+and not produce any output? (Choose all that apply.)
 4: LongStream ls = LongStream.of(1, 2, 3);
 5: OptionalLong opt = ls.map(n -> n * 10).filter(n -> n < 5).findFirst();
 A.- if (opt.isPresent()) System.out.println(opt.get());
@@ -1169,7 +1206,8 @@ E.- None of these; the code does not compile.
 F.- None of these; line 5 throws an exception at runtime.
 Y: B, D. Option A would work for a regular Stream. However, we have a LongStream and therefore need to call getAsLong(). Option C is missing the :: that would make it a method reference. Therefore, options B and D are correct.
 ---10 chapter4
-Q: Select from the following statements and indicate the order in which they would appear to output 10 lines:
+Q: Select from the following statements and indicate the order in which
+they would appear to output 10 lines:
 1:  Stream.generate(() -> "1")
 2:  L: .filter(x -> x.length() > 1)
 3:  M: .forEach(System.out::println)
@@ -1184,7 +1222,8 @@ F.+ N, M
 G.- N, O
 Y: F. The terminal operation must be right before the semicolon, which is line M. Remember that forEach() is a terminal operation while peek() is an intermediate operation. This eliminates all but choices C, E, and F. Choice E is incorrect because there is no limit() operation, which means that the code would run infinitely. Choice C is incorrect because filter() is called before limit(). No elements make it through the filter, so the code also runs infinitely. Choice F is correct.
 ---11 chapter4
-Q: What changes need to be made for this code to print the string 12345? (Choose all that apply.)
+Q: What changes need to be made for this code to print the string 12345?
+(Choose all that apply.)
 1:   Stream.iterate(1, x -> x++)
 2:         .limit(5)
 3:         .map(x -> x)
@@ -1197,7 +1236,8 @@ E.+ Wrap the entire line in a System.out.print statement.
 F.- None of the above. The code already prints 12345.
 Y: B, C, E. As written, the code doesn’t compile because the collector expects to get a String immediately before it in the chain. Option B fixes this, at which point nothing is output because the collector creates a String. Option E fixes this and causes the output to be 11111. Since the post-increment operator is used, the stream contains an infinite number of 1s. Option C fixes this and causes the stream to contain increasing numbers.
 ---12 chapter4
-Q: Which functional interfaces complete the following code? (Choose all that apply.)
+Q: Which functional interfaces complete the following code?
+(Choose all that apply.)
 6: ____________ x = String::new;
 7: ____________ y = (a, b) -> System.out.println();
 8: ____________ z = a -> a + a;
@@ -1243,7 +1283,9 @@ F.- The code throws an exception.
 G.- The code compiles and prints 1.
 Y: D. Line 4 should obviously look OK. It creates a Stream and uses autoboxing to put the Integer 1 inside. Line 5 converts to a primitive, again using autoboxing. Line 6 converts to a double primitive, which works since double d = 1; would work. Line 7 is where it all falls apart. Converting from a double to an int would require a cast inside the lambda.
 ---15 chapter4
-Q: The partitioningBy() collector creates a Map<Boolean, List<String>> when passed to collect() by default. When specific parameters are passed to partitioningBy(), which return types can be created? (Choose all that apply.)
+Q: The partitioningBy() collector creates a Map<Boolean, List<String>> when passed
+to collect() by default. When specific parameters are passed to partitioningBy(),
+which return types can be created? (Choose all that apply.)
 A.- Map<boolean, List<String>>
 B.- Map<Boolean, Map<String>>
 C.- Map<Long, TreeSet<String>>
@@ -1268,7 +1310,8 @@ E.- The code does not compile.
 F.- An exception is thrown.
 Y: C. The partitioningBy() operation always returns a map with two Boolean keys, even if there are no corresponding values. By contrast, groupingBy() returns only keys that are actually needed.
 ---17 chapter4
-Q: Which of the following is equivalent to this code? UnaryOperator<Integer> u = x -> x * x;
+Q: Which of the following is equivalent to this code?
+UnaryOperator<Integer> u = x -> x * x;
 A.- BiFunction<Integer> f = x -> x*x;
 B.- BiFunction<Integer, Integer> f = x -> x*x;
 C.- BinaryOperator<Integer, Integer> f = x -> x*x;
@@ -1312,7 +1355,8 @@ D.- None of the above is equivalent.
 E.- The provided code does not compile.
 Y: B. Both lists and streams have forEach() methods. There is no reason to collect into a list just to loop through it.
 ---1 chapter5
-Q: Which of the following creates valid locales, assuming that the language and country codes follow standard conventions? (Choose all that apply.)
+Q: Which of the following creates valid locales, assuming that the language and country codes
+follow standard conventions? (Choose all that apply.)
 A.+ new Locale("hi");
 B.+ new Locale("hi", "IN");
 C.- new Locale("IN");
@@ -1321,7 +1365,8 @@ E.- Locale.create("hi");
 F.- Locale.create("IN");
 Y: A, B. Choices E and F are incorrect because a Locale is created using a constructor. The convention is to use lowercase for a language code and uppercase for a country code. The language is mandatory when using a constructor, which makes choices A and B correct.
 ---2 chapter5
-Q: Which of the following are common types to localize? (Choose all that apply.)
+Q: Which of the following are common types to localize?
+(Choose all that apply.)
 A.- Booleans
 B.- Class names
 C.+ Currency
@@ -1338,7 +1383,8 @@ D.+ Changing the default locale lasts for only a single run of the program.
 E.- It is forbidden to have both Props_en.java and Props_en.properties in the classpath of an application.
 Y: C, D. Choice A is incorrect because Java will look at parent bundles. For example, Java will look at Props.properties if Props_en.properties does not contain the requested key. Java class resource bundles can have non-String values while property files are limited to strings. Therefore, choice B is incorrect and choice C is correct. Choice D is correct because the locale is only changed in memory. Choice E is incorrect because Java specifies that it will look for a Java class resource bundle before a property file of the same name.
 ---4 chapter5
-Q: Assume that all bundles mentioned in the answers exist and define the same keys. Which one will be used to find the key in line 8 ?
+Q: Assume that all bundles mentioned in the answers exist and define the same keys.
+Which one will be used to find the key in line 8 ?
 6:  Locale.setDefault(new Locale("en", "US"));
 7:  ResourceBundle b = ResourceBundle.getBundle("Dolphins");
 8:  b.getString("name");
@@ -1350,7 +1396,8 @@ E.- Whales_en_US.properties
 F.- The code does not compile.
 Y: B. Java will first look for the most specific matches it can find, starting with Dolphins_en_ US.java and then Dolphins_en_US.properties. Since neither is found, it drops the coun- try and looks for Dolphins_en.java. Since a match is found, there is no reason to go on to the next one, which is Dolphins_en.properties.
 ---5 chapter5
-Q: Suppose that we have the following property files and code. Which bundles are used on lines 8 and 9 respectively?
+Q: Suppose that we have the following property files and code.
+Which bundles are used on lines 8 and 9 respectively?
 1:   Dolphins.properties
 2:      name=The Dolphin
 3:      age=0
@@ -1372,7 +1419,8 @@ E.- Dolphins_fr.properties and Dolphins_en.properties
 F.- The code does not compile.
 Y: D. Java will use Dolphins_fr.properties as the matching resource bundle on line 7 because it is an exact match on the language of the requested locale. Line 8 finds a match- ing key in this file. Line 9 does not find a match in that file, and therefore it has to look higher up in the hierarchy. Once a bundle is chosen, only resources in that hierarchy are allowed.
 ---6 chapter5
-Q: Which of the following can be inserted into the blank to create a date of June 21, 2014? (Choose all that apply.)
+Q: Which of the following can be inserted into the blank to create a date
+of June 21, 2014? (Choose all that apply.)
 1:   import java.time.*;
 2:   public class StartOfSummer {
 3:      public static void main(String[] args) {
@@ -1458,7 +1506,8 @@ E.- The code does not compile.
 G.- A runtime exception is thrown.
 Y: B. Period does not allow chaining. Only the last Period method called counts, so only the two years are subtracted.
 ---12 chapter5
-Q: Which of the answer choices is true given the following code? (Choose all that apply.)
+Q: Which of the answer choices is true given the following code?
+(Choose all that apply.)
 1: 2016–08–28T05:00 GMT-04:00
 2: 2016–08–28T09:00 GMT-06:00
 A.+ The first date/time is earlier.
@@ -1469,7 +1518,8 @@ E.+ The date/times are 6 hours apart.
 F.- The date/times are 10 hours apart.
 Y: A, E. When dealing with time zones, it is best to convert to GMT first by subtracting the time zone. The first date/time is 9:00 GMT, and the second is 15:00 GMT. Therefore, the first one is earlier by 6 hours.
 ---13 chapter5
-Q: Note that March 13, 2016, is the weekend that clocks spring ahead for daylight savings time. What is the output of the following?
+Q: Note that March 13, 2016, is the weekend that clocks spring ahead for
+daylight savings time. What is the output of the following?
 1:   LocalDate date = LocalDate.of(2016, Month.MARCH, 13);
 2:   LocalTime time = LocalTime.of(1, 30);
 3:   ZoneId zone = ZoneId.of("US/Eastern");
@@ -1487,7 +1537,9 @@ E.- The code does not compile.
 F.- A runtime exception is thrown.
 Y: B. dateTime1 is 2016–03–13T01:30–05:00[US/Eastern] and dateTime2 is 2016–03–13T03:30–04:00[US/Eastern]. While the values are two hours apart, the time zone offset changes as well, making it only change from 6:30 GMT to 7:30 GMT.
 ---14 chapter5
-Q: Note that March 13, 2016, is the weekend that we spring forward, and November 6, 2016, is when we fall back for daylight savings time. Which of the following can fill in the blank without the code throwing an exception?
+Q: Note that March 13, 2016, is the weekend that we spring forward, and November 6, 2016,
+is when we fall back for daylight savings time. Which of the following can fill in the blank
+without the code throwing an exception?
 1:   ZoneId zone = ZoneId.of("US/Eastern");
 2:   LocalDate date = ____________________  ;
 3:   LocalTime time1 = LocalTime.of(2, 15);
@@ -1499,7 +1551,8 @@ D.+ LocalDate.of(2016, 11, 7)
 E.- LocalDate.of(2017, 2, 29)
 Y: A, C, D. Option B is incorrect because there is no March 40th. Option E is incorrect because 2017 isn’t a leap year and therefore has no February 29th. Option D is correct because it is just a regular date and has nothing to do with daylight savings time. Options A and C are correct because Java is smart enough to adjust for daylight savings time.
 ---15 chapter5
-Q: Given the following code, which of the answer choices can fill in the blank to print true? (Choose all that apply.)
+Q: Given the following code, which of the answer choices can fill in the blank
+to print true? (Choose all that apply.)
 1:   String m1 = Duration.of(1, ChronoUnit.MINUTES).toString();
 2:   String m2 = Duration.ofMinutes(1).toString();
 3:   String s = Duration.of(60, ChronoUnit.SECONDS).toString();
@@ -1513,7 +1566,8 @@ D.- d == p
 E.- d.equals(p)
 Y: B, C. Options A and D are incorrect because the String references do not point to the same object. Option E is incorrect because a Period format begins with a P and a Duration format begins with PT. They are different types and do not represent the same value even though they are both a day. Remember that Duration uses hours/minutes/seconds and Period uses years/months/days for measures. Options B and C are correct because m1, m2, and s all represent a duration of the same length.
 ---16 chapter5
-Q: Given the following, which answers can correctly fill in the blank? (Choose all that apply.)
+Q: Given the following, which answers can correctly fill in the blank?
+(Choose all that apply.)
 1:   LocalDate date = LocalDate.now();
 2:   LocalTime time = LocalTime.now();
 3:   LocalDateTime dateTime = LocalDateTime.now();
@@ -1529,7 +1583,8 @@ E.- time.toInstant()
 F.+ zonedDateTime.toInstant()
 Y: A, B, F. Option A correctly creates the current instant. Option B correctly converts from seconds to an Instant. Option F is also a proper conversion. Options C, D, and E are incorrect because the source object does not represent a point in time. Without a time zone, Java doesn’t know what moment in time to use for the Instant.
 ---17 chapter5
-Q: What is the output of the following method if props contains {veggies=brontosaurus, meat=velociraptor}?
+Q: What is the output of the following method if props contains
+{veggies=brontosaurus, meat=velociraptor} ?
 1:  private static void print(Properties props) {
 2:      System.out.println(props.get("veggies", "none")
 3:        + " " + props.get("omni", "none"));
@@ -1551,7 +1606,8 @@ E.- props.stream().map(k -> k) .forEach(System.out::println);
 F.- props.stream().map(k -> props.get(k)) .forEach(System.out::println);
 Y: D. Options E and F do not compile because you can’t get a stream directly from a Properties object. Options A and B do not compile because the method is keySet(), not keys(). Option C outputs all of the keys, and Option D outputs all of the values.
 ---19 chapter5
-Q: Which of the following are stored in a Period object? (Choose all that apply.)
+Q: Which of the following are stored in a Period object?
+(Choose all that apply.)
 A.+ Year
 B.+ Month
 C.+ Day
@@ -1560,7 +1616,8 @@ E.- Minute
 F.- Second
 Y: A, B, C. Remember that Duration uses hours/minutes/seconds and Period uses years/months/days for measures.
 ---20 chapter5
-Q: Which of the following objects could contain the information “eastern standard time”? (Choose all that apply.)
+Q: Which of the following objects could contain the information “eastern standard time”?
+(Choose all that apply.)
 A.- Instant
 B.- LocalDate
 C.- LocalDateTime
@@ -1580,7 +1637,8 @@ E.- None of the above. SQLException is a checked exception and cannot be thrown.
 F.- None of the above. SQLException is a runtime exception and cannot be thrown.
 Y: C. The method should declare that it throws an exception and the body of the method actually would throw it. Options E and F are incorrect because both checked and unchecked (runtime) exceptions can be declared in a method signature. Also, option F is incorrect because SQLException is a checked exception.
 ---2 chapter6
-Q: Which of the following changes when made independently would make this code compile? (Choose all that apply.)
+Q: Which of the following changes when made independently would make this code compile?
+(Choose all that apply.)
 1: public class StuckTurkeyCage implements AutoCloseable {
 2:      public void close() throws Exception {
 3:         throw new Exception("Cage door does not close");
@@ -1599,7 +1657,8 @@ E.- None of the above will make the code compile.
 F.- The code already compiles as is.
 Y: B, C. Option A is incorrect because it will move the compilation error to the close() method since it does throw an exception that must be handled or declared. Option B is correct because the unhandled exception becomes declared. Option C is correct because the excep- tion becomes handled. Option D is incorrect because the exception remains unhandled.
 ---3 chapter6
-Q: Which of the following fills in the blank to make the code compile? (Choose all that apply)
+Q: Which of the following fills in the blank to make the code compile?
+(Choose all that apply)
 1:   public static void main(String[] args) {
 2:      try {
 3:          throw new IOException();
@@ -1613,7 +1672,8 @@ E.+ IOException | RuntimeException e
 F.- IOException e | RuntimeException e
 Y: E. Options B, D, and F are incorrect because only one variable name is allowed in a multi-catch block. Option A is incorrect because FileNotFoundException is a subclass of IOException. A multi-catch statement does not allow redundancy, and just catching IOException would have been equivalent. Option C is incorrect because the IOException that is thrown is not handled.
 ---4 chapter6
-Q: Which of the following are true statements? (Choose all that apply.)
+Q: Which of the following are true statements?
+(Choose all that apply.)
 A.+ A traditional try statement without a catch block requires a finally block.
 B.+ A traditional try statement without a finally block requires a catch block.
 C.- A traditional try statement with only one statement can omit the {}.
@@ -1693,7 +1753,9 @@ F.- TWEF followed by an exception
 G.+ The code does not compile.
 Y: G. A try-with-resources statement uses parentheses rather than brackets for the try section. This is likely subtler than a question that you’ll get on the exam, but it is still important to be on alert for details.
 ---7 chapter6
-Q: What is the result of running java EchoInput hi there with the following code?
+Q: What is the result of running
+java EchoInput hi there
+with the following code?
 1:   public class EchoInput {
 2:     public static void main(String [] args) {
 3:      if(args.length <= 3) assert false;
@@ -1707,7 +1769,8 @@ D.- The code compiles and runs successfully, but there is no output.
 E.- The code does not compile.
 Y: C. The code compiles fine, so option E is incorrect. The command line has only two arguments, so args.length is 2 and the if statement is true. However, because assertions are not enabled, it does not throw an AssertionError, so option B is incorrect. The println attempts to print args[2], which generates an ArrayIndexOutOfBoundsException, so the answer is option C.
 ---8 chapter6
-Q: Which of the following command lines cause this program to fail on the assertion? (Choose all that apply.)
+Q: Which of the following command lines cause this program
+to fail on the assertion? (Choose all that apply.)
 1:   public class On {
 2:    public static void main(String[] args) {
 3:      String s = null;
@@ -1721,7 +1784,8 @@ D.- java -ea -da:On On
 E.- The code does not compile.
 Y: B, C. Java uses the flags –ea or –enableassertions to turn on assertions. –da or –disableassertions turns off assertions. The colon indicates for a specific class. Choice B is correct because it turns on assertions for all code. Choice C is correct because it disables assertions but then turns them back on for this class.
 ---9 chapter6
-Q: Which of the following prints OhNo with the assertion failure when the number is negative? (Choose all that apply.)
+Q: Which of the following prints OhNo with the assertion failure
+when the number is negative? (Choose all that apply.)
 A.+ assert n < 0: "OhNo";
 B.- assert n < 0, "OhNo";
 C.- assert n < 0 ("OhNo");
@@ -1729,7 +1793,8 @@ D.+ assert(n < 0): "OhNo";
 E.- assert(n < 0, "OhNo");
 Y: A, D. An assertion consists of a boolean expression followed by an optional colon and message. The boolean expression is allowed to be in parenthesis, but this is not required. Therefore A and D are correct.
 ---10 chapter6
-Q: Which of the following are true of the code? (Choose all that apply.)
+Q: Which of the following are true of the code?
+(Choose all that apply.)
 4: private int addPlusOne(int a, int b) {
 5:   boolean assert = false;
 6:   assert a++ > 0;
@@ -1743,7 +1808,8 @@ D.- Line 6 is an appropriate use of an assertion.
 E.+ Line 7 is an appropriate use of an assertion.
 Y: A, E. Line 5 does not compile because assert is a reserved word making Choice A correct. B and C are incorrect because the parenthesis and message are both optional. D is incorrect because assertions should not have side effects. E is correct because checking an argument passed from elsewhere in the program is an appropriate use of an assertion.
 ---11 chapter6
-Q: Which of the following are runtime exceptions? (Choose all that apply.)
+Q: Which of the following are runtime exceptions?
+(Choose all that apply.)
 A.- Exception
 B.+ IllegalStateException
 C.- IOException
@@ -1752,7 +1818,8 @@ E.+ DateTimeParseException
 F.- SQLException
 Y: B, D, E. You need to memorize the contents of Table 6.2 and Table 6.3 before the exam.
 ---12 chapter6
-Q: Which of the following can legally fill in the blank? (Choose all that apply.)
+Q: Which of the following can legally fill in the blank?
+(Choose all that apply.)
 1:  public class AhChoo {
 2:   static class SneezeException extends Exception { }
 3:   static class SniffleException extends SneezeException { }
@@ -1773,7 +1840,8 @@ E.+ e = new SniffleException();
 F.- None of the above; the code does not compile.
 Y: A, D, E. Since a single exception type is caught, only the same type of exception or a subclass is allowed to be assigned to the variable in the catch block. Therefore D and E are correct. Additionally A is correct because there are no changes to the variable.
 ---13 chapter6
-Q: Which of the following can legally fill in the blank? (Choose all that apply.)
+Q: Which of the following can legally fill in the blank?
+(Choose all that apply.)
 1:   public class AhChoo {
 2:    static class SneezeException extends Exception { }
 3:    static class SniffleException extends SneezeException { }
@@ -1792,7 +1860,8 @@ E.- e = new SniffleException();
 F.- None of the above; the code does not compile.
 Y: A. Since a multi-catch is used, the variable in the catch block is effectively final and cannot be reassigned.
 ---14 chapter6
-Q: Which of the following can legally fill in the blank? (Choose all that apply.)
+Q: Which of the following can legally fill in the blank?
+(Choose all that apply.)
 1:   public class AhChoo {
 2:    static class SneezeException extends Exception { }
 3:    static class SniffleException extends SneezeException { }
@@ -1811,7 +1880,8 @@ E.- e = new SniffleException();
 F.+ None of the above; the code does not compile.
 Y: F. A multi-catch cannot catch both a superclass and subclass. Notice how similar questions can be while testing something that is entirely different.
 ---15 chapter6
-Q: Which of the following are checked exceptions? (Choose all that apply.)
+Q: Which of the following are checked exceptions?
+(Choose all that apply.)
 1:   class One extends RuntimeException{}
 2:   class Two extends Exception{}
 3:   class Three extends Error{}
@@ -1850,7 +1920,8 @@ F.- snow 2
 G.- The code does not compile.
 Y: C. The exception inside the try block becomes the primary exception since it is thrown first. Then two suppressed exceptions are added to it when trying to close the AutoCloseable resources.
 ---17 chapter6
-Q: Fill in the blank: A class that implements _________________may be in a try-with-resource statement. (Choose all that apply.)
+Q: Fill in the blank: A class that implements _________________may be
+in a try-with-resource statement. (Choose all that apply.)
 A.+ AutoCloseable
 B.+ Closeable
 C.- Exception
@@ -1858,7 +1929,9 @@ D.- RuntimeException
 E.- Serializable
 Y: A, B. Closeable was the original interface for IO classes. AutoCloseable was added in Java 7 along with try-with-resources. Closeable extends AutoCloseable for backward compatibility.
 ---18 chapter6
-Q: Which pairs fill in the blanks? The close() method is not allowed to throw a(n) _________________in a class that implements _________________. (Choose all that apply.)
+Q: Which pairs fill in the blanks? The close() method is not allowed to throw
+a(n) _________________in a class that implements _________________.
+(Choose all that apply.)
 A.- Exception, AutoCloseable
 B.+ Exception, Closeable
 C.- IllegalStateException, AutoCloseable

@@ -130,7 +130,7 @@ C.- strawberry
 D.- missing flavor
 E.+ The code does not compile.
 F.- An exception is thrown.
-Y: E. A case statement on an enum data type must be the unqualified name of an enumeration constant. For example, case VANILLA would be valid. You cannot use the ordinal equiva- lents. Therefore, the code does not compile.
+Y: E. A case statement on an enum data type must be the unqualified name of an enumeration constant. For example, case VANILLA would be valid. You cannot use the ordinal equivalents. Therefore, the code does not compile.
 ---8 chapter1
 Q: What is the result of the following code ?
 1:  public class Outer {
@@ -417,7 +417,7 @@ C.+ @Override public int hashCode() { return 42; }
 D.- @Override public long hashCode() { return 42; }
 E.+ @Override public void play() { }
 F.- @Override void play() { }
-Y: A, C, E. Remember that @Override means that we are implementing a method from a superclass or interface. The Object class declares methods with the signatures in Options A and C. Granted, it is a poor implementation of equals(), but it does compile. Option E is also correct because the method is declared in Otter. Option F is incorrect because meth- ods from an interface are always public. Option B is incorrect because the parameter type does not match the one in Object. Option D is incorrect because the return type does not match the one in Object.
+Y: A, C, E. Remember that @Override means that we are implementing a method from a superclass or interface. The Object class declares methods with the signatures in Options A and C. Granted, it is a poor implementation of equals(), but it does compile. Option E is also correct because the method is declared in Otter. Option F is incorrect because methods from an interface are always public. Option B is incorrect because the parameter type does not match the one in Object. Option D is incorrect because the return type does not match the one in Object.
 ---1 chapter2
 Q: Which of the following statements about design principles and
 design patterns are true? (Choose all that apply.)
@@ -445,7 +445,7 @@ C.- The code will not compile because of line 4.
 D.- The code will not compile because of line 5.
 E.+ The code will not compile because of line 8.
 F.- It compiles but throws an exception at runtime.
-Y: E. The code does not compile because EasternChipmunk inherits the abstract method climb() but does not implement it, therefore the correct answer is E. B, C, and D are incorrect as they compile for various reasons. Line 2 compiles, as non-static and non- default interface methods are assumed to have the abstract modifier. Line 4 compiles without issue as an interface can extend another interface. Line 5 compiles without issue as an abstract class can implement an interface without implementing any of the abstract methods. F is incorrect, as Line 8 does not compile.
+Y: E. The code does not compile because EasternChipmunk inherits the abstract method climb() but does not implement it, therefore the correct answer is E. B, C, and D are incorrect as they compile for various reasons. Line 2 compiles, as non-static and nondefault interface methods are assumed to have the abstract modifier. Line 4 compiles without issue as an interface can extend another interface. Line 5 compiles without issue as an abstract class can implement an interface without implementing any of the abstract methods. F is incorrect, as Line 8 does not compile.
 ---3 chapter2
 Q: Which of the following are valid functional interfaces? (Choose all that apply.)
 1:  public interface Climb {
@@ -463,7 +463,7 @@ B.- Swim
 C.- ArcticMountainClimb
 D.+ MountainClimb
 E.- None of these are valid functional interfaces.
-Y: A, D. A is correct as Climb defines an interface with exactly one abstract method. B is incorrect, as abstract classes are not functional interfaces despite having a single abstract method. While functional interfaces may have any number of default methods, Arctic- MountainClimb will not compile due to the default method getSpeed() missing an implementation body, so C is incorrect. D is correct, as the interface MountainClimb has exactly one abstract method defined in Climb. Finally, E is incorrect because A and D are correct.
+Y: A, D. A is correct as Climb defines an interface with exactly one abstract method. B is incorrect, as abstract classes are not functional interfaces despite having a single abstract method. While functional interfaces may have any number of default methods, ArcticMountainClimb will not compile due to the default method getSpeed() missing an implementation body, so C is incorrect. D is correct, as the interface MountainClimb has exactly one abstract method defined in Climb. Finally, E is incorrect because A and D are correct.
 ---4 chapter2
 Q: Which of the following are valid lambda expressions? (Choose all that apply.)
 A.+ () -> ""
@@ -473,7 +473,7 @@ D.+ (Camel c) -> {return;}
 E.- Wolf w -> 39
 F.- () ->
 G.- (Animal z, m) -> a
-Y: A, D. The first lambda expression is valid, taking no arguments and returning the empty string, so A is correct. B is incorrect, as more than one parameter requires parentheses (). C is incorrect, as brackets {} are required when using return. D is correct, as the expres- sion takes one Camel input and returns void. E is incorrect, as parentheses are required when using the data type Wolf. F is incorrect, as it has no right-side expression. Finally, G is incorrect, as specifying the data type for one parameter in a lambda expression requires you to specify the data type for all parameters in the expression. In this case, z has a data type and m does not, therefore the expression is invalid.
+Y: A, D. The first lambda expression is valid, taking no arguments and returning the empty string, so A is correct. B is incorrect, as more than one parameter requires parentheses (). C is incorrect, as brackets {} are required when using return. D is correct, as the expression takes one Camel input and returns void. E is incorrect, as parentheses are required when using the data type Wolf. F is incorrect, as it has no right-side expression. Finally, G is incorrect, as specifying the data type for one parameter in a lambda expression requires you to specify the data type for all parameters in the expression. In this case, z has a data type and m does not, therefore the expression is invalid.
 ---5 chapter2
 Q: What are some of the properties of using the singleton pattern?
 (Choose all that apply.)
@@ -505,7 +505,7 @@ C.- Compiler error on line h1.
 D.- Compiler error on line h2.
 E.- Compile error on line h3.
 F.- A runtime exception is thrown.
-Y: A. This code compiles and runs without issue so C, D, E, and F are incorrect. Line h1 cre- ates a lambda expression that checks if the age is less than 5. Since there is only one param- eter and it does not specify a type, the parentheses around the type parameter are optional. Line h2 uses the Predicate interface, which declares a test() method. Since test() returns true on the expression, match is output and A is correct.
+Y: A. This code compiles and runs without issue so C, D, E, and F are incorrect. Line h1 creates a lambda expression that checks if the age is less than 5. Since there is only one parameter and it does not specify a type, the parentheses around the type parameter are optional. Line h2 uses the Predicate interface, which declares a test() method. Since test() returns true on the expression, match is output and A is correct.
 ---7 chapter2
 Q: What changes need to be made to make the following immutable object pattern correct?
 (Choose all that apply.)
@@ -528,7 +528,7 @@ E.+ Replace the getFriends() method with methods that do not give the caller dir
 F.- Change the type of List<Seal> to List<Object>.
 G.+ Make a copy of the List<Seal> friends in the constructor.
 H.+ Mark the Seal class final.
-Y: C, E, G, H. A is incorrect, as there are definitely some problems with the immutable objects implementation. B is incorrect, as there is no such thing as the Immutable inter- face defined in the Java API. C is correct, as all instance variables should be private and final to prevent them from being changed by a caller. D is incorrect, as adding settings is the opposite of what you do with the immutable object pattern. E is correct, since List<Seal> is mutable, all direct access should be removed. F is incorrect, as this has nothing to do with immutability. G is correct, as we need to copy the mutable List<Seal> to prevent the caller of the constructor from maintaining access to a mutable structure within our class. H is also correct, as it prevents the methods of the class from being overridden.
+Y: C, E, G, H. A is incorrect, as there are definitely some problems with the immutable objects implementation. B is incorrect, as there is no such thing as the Immutable interface defined in the Java API. C is correct, as all instance variables should be private and final to prevent them from being changed by a caller. D is incorrect, as adding settings is the opposite of what you do with the immutable object pattern. E is correct, since List<Seal> is mutable, all direct access should be removed. F is incorrect, as this has nothing to do with immutability. G is correct, as we need to copy the mutable List<Seal> to prevent the caller of the constructor from maintaining access to a mutable structure within our class. H is also correct, as it prevents the methods of the class from being overridden.
 ---8 chapter2
 Q: Which of the following are true of interfaces? (Choose all that apply.)
 A.- They can extend other classes.
@@ -537,7 +537,7 @@ C.+ They enable classes to have multiple inheritance.
 D.- They can only contain abstract methods.
 E.- They can be declared final.
 F.+ All members of an interface are public.
-Y: C, F. A and B are both incorrect as interfaces can extend other interfaces, although not classes. C is correct since a class may implement multiple interfaces. D is incorrect as inter- faces have static and default methods, as well as static final variables. E is incor- rect as interfaces are assumed to be abstract, and abstract and final can never be used together. F is correct as interface methods and variables are each assumed public.
+Y: C, F. A and B are both incorrect as interfaces can extend other interfaces, although not classes. C is correct since a class may implement multiple interfaces. D is incorrect as interfaces have static and default methods, as well as static final variables. E is incorrect as interfaces are assumed to be abstract, and abstract and final can never be used together. F is correct as interface methods and variables are each assumed public.
 ---9 chapter2
 Q: What changes need to be made to make the following singleton pattern correct?
 (Choose all that apply.)
@@ -557,7 +557,7 @@ C.- Rename getCheetahManager() to getInstance().
 D.+ Change the access modifier of cheetahManager from public to private.
 E.- Mark cheetahManager final.
 F.+ Add synchronized to getCheetahManager().
-Y: D, F. A is incorrect, as there are definitely some problems with the singleton implementa- tion. B and C are incorrect, as naming of the instance variable and access method are not required as part of the pattern. The public modifier on the cheetahManager instance means that any class can access or even replace the instance, which breaks the singleton pattern; hence D is required to fix the implementation. E is incorrect, as marking the instance final would prevent lazy instantiation and as the code would not compile. F is also required, since without this step two threads could create two distinct instances of the singleton at the same time, which would violate the singleton pattern.
+Y: D, F. A is incorrect, as there are definitely some problems with the singleton implementation. B and C are incorrect, as naming of the instance variable and access method are not required as part of the pattern. The public modifier on the cheetahManager instance means that any class can access or even replace the instance, which breaks the singleton pattern; hence D is required to fix the implementation. E is incorrect, as marking the instance final would prevent lazy instantiation and as the code would not compile. F is also required, since without this step two threads could create two distinct instances of the singleton at the same time, which would violate the singleton pattern.
 ---10 chapter2
 Q: What is the result of the following code?
 1:  public interface CanWalk {
@@ -575,7 +575,7 @@ B.- The code will not compile because of line 5.
 C.- The code will not compile because of line 6.
 D.+ The code will not compile because of line 8.
 E.- The code will not compile because of line 9.
-Y: D.While Java supports multiple inheritance through interfaces,it does not support method overriding in interfaces, since it’s not clear which parent method should be used. In this example, CanWalk and CanRun both implement a default walk() method. The definition of CanSprint extends these two interfaces and therefore won’t compile as two default meth- ods with the same signature from parent classes are detected, therefore the answer is D. None of the other lines of code cause problems, so the rest of the answers are not correct.
+Y: D.While Java supports multiple inheritance through interfaces,it does not support method overriding in interfaces, since it’s not clear which parent method should be used. In this example, CanWalk and CanRun both implement a default walk() method. The definition of CanSprint extends these two interfaces and therefore won’t compile as two default methods with the same signature from parent classes are detected, therefore the answer is D. None of the other lines of code cause problems, so the rest of the answers are not correct.
 ---11 chapter2
 Q: Which lambda can replace the MySecret class to return the same value?
 (Choose all that apply.)
@@ -593,7 +593,7 @@ C.- caller((e) -> { String e = ""; "Poof" });
 D.- caller((e) -> { String e = ""; return "Poof"; });
 E.- caller((e) -> { String e = ""; return "Poof" });
 F.+ caller((e) -> { String f = ""; return "Poof"; });
-Y: A, F. B is incorrect because it does not use the return keyword. C, D, and E are incorrect because the variable e is already in use from the lambda and cannot be redefined. Addition- ally, C is missing the return keyword and E is missing the semicolon. A and F are the only correct lambda expressions that match the functional interface.
+Y: A, F. B is incorrect because it does not use the return keyword. C, D, and E are incorrect because the variable e is already in use from the lambda and cannot be redefined. Additionally, C is missing the return keyword and E is missing the semicolon. A and F are the only correct lambda expressions that match the functional interface.
 ---12 chapter2
 Q: What is the result of the following code?
 1:   public interface Climb {
@@ -604,10 +604,11 @@ Q: What is the result of the following code?
 6:          check((h, l) -> h.toString(), 5); // x1
 7:     }
 8:     private static void check(Climb climb, int height) {
-9:         if (climb.isTooHigh(height, 10)) // x2 System.out.println("too high");
-10:        else System.out.println("ok");
-11:    }
-12: }
+9:         if (climb.isTooHigh(height, 10)) // x2
+10:            System.out.println("too high");
+11:        else System.out.println("ok");
+12:    }
+13: }
 A.- ok
 B.- too high
 C.+ Compiler error on line x1.
@@ -624,7 +625,7 @@ C.+ They don’t define any setter methods.
 D.- They mark all instance variables static.
 E.+ They prevent methods from being overridden.
 F.- All getter methods are marked synchronized.
-Y: B, C, E. Immutable objects may not be modified after creation. B, C, and E are correct statements that support this property. A is incorrect, as immutable objects may have get- ter methods, just not setter methods. D is incorrect, as static methods are not part of the immutable object pattern. F is also incorrect, as the getter methods are not required to be marked synchronized.
+Y: B, C, E. Immutable objects may not be modified after creation. B, C, and E are correct statements that support this property. A is incorrect, as immutable objects may have getter methods, just not setter methods. D is incorrect, as static methods are not part of the immutable object pattern. F is also incorrect, as the getter methods are not required to be marked synchronized.
 ---14 chapter2
 Q: Which of the following statements can be inserted in the blank line so that
 the code will compile successfully? (Choose all that apply.)
@@ -642,7 +643,7 @@ C.- BrazilianHornedFrog
 D.+ CanHop
 E.+ Object
 F.- Long
-Y: A, B, D, E. The blank can be filled with any class or interface that is a supertype of Tur- tleFrog. A is a superclass of TurtleFrog, and B is the same class, so both are correct. BrazilianHornedFrog is not a superclass of TurtleFrog, so C is incorrect. TurtleFrog inherits the CanHop interface, so D is correct. All classes inherit Object, so E is correct. Finally, Long is an unrelated class that is not a superclass of TurtleFrog, and it is therefore incorrect.
+Y: A, B, D, E. The blank can be filled with any class or interface that is a supertype of TurtleFrog. A is a superclass of TurtleFrog, and B is the same class, so both are correct. BrazilianHornedFrog is not a superclass of TurtleFrog, so C is incorrect. TurtleFrog inherits the CanHop interface, so D is correct. All classes inherit Object, so E is correct. Finally, Long is an unrelated class that is not a superclass of TurtleFrog, and it is therefore incorrect.
 ---15 chapter2
 Q: Which of the following statements about polymorphism are true?
 (Choose all that apply.)
@@ -651,7 +652,7 @@ B.+ If a method takes a class that is the superclass of three different object r
 C.+ A reference to an object may be cast to a superclass of the object without an explicit cast.
 D.- All cast exceptions can be detected at compile time.
 E.- By defining a public instance method in the superclass, you guarantee that the specific method will be called in the parent class at runtime.
-Y: B, C. A reference to an object requires an explicit cast if referenced with a subclass, so A is incorrect. If the cast is to a superclass reference, then an explicit cast is not required, so C is correct. If a method takes the superclass of an object as a parameter, then any subclass ref- erences may be used without a cast, so B is correct. Some cast exceptions can be detected as errors at compile-time, but others can only be detected at runtime, so D is incorrect. Due to the nature of polymorphism, a public instance method can be overridden in a subclass and calls to it will be replaced even in the superclass in which it was defined, so E is incorrect.
+Y: B, C. A reference to an object requires an explicit cast if referenced with a subclass, so A is incorrect. If the cast is to a superclass reference, then an explicit cast is not required, so C is correct. If a method takes the superclass of an object as a parameter, then any subclass references may be used without a cast, so B is correct. Some cast exceptions can be detected as errors at compile-time, but others can only be detected at runtime, so D is incorrect. Due to the nature of polymorphism, a public instance method can be overridden in a subclass and calls to it will be replaced even in the superclass in which it was defined, so E is incorrect.
 ---16 chapter2
 Q: Choose the correct statement about the following code:
 1:  public interface Herbivore {
@@ -687,7 +688,7 @@ C.- Inheritance relies on the has‐a principle.
 D.- Object composition supports method overriding at runtime.
 E.+ Object composition requires a class variable to be declared public or accessible from a public method to be used by a class in a different package.
 F.- Object composition is always preferred to inheritance.
-Y: A, B, E. A is correct, and it is one of the reasons to prefer class inheritance over object composition. B is also correct, since object composition tends to lead to classes that are easier to reference, as they don’t require knowledge of any parent classes. C is incorrect, as inheritance tends to use the is-a principle, whereas object composition relies on the has-a principle. D is incorrect, as this is a statement about inheritance, not object composition. E is correct, as object composition has no notion of inheritance and variables must be exposed publically if they are to be used by other classes in different packages. F is incor- rect, as neither are always the right answer. There are situations where inheritance is more appropriate, and situations where object composition is more appropriate.
+Y: A, B, E. A is correct, and it is one of the reasons to prefer class inheritance over object composition. B is also correct, since object composition tends to lead to classes that are easier to reference, as they don’t require knowledge of any parent classes. C is incorrect, as inheritance tends to use the is-a principle, whereas object composition relies on the has-a principle. D is incorrect, as this is a statement about inheritance, not object composition. E is correct, as object composition has no notion of inheritance and variables must be exposed publically if they are to be used by other classes in different packages. F is incorrect, as neither are always the right answer. There are situations where inheritance is more appropriate, and situations where object composition is more appropriate.
 ---19 chapter2
 Q: Which three scenarios would best benefit from using a singleton pattern?
 (Choose all three.)
@@ -697,7 +698,7 @@ C.- Ensure that all objects are lazily instantiated.
 D.+ Manage write access to a log file.
 E.+ Provide central access to application configuration data.
 F.- Allow multiple instances of a static object to be managed in memory.
-Y: B, D, E. A is incorrect, as that is a property of the immutable object pattern. B is correct, as caching data is one of the most common uses of the singleton pattern. While the singleton pattern may use lazy instantiation, it is not used to ensure that objects are lazily instanti- ated, so C is incorrect. D is correct, as we only want one class writing to a log file at once. E is also correct, as managing application-wide configuration data is another very common use of the singleton pattern. F is incorrect, as we only want one instance of a static object created when using the singleton pattern.
+Y: B, D, E. A is incorrect, as that is a property of the immutable object pattern. B is correct, as caching data is one of the most common uses of the singleton pattern. While the singleton pattern may use lazy instantiation, it is not used to ensure that objects are lazily instantiated, so C is incorrect. D is correct, as we only want one class writing to a log file at once. E is also correct, as managing application-wide configuration data is another very common use of the singleton pattern. F is incorrect, as we only want one instance of a static object created when using the singleton pattern.
 ---20 chapter2
 Q: Choose the correct statement about the following code:
 1:  public interface CanFly {
@@ -725,7 +726,7 @@ B.+ ArrayList
 C.- HashMap
 D.- HashSet
 E.- LinkedList
-Y: B. The answer needs to implement List because the scenario allows duplicates. Since you need a List, you can eliminate C, D, and E immediately. HashMap is a Map and HashSet is a Set. LinkedList is both a List and a Queue. You want a regular List. Option A, Arrays, is trying to distract you. It is a utility class rather than a Collection. An array is not a col- lection. By process of elimination, the answer is B.
+Y: B. The answer needs to implement List because the scenario allows duplicates. Since you need a List, you can eliminate C, D, and E immediately. HashMap is a Map and HashSet is a Set. LinkedList is both a List and a Queue. You want a regular List. Option A, Arrays, is trying to distract you. It is a utility class rather than a Collection. An array is not a collection. By process of elimination, the answer is B.
 ---2 chapter3
 Q: Suppose that you need to work with a collection of elements that need to be sorted
 in their natural order, and each element has a unique string associated with its value.
@@ -858,7 +859,7 @@ C.- 123 Abb aab
 D.- 123 aab Abb
 E.- The code does not compile.
 F.- A runtime exception is thrown.
-Y: A. The array is sorted using MyComparator, which sorts the elements in reverse alphabeti- cal order in a case-insensitive fashion. Normally, numbers sort before letters. This code reverses that by calling the compareTo() method on b instead of a.
+Y: A. The array is sorted using MyComparator, which sorts the elements in reverse alphabetical order in a case-insensitive fashion. Normally, numbers sort before letters. This code reverses that by calling the compareTo() method on b instead of a.
 ---11 chapter3
 Q: What is the result of the following code?
 3: Map<Integer, Integer> map = new HashMap<>(10);
@@ -908,7 +909,7 @@ C.- List<?> list = new ArrayList<?>();
 D.- List<Exception> list = new LinkedList<java.io.IOException>();
 E.+ Vector<? extends Number> list = new Vector<Integer>();
 F.- None of the above
-Y: B, E. showSize() can take any type of List since it uses an unbounded wildcard. Option A is incorrect because it is a Queue and not a List. Option C is incorrect because the wild- card is not allowed to be on the right side of an assignment. Option D is incorrect because the generic types are not compatible. Option B is correct because a lower-bounded wildcard allows that same type to be the generic. Option E is correct because Integer is a subclass of Number. Vector is an old type of List. It isn’t common in new code, but you still need to know it for the exam and in case you encounter old code.
+Y: B, E. showSize() can take any type of List since it uses an unbounded wildcard. Option A is incorrect because it is a Queue and not a List. Option C is incorrect because the wildcard is not allowed to be on the right side of an assignment. Option D is incorrect because the generic types are not compatible. Option B is correct because a lower-bounded wildcard allows that same type to be the generic. Option E is correct because Integer is a subclass of Number. Vector is an old type of List. It isn’t common in new code, but you still need to know it for the exam and in case you encounter old code.
 ---14 chapter3
 Q: What is the result of the following program?
 1:   import java.util.*;
@@ -967,7 +968,7 @@ C.- compare() is in the Comparable interface.
 D.+ compare() is in the Comparator interface.
 E.- compare() takes one method parameter.
 F.+ compare() takes two method parameters.
-Y: B, D, F. The java.lang.Comparable interface is implemented on the object to com- pare. It specifies the compareTo() method, which takes one parameter. The java. util.Comparator interface specifies the compare() method, which takes two parameters.
+Y: B, D, F. The java.lang.Comparable interface is implemented on the object to compare. It specifies the compareTo() method, which takes one parameter. The java. util.Comparator interface specifies the compare() method, which takes two parameters.
 ---17 chapter3
 Q: Which two options can fill in the blanks to make this code compile?
 (Choose all that apply.)
@@ -1373,7 +1374,7 @@ C.+ Currency
 D.+ Dates
 E.+ Numbers
 F.- Variable names
-Y: C, D, E. Localization refers to user-facing elements that a user sees. Currency, dates, and numbers are commonly used in different formats for different countries. Class and variable names are internal to the application, so there is no need to translate them for users. Bool- eans are true/false values with standard names.
+Y: C, D, E. Localization refers to user-facing elements that a user sees. Currency, dates, and numbers are commonly used in different formats for different countries. Class and variable names are internal to the application, so there is no need to translate them for users. Booleans are true/false values with standard names.
 ---3 chapter5
 Q: Which of the following are true? (Choose all that apply.)
 A.- All keys must be in the same resource bundle file to be used.
@@ -1394,7 +1395,7 @@ C.- Dolphins_en.properties
 D.- Whales.properties
 E.- Whales_en_US.properties
 F.- The code does not compile.
-Y: B. Java will first look for the most specific matches it can find, starting with Dolphins_en_ US.java and then Dolphins_en_US.properties. Since neither is found, it drops the coun- try and looks for Dolphins_en.java. Since a match is found, there is no reason to go on to the next one, which is Dolphins_en.properties.
+Y: B. Java will first look for the most specific matches it can find, starting with Dolphins_en_ US.java and then Dolphins_en_US.properties. Since neither is found, it drops the country and looks for Dolphins_en.java. Since a match is found, there is no reason to go on to the next one, which is Dolphins_en.properties.
 ---5 chapter5
 Q: Suppose that we have the following property files and code.
 Which bundles are used on lines 8 and 9 respectively?
@@ -1417,7 +1418,7 @@ C.- Dolphins_en.properties and Dolphins_en.properties
 D.+ Dolphins_fr.properties and Dolphins.properties
 E.- Dolphins_fr.properties and Dolphins_en.properties
 F.- The code does not compile.
-Y: D. Java will use Dolphins_fr.properties as the matching resource bundle on line 7 because it is an exact match on the language of the requested locale. Line 8 finds a match- ing key in this file. Line 9 does not find a match in that file, and therefore it has to look higher up in the hierarchy. Once a bundle is chosen, only resources in that hierarchy are allowed.
+Y: D. Java will use Dolphins_fr.properties as the matching resource bundle on line 7 because it is an exact match on the language of the requested locale. Line 8 finds a matching key in this file. Line 9 does not find a match in that file, and therefore it has to look higher up in the hierarchy. Once a bundle is chosen, only resources in that hierarchy are allowed.
 ---6 chapter5
 Q: Which of the following can be inserted into the blank to create a date
 of June 21, 2014? (Choose all that apply.)
@@ -1432,7 +1433,7 @@ C.- LocalDate.of(2014, 5, 21);
 D.+ LocalDate.of(2014, 6, 21);
 E.- LocalDate.of(2014, Calendar.JUNE, 21);
 F.+ LocalDate.of(2014, Month.JUNE, 21);
-Y: D, F. Options A and B are incorrect because LocalDate does not have a public construc- tor. Option C is incorrect because months start counting with 1 rather than 0. Option E is incorrect because it uses the old Calendar constants for months, which begin with 0. Options D and F are both correct ways of specifying the desired date.
+Y: D, F. Options A and B are incorrect because LocalDate does not have a public constructor. Option C is incorrect because months start counting with 1 rather than 0. Option E is incorrect because it uses the old Calendar constants for months, which begin with 0. Options D and F are both correct ways of specifying the desired date.
 ---7 chapter5
 Q: What is the output of the following code?
 1:   LocalDate date = LocalDate.parse(
@@ -1655,7 +1656,7 @@ C.+ Change line 8 to } catch (Exception e) {}.
 D.- Change line 8 to } finally {}.
 E.- None of the above will make the code compile.
 F.- The code already compiles as is.
-Y: B, C. Option A is incorrect because it will move the compilation error to the close() method since it does throw an exception that must be handled or declared. Option B is correct because the unhandled exception becomes declared. Option C is correct because the excep- tion becomes handled. Option D is incorrect because the exception remains unhandled.
+Y: B, C. Option A is incorrect because it will move the compilation error to the close() method since it does throw an exception that must be handled or declared. Option B is correct because the unhandled exception becomes declared. Option C is correct because the exception becomes handled. Option D is incorrect because the exception remains unhandled.
 ---3 chapter6
 Q: Which of the following fills in the blank to make the code compile?
 (Choose all that apply)
